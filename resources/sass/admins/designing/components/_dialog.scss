@@ -1,0 +1,32 @@
+body {
+    box-sizing: border-box !important;
+}
+
+.small-dialog-header {
+  background-color: whitesmoke;
+  padding: 20px 0px 20px 40px !important;
+}
+
+.variations-dialog-container {
+  margin: 30px;
+
+  .variation-card {
+width: calc(400px);  margin: 20px;
+    display: inline-block;
+
+
+    .informations-holder {
+      margin-top: 20px;
+      padding-left: 10px;
+      div {
+        margin-top: 6px;
+      }
+    }
+  }
+  .image {
+    width: 350px !important;
+
+    border-radius: 5px;
+  }
+}
+

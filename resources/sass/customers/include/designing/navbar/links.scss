@@ -1,0 +1,54 @@
+.links-section {
+ 
+    background-color: $second-main-color ;
+    .holder { 
+
+  
+    display: flex;
+    justify-content: center;
+    @extend .fluid-container;
+    padding: 20px 20px 20px;
+  
+
+    .links {
+        display: inline-block;
+      
+
+
+        a {
+            position: relative;
+            margin: 0px 20px;
+            @extend .link;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none !important;
+
+            @extend .link-left-to-right;
+            &:after {
+            top: 30px;
+            }
+
+        }
+
+        // .active {
+        //     &::after {
+        //         transform: scaleX(1) !important;
+        //         transform-origin: bottom left !important;
+        //     }
+        // }
+    }
+
+    @media (max-width: 992px) {
+        .links {
+            a {
+                margin: 0px 8px;
+                font-size: 14px !important;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+}

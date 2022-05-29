@@ -1,0 +1,24 @@
+.deals-section {
+    margin-top: -20px !important;
+    @extend .seperator-section-container;
+
+    a {
+        text-decoration: none !important;
+    }
+
+   .deals-owl-carousel  {
+        margin-top: 20px;
+        .owl-dots {
+            display: none;
+        }
+        .owl-nav {
+            display: none !important;
+        }
+
+    }
+    .text { 
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+}

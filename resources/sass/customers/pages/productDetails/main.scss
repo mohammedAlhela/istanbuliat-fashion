@@ -1,0 +1,12 @@
+
+
+.product-details-section {
+  
+@extend .fluid-container;
+padding: 50px 20px 0px;
+    @import "./related.scss";
+    @import "./images.scss";
+    @import "./informations.scss";
+}
+
+

@@ -1,0 +1,10 @@
+.last-section {
+padding: 20px;
+    border-top: 1px solid $hr-color;
+    @extend .fluid-container;
+@extend .sub-link;
+text-align: center;
+cursor: text;
+
+
+}

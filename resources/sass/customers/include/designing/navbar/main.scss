@@ -1,0 +1,58 @@
+.customers-navbar {
+    height: 195px;
+    min-height: 195px;
+    position: relative;
+
+    .upbar-section {     border-bottom: 1px solid $hr-color;   text-align: center;
+  .holder { 
+    display: inline-block;
+    cursor: pointer;      
+    padding: 15px 20px;
+
+
+
+    a {
+        @extend .offers-link;
+        // text-decoration: underline;
+        &:hover { 
+            text-decoration: none !important
+        }
+    }
+img { 
+cursor: pointer;
+width: 18px;
+margin-left: 10px
+}
+  }
+
+
+    }
+
+
+
+    @import "./actions.scss";
+    @import "./links.scss";
+
+    // +++++++++++++++++  components +++++++++++++++++++++++++++++
+
+    // +++++++++++++++++  components +++++++++++++++++++++++++++++
+
+    .sticky-navbar {
+        background-color: white ;
+        z-index: 999 !important;
+    }
+
+    .sticky {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+
+        border-top: 0;
+    }
+
+    @media (max-width: 768px) {
+        height: 130px;
+        min-height: 130px;
+    }
+}

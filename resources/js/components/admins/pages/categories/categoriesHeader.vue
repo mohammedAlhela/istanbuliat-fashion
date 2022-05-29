@@ -1,0 +1,48 @@
+<template>
+  <div class="row">
+    <div class="col-12 left-header-section">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on" class="main-header">
+            {{ categories.length }} Categories
+          </span>
+        </template>
+        <span> Categories number </span>
+      </v-tooltip>
+
+      <span class="ml-3">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="no-focus add-button"
+              color="success"
+              fab
+              v-bind="attrs"
+              v-on="on"
+              x-small
+              dark
+              @click="$emit('openSaveDialog')"
+            >
+              <v-icon> mdi-plus </v-icon>
+            </v-btn>
+          </template>
+          <span> Add new category </span>
+        </v-tooltip>
+      </span>
+    </div>
+
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'CategorysHeader',
+  props: {
+    categories: {
+      required: true,
+      type: Array,
+    },
+  },
+}
+</script>

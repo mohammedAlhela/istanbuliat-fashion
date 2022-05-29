@@ -1,0 +1,97 @@
+.categories-section {
+    @extend .seperator-section-container;
+    a { 
+        &:hover { 
+            text-decoration: none !important;
+        }
+    }
+    .category-block {
+        background-color: white !important;
+        cursor: pointer;
+        position: relative;
+
+  
+        .category-name { 
+            margin: 15px 0px;
+            text-align: center;
+            img { 
+                width: 20px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: -3px;
+            }
+
+
+            
+        }
+
+        .content-holder {
+            position: absolute;
+            margin-top: 30%;
+            .shop-button-holder {
+                display: block;
+                text-align: center;
+                margin-top: 150px;
+                span {
+                    @extend   .white-bordered-bottom-button;
+                }
+            }
+
+            .name {
+              @extend .white-header;
+            }
+        }
+   
+    }
+
+    @media (max-width: 768px) {
+
+        .content-holder {
+            margin-top: 38% !important;
+
+            .shop-button-holder {
+                margin-top: 100px !important;
+            }
+        }
+    }
+
+    @media (max-width: 450px) {
+        .content-holder {
+            margin-top: 48% !important;
+            .shop-button-holder {
+                margin-top: 60px !important;
+            }
+        }
+    }
+
+    .categories-owl-carousel {
+        
+        margin-top: 20px;
+        .owl-dots {
+            display: none;
+            
+        position: absolute;
+        left: calc( 50% - 27px);
+            margin-top: 10px !important;
+            .owl-dot {
+                span {
+                    width: 13px !important;
+                    height: 13px !important;
+                }
+            }
+
+            .active span {
+                background-color: black !important;
+            }
+        }
+
+        .owl-nav {
+            display: none !important;
+        }
+    }
+
+    .text { 
+        margin-top : 10px;
+        margin-bottom: 5px;
+    }
+}

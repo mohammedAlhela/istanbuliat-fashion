@@ -1,0 +1,58 @@
+.video-section {
+    @extend .side-section-container;
+    .cover {
+       @extend  .hover-effect;
+        position: relative;
+        background-image: url('/videos/good.jpg');
+        @extend .bg-image;
+
+        video {
+            opacity: 0;
+            width: 100%;
+            transition: 1s;
+            height: calc(100% + 20px) !important;
+        }
+
+        #play_vedio_button {
+            position: absolute;
+            top: calc(50% - 20px);
+            opacity: 1;
+            left: calc(50% - 35px);
+            background: $black;
+            height: 40px;
+            width: 70px;
+            color: white;
+            border-radius: 5px;
+
+            i {
+                color: white !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #play_vedio_button {
+                height: 32px;
+                width: 54px;
+                top: calc(50% - 16px);
+                left: calc(50% - 27px);
+                i {
+                font-size: 14px !important;
+                }
+            }
+        }
+
+        @media (max-width: 550px) {
+            #play_vedio_button {
+                height: 24px;
+                width: 40px;
+                top: calc(50% - 12px);
+                left: calc(50% - 20px);
+                i {
+                font-size: 10px !important;
+                position: relative;
+                top: -3px;
+                }
+            }
+        }
+    }
+}

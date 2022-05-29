@@ -1,0 +1,165 @@
+#sizeGuideModel {
+    padding-right: 0px !important;
+    .modal-dialog {
+        // width: 800px !important;
+        // max-width: 800px !important;
+    }
+    .modal-header {
+        .name {
+            @extend .product-details-name;
+            font-weight: 400 !important;
+        }
+        .report {
+            color: $black-gray !important;
+
+            font-size: 13px;
+            margin-top: 5px;
+            &:hover {
+                color: $black-gray !important;
+            }
+        }
+    }
+
+    .switches {
+        text-align: center;
+        padding: 20px 0px;
+        span {
+            cursor: pointer;
+            border: 1px solid #c5c4c4;
+            margin-right: 10px;
+            padding: 4px 15px 7px;
+
+            @extend .paragraph;
+            i {
+                font-size: 10px !important;
+            }
+            &:hover {
+                border: 1px solid $black-gray;
+            }
+        }
+
+        .active {
+            border: 1px solid $black-gray;
+        }
+    }
+
+    img {
+        max-width: 100%;
+    }
+    .size-guide {
+        padding: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6em;
+    }
+    .title-wrap {
+        margin-bottom: 20px;
+    }
+    .title-wrap h2 {
+        margin-bottom: 0;
+    }
+    .size-guide .img {
+      
+    }
+    table { 
+        border: 1px solid $hr-color;
+    }
+    .title-wrap .title-tip {
+        font-size: 0.8em;
+        color: $black-gray;
+    }
+    .table-responsive,
+    .title-wrap {
+        text-align: center;
+    }
+    .table-responsive {
+        // display: flex;
+        // justify-content: center;
+    }
+    .size-guide-table {
+        border-spacing: 0;
+        text-align: left;
+    }
+
+
+    .size-guide-table th[scope="col"] {
+        white-space: pre;
+        word-wrap: nowrap;
+    }
+
+    .size-guide-table th[scope="col"],
+    .size-guide-table td {
+        min-width: 100px;
+    }
+
+    .size-guide-table th,
+    .size-guide-table td {
+        padding: 10px 20px;
+    }
+
+    .size-guide-table th[scope="row"] {
+        min-width: 50px;
+    }
+
+    .size-guide-table tr:nth-child(2n) td,
+    .size-guide-table tr:nth-child(2n) th {
+        background-color: #eee;
+    }
+
+
+
+
+     .size-guide-table thead th {
+        background-color: $main-color;
+        padding: 7px 10px;
+        font-size: 14px !important;
+        color: #fff;
+        text-align: center;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+
+    .size-guide-table th, .product-details-section #sizeGuideModel .size-guide-table td {
+        padding: 10px 7px;
+        text-align: center;
+    }
+
+  .size-guide-table td {
+        padding: 10px 7px;
+        text-align: center;
+        color: $black-gray;
+    }
+
+    .guide-informations-list { 
+        padding: 0px 20px;
+        margin-top: 40px;
+        display: flex;
+    justify-content: center;
+    li {
+        margin-bottom: 5px;
+    }
+    }
+
+    @media (min-width: 768px) { 
+        .modal-dialog { 
+            max-width: 700px;
+            margin: 1.75rem auto;
+        }
+       
+    
+    }
+
+    
+    @media (max-width: 768px) { 
+        .size-guide{ 
+          padding: 0px;
+        }
+       
+    
+    }
+
+
+
+
+
+
+}

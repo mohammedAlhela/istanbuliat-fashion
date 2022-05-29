@@ -1,0 +1,39 @@
+.deals-section {
+
+    @extend .seperator-section-container;
+
+    padding: 70px 0px !important;
+
+    
+    a {
+        text-decoration: none !important;
+    }
+
+   .deals-owl-carousel  {
+        margin-top: 20px;
+        .owl-dots {
+            display: none;
+        }
+        .owl-nav {
+            display: none !important;
+        }
+
+    }
+    .text { 
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+
+    .mega-header { 
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    
+@media (max-width: 768px) {
+padding-top: 20px !important;
+}
+
+
+}
