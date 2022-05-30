@@ -53,6 +53,13 @@
   padding: 2px 6px;
 }
 
+.size-guide-header {
+  background: aliceblue;
+  padding: 10px;
+  position: relative;
+  left: -10px;
+}
+
 .white-paragraph {
   color: white !important;
 }

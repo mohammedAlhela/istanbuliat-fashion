@@ -22,7 +22,7 @@
     <!-- get all categories for navbar -->
     <?php
     use App\Models\Category;
-    $categories = Category::all();
+    $categories = Category::where('status' , '!=' , 0)->get();
     ?>
     <!-- get all categories for navbar -->
     <div id="app">
@@ -117,6 +117,8 @@
             productDetailsImagesSliders : {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
             filteredProductDetailsImagesSliders : {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
             variations: {!! json_encode(isset($variations) ? $variations : []) !!},
+            sizeGuides: {!! json_encode(isset($sizeGuides) ? $sizeGuides : []) !!},
+            sizeGuideType : 'cm' , 
             filteredVariations: {!! json_encode(isset($variations) ? $variations : []) !!},
             activeVariation: {},
             colors: {!! json_encode(isset($colors) ? $colors : []) !!},
@@ -130,6 +132,10 @@
         }
 
         let variations = productDetailsDataObject.variations;
+        let sizeGuides = productDetailsDataObject.sizeGuides;
+        let sizeGuideType = productDetailsDataObject.sizeGuideType;
+        
+        
 
         let filteredProductDetailsImagesSliders = productDetailsDataObject.filteredProductDetailsImagesSliders;
         let productDetailsImagesSliders = productDetailsDataObject.productDetailsImagesSliders;

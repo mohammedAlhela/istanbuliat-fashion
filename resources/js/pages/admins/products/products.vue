@@ -38,6 +38,13 @@
                     :products="products"
                     :datatableIndex="datatableIndex"
                 ></variations-main-dialog>
+
+
+                   <size-guides-main-dialog
+                    :editedIndex="editedIndex"
+                    :products="products"
+                    :datatableIndex="datatableIndex"
+                ></size-guides-main-dialog>
             </div>
         </v-main>
     </v-app>

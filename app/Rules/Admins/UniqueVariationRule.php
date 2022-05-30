@@ -18,11 +18,14 @@ class UniqueVariationRule implements Rule
 
      public $sizeId ;
      public $productId ;
+     public $id ;
+
      
-    public function __construct($sizeId , $productId)
+    public function __construct($sizeId , $productId , $id)
     {
        $this->sizeId = $sizeId;
        $this->productId = $productId;
+       $this->id = $id;
     }
 
     /**
@@ -34,9 +37,18 @@ class UniqueVariationRule implements Rule
      */
     public function passes($attribute, $value)
     {
-      
 
-        return   !DB::table('variations')->where('product_id'  , $this->productId)->where('color_id', $value)->where('size_id' , $this->sizeId)->first();
+        
+        if($this->id ) { 
+
+            return   !DB::table('variations')->where('id' , '!=' , $this->id)->where('product_id'  , $this->productId)->where('color_id', $value)->where('size_id' , $this->sizeId)->first();
+        }
+
+        else { 
+            return   !DB::table('variations')->where('product_id'  , $this->productId)->where('color_id', $value)->where('size_id' , $this->sizeId)->first();
+
+        }
+      
 
     }
 

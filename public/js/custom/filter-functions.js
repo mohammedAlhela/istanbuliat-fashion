@@ -13,12 +13,12 @@ function filterPriceRange(event, key) {
     if (priceObjectIndex > -1) {
         filterValuesArray[
             priceObjectIndex
-        ].value = `${minPrice ? minPrice : 0}-${maxPrice ? maxPrice : max_price } AED`;
+        ].value = `${minPrice != null ? minPrice : 0}-${maxPrice!= null ? maxPrice : max_price } AED`;
     } else {
-        mainDataObject.shopFilter.filterValuesArray.push(
+           filterValuesArray.push(
             (priceObject = {
                 key: "price",
-                value: `${minPrice ? minPrice : 0}-${maxPrice ? maxPrice : max_price} AED`,
+                value: `${minPrice!= null ? minPrice : 0}-${maxPrice!= null ? maxPrice : max_price} AED`,
             })
         );
     }
@@ -147,7 +147,7 @@ function shopAppendProductsData(filteredData, itemsPerPage = 9, page = 1) {
             shopProductsData += ` <img  src = '${filteredData[index].image}' > `;
             shopProductsData += ` </div> `;
             shopProductsData += ` <div class = 'product-content' >  `;
-            shopProductsData += ` <div class = 'category' > ${filteredData[index].category.name}   ${filteredData[index].category_id}  `;
+            shopProductsData += ` <div class = 'category' > ${filteredData[index].category.name}`;
             shopProductsData += ` </div> `;
 
             shopProductsData += ` <div class = 'name ' > ${filteredData[index].name} `;
@@ -169,7 +169,7 @@ function shopAppendProductsData(filteredData, itemsPerPage = 9, page = 1) {
             shopProductsData += `</a> `;
         }
     } else {
-        shopProductsData += `<div class = 'filter-results-holder'> No Related products with the search results `;
+        shopProductsData += `<div class = 'filter-results-holder header'> No Related products with the search results `;
 
         if (activeCategoryName) {
             shopProductsData += `<div class = 'shop-report-filter-header' > Categories : `;
@@ -361,75 +361,19 @@ function clearShopFilterKeyValue(key, value) {
     });
 
     if (key == "category") {
-        let categoryBlocks = document.getElementById(
-            "shop_filter_categories_menu_blocks_father"
-        ).children;
-
-        categoryBlocks = Array.from(categoryBlocks);
-
-        categoryBlocks.forEach((item) => {
-            if (item.children.item(1).innerText.trim() == activeCategoryName) {
-                item.children
-                    .item(0)
-                    .children.item(0)
-                    .classList.remove("opacityTrue");
-            }
-        });
-
-        activeCategoryName = null;
-        activeCategory = {};
+        $("#shop_filter_categories_menu_reset").trigger("click");
     }
 
     if (key == "color") {
-        let colorsBlocks = document.getElementById(
-            "shop_filter_colors_menu_blocks_father"
-        ).children;
-
-        colorsBlocks = Array.from(colorsBlocks);
-
-        colorsBlocks.forEach((item) => {
-            if (item.children.item(1).innerText.trim() == value) {
-                item.children
-                    .item(0)
-                    .children.item(0)
-                    .classList.remove("opacityTrue");
-            }
-        });
-
-        activeColorsNames = activeColorsNames.filter((color) => {
-            return color != value;
-        });
+        $("#shop_filter_colors_menu_reset").trigger("click");
     }
 
     if (key == "size") {
-        let sizesBlocks = document.getElementById(
-            "shop_filter_sizes_menu_blocks_father"
-        ).children;
-
-        sizesBlocks = Array.from(sizesBlocks);
-
-        sizesBlocks.forEach((item) => {
-            if (item.children.item(1).innerText.trim() == value) {
-                item.children
-                    .item(0)
-                    .children.item(0)
-                    .classList.remove("opacityTrue");
-            }
-        });
-
-        activeSizesNames = activeSizesNames.filter((size) => {
-            return size != value;
-        });
+        $("#shop_filter_sizes_menu_reset").trigger("click");
     }
 
     if (key == "price") {
-        filterValuesArray = filterValuesArray.filter((item) => {
-            return item.key != "price";
-        });
-        $("#shop_filter_menus_min_price").val(100);
-        $("#shop_filter_menus_max_price").val(1000);
-        minPrice = 100;
-        maxPrice = 1000;
+        $("#shop_filter_price_menu_reset").trigger("click");
     }
 
     if (key == "name") {

@@ -46,12 +46,8 @@
                 :src="variationImage.image"
                 alt=""
               />
-
-              <!-- <h1>
-                {{variationImage.id  }}
-              </h1> -->
-
-                       <div class="text-left" style ="margin:20px 0px 0px 20px">
+   <hr>
+                       <div class="text-right" style ="margin:20px 0px 0px 20px">
                   <v-icon class="icon" @click="showDeleteSnackbar(variationImage)">
                     mdi-delete
                   </v-icon>

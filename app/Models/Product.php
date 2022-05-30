@@ -45,4 +45,11 @@ class Product extends Model
         return $this->belongsToMany(User::class, 'wishlist', 'product_id', 'user_id');
     }
 
+
+    
+    public function sizeGuides()
+    {
+        return $this->hasMany(SizeGuide::class, 'product_id', 'id')->with('size');
+    }
+
 }

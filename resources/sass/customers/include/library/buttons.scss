@@ -14,7 +14,7 @@
 .shop-filter-key-button { 
   cursor: pointer;
    border: 1px solid #c5c4c4;
-    padding: 2px 12px 5px;
+    padding: 2px 11px 4px;
     border-radius: 30px;
     @extend .paragraph;
     i { 
@@ -92,8 +92,7 @@
 @media (max-width: 630px) { 
     
 .shop-filter-key-button { 
-
-      padding: 2px 7px ;
+    padding: 0px 8px 2px;
     
      font-size: 11px !important;
   }

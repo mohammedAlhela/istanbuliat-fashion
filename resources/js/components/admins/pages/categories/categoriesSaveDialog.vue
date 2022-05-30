@@ -24,76 +24,29 @@
 
                                 <div class="upload-image-container">
                                     <div class="small-image-container category-image-container">
-                                        <img :src="getBigImage" class="small-image slider-image" />
+                                        <img :src="getImage" class="small-image slider-image" />
                                     </div>
 
                                     <div class="upload-container">
-                                        <v-form enctype="multipart/form-data" ref="big-image-form">
+                                    
                                             <label for="big-image-upload" class="custom-file-upload">
                                                 <v-icon class="icon">
                                                     mdi-pencil
                                                 </v-icon>
                                             </label>
                                             <input class="d-none" id="big-image-upload" name="big_image" type="file"
-                                                @change="bigImageSelected" />
+                                                @change="imageSelected" />
 
                                             <span class="d-inline-block ml-2">
-                                                <span v-html="getBigImageParagraph">
+                                                <span v-html="getImageParagraph">
                                                 </span>
                                             </span>
-                                        </v-form>
+                                        
                                     </div>
                                     <div class="clearing"></div>
                                 </div>
                             </v-col>
 
-                            <!-- <v-col cols="12 mt-3">
-                                <span class="image-paragraph"> (nav category image)
-                                    Maximum allowed file size is 1000 KB.
-                                    Recomended image dimensions are 500 width
-                                    and 500 height
-                                </span>
-
-                                <div class="upload-image-container">
-                                    <div class="small-image-container category-nav-image-container">
-                                        <img
-                                            :src="getSmallImage"
-                                            class="small-image slider-image"
-                                        />
-                                    </div>
-
-                                    <div class="upload-container">
-                                        <v-form
-                                            enctype="multipart/form-data"
-                                            ref="small-image-form"
-                                        >
-                                            <label
-                                                for="small-image-upload"
-                                                class="custom-file-upload"
-                                            >
-                                                <v-icon class="icon">
-                                                    mdi-pencil
-                                                </v-icon>
-                                            </label>
-                                            <input
-                                                class="d-none"
-                                                id="small-image-upload"
-                                                name="image"
-                                                type="file"
-                                                @change="smallImageSelected"
-                                            />
-
-                                            <span class="d-inline-block ml-2">
-                                                <span
-                                                    v-html="getSmallImageParagraph"
-                                                >
-                                                </span>
-                                            </span>
-                                        </v-form>
-                                    </div>
-                                    <div class="clearing"></div>
-                                </div>
-                            </v-col> -->
                             <v-col cols="12" class="py-0 pt-3">
                                 <div class="input-header">
                                     <span> Name </span>
@@ -141,10 +94,8 @@ export default {
 
         ...mapGetters("categories", [
             "formTitle",
-            "getSmallImageParagraph",
-            "getBigImageParagraph",
-            "getBigImage",
-            "getSmallImage",
+            "getImageParagraph",
+            "getImage",
         ]),
     },
 
@@ -156,8 +107,7 @@ export default {
         ...mapMutations("categories", [
             "closeData",
             "setDialogValues",
-            "smallImageSelected",
-            "bigImageSelected",
+            "imageSelected",
         ]),
 
         saveData() {

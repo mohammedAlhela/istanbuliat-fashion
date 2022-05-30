@@ -76,6 +76,7 @@
              add to bag
          </button>
      </div>
+<button onclick = "testSizeGuides()"> test</button>
      <div class="wishlist">
          <a href="#">add to wishlist</a>
      </div>

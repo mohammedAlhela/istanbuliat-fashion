@@ -3,12 +3,14 @@ import productsTable from "../../../components/admins/pages/products/productsTab
 import productsHeader from "../../../components/admins/pages/products/productsHeader.vue";
 import productsSaveDialog from "../../../components/admins/pages/products/productsSaveDialog.vue";
 import variationsMainDialog from "../../../components/admins/pages/products/variationsMainDialog.vue";
+import sizeGuidesMainDialog from "../../../components/admins/pages/products/sizeGuidesMainDialog";
 export default {
     components: {
         productsTable,
         productsHeader,
         productsSaveDialog,
         variationsMainDialog,
+        sizeGuidesMainDialog
     },
     name: "Adminsproducts",
 

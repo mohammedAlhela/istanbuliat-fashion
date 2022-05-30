@@ -14,18 +14,18 @@
                         </v-tooltip>
 
                         <span>
-                            <v-chip class="ma-2 p-2" small label color="#f0f8ff">
+                            <v-chip class="ma-2 p-2" small label color="#ebebeb">
                                 <a href="/colors/export" class="t">
                                     <span class=""> Export Excel </span>
                                 </a>
                             </v-chip>
                         </span>
 
-                        <v-chip class="p-2" small label color="#f0f8ff">
+                        <!-- <v-chip class="p-2" small label color="#f0f8ff">
                             <a href="" class="" @click.prevent="showImportForm()">
                                 <span class=""> Import Excel </span>
                             </a>
-                        </v-chip>
+                        </v-chip> -->
 
                         <v-expand-transition>
                             <div v-if="importForm">

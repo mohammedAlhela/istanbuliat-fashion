@@ -13,6 +13,8 @@ import sizes from './moduels/admins/sizes'
 import products from './moduels/admins/products'
 import variations from './moduels/admins/variations'
 import variationsImages from './moduels/admins/variationsImages'
+import sizeGuides from './moduels/admins/sizeGuides'
+
 // admins pagess
 
 
@@ -27,7 +29,8 @@ export default new Vuex.Store({
         sizes,
         products,
         variations,
-        variationsImages
+        variationsImages,
+        sizeGuides
         // admins pagess
 
   

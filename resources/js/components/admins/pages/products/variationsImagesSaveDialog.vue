@@ -21,7 +21,7 @@
             @submit.prevent="saveData()"
             enctype="multipart/form-data"
             lazy-validation
-            ref="variationImageSaveDialog"
+            ref="variationImageSaveDiloag"
           >
             <v-row class="">
               <!-- send images form -->
@@ -32,21 +32,18 @@
                 </span>
 
                 <div class="upload-image-container">
-                  <div class="variation-image-container">
+                  <div class="product-image-container">
                     <img class="image" :src="getImage" />
                   </div>
 
                   <div class="upload-container">
-                    <v-form
-                      enctype="multipart/form-data"
-                      ref="variationImageSaveDialogSon"
-                    >
-                      <label for="variation-image" class="custom-file-upload">
+                
+                      <label for="variationImageSaveDiloagImage" class="custom-file-upload">
                         <v-icon class="icon"> mdi-pencil </v-icon>
                       </label>
                       <input
                         class="d-none"
-                        id="variation-image"
+                        id="variationImageSaveDiloagImage"
                         name="variation-image"
                         type="file"
                         @change="imageSelected"
@@ -54,7 +51,7 @@
                       <span class="d-inline-block ml-2">
                         <span v-html="getImageParagraph"> </span>
                       </span>
-                    </v-form>
+                
                   </div>
 
                   <div class="clearing"></div>
@@ -113,7 +110,7 @@ export default {
     ]),
 
     saveData() {
-      this.$refs.variationImageSaveDialogSon.validate()
+      this.$refs.variationImageSaveDiloag.validate()
       this.saveAction()
     },
 

@@ -18,21 +18,15 @@ class CategoryController extends Controller
 
     }
 
-    public function uploadImage($big_image, $category, $id)
+    public function uploadImage($image, $category, $id)
     {
-        if ($big_image) {
-            $bigImageName = $big_image->getClientOriginalExtension();
-            $bigImageName = time() . "." . $bigImageName;
-            Image::make($big_image)->fit(800, 1200)->save(public_path("/images/categories/big/") . $bigImageName);
-            $category->big_image = "/images/categories/big/" . $bigImageName;
+        if ($image) {
+            $imageName = $image->getClientOriginalExtension();
+            $imageName = time() . "." . $imageName;
+            Image::make($image)->fit(800, 1200)->save(public_path("/images/categories/") . $imageName);
+            $category->image = "/images/categories/" . $imageName;
         }
 
-        // if ($small_image) {
-        //     $smallImageName = $small_image->getClientOriginalExtension();
-        //     $smallImageName = time() . "." . $smallImageName;
-        //     Image::make($small_image)->fit(500, 500)->save(public_path("/images/categories/small/") . $smallImageName);
-        //     $category->small_image = "/images/categories/small/" . $smallImageName;
-        // }
 
     }
 
@@ -56,14 +50,11 @@ class CategoryController extends Controller
 
         $category->name = $request->name;
 
-        $category->type = 'main';
-
         $category->description = $request->description;
 
-        // $small_image = request()->file("small_image");
-        $big_image = request()->file("big_image");
+        $image = request()->file("image");
 
-        $this->uploadImage($big_image , $category, null);
+        $this->uploadImage($image , $category, null);
 
         $category->save();
 
@@ -81,10 +72,10 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         $category->description = $request->description;
-        // $small_image = request()->file("small_image");
-        $big_image = request()->file("big_image");
+  
+        $image = request()->file("image");
 
-        $this->uploadImage($big_image, $category, $id);
+        $this->uploadImage($image, $category, $id);
 
         $category->save();
 
@@ -100,11 +91,10 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
 
-        if ($category->big_image && $category->big_image != '/images/categories/big/category.jpg' && file_exists(public_path() . $category->big_image)) {
-            $bigImageDeleted = unlink(substr($category->big_image, 1));
-            // $smallImageDeleted = unlink(substr($category->small_image, 1));
+        if ($category->image && $category->image != '/images/categories/category.jpg' && file_exists(public_path() . $category->image)) {
+            $imageDeleted = unlink(substr($category->image, 1));
 
-            if ($bigImageDeleted ) {
+            if ($imageDeleted ) {
 
                 $category->delete();
 
@@ -123,12 +113,12 @@ class CategoryController extends Controller
 
     }
 
-    public function updateType($id)
+    public function updateStatus($id)
     {
 
         $category = Category::find($id);
 
-        $category->type === 'main' ? $category->type = 'nav' : $category->type = 'main';
+        $category->status  ? $category->status = 0 :  $category->status = 1;
 
         $category->save();
 

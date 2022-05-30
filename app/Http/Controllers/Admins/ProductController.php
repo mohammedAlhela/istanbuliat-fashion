@@ -7,7 +7,9 @@ use App\Http\Requests\Admins\ProductRequest;
 use App\Http\Resources\Admins\ProductsResource;
 use App\Models\Product;
 use App\Models\Variation;
-
+use App\Models\Color;
+use App\Models\Size;
+use App\Models\SizeGuide;
 
 use App\Models\Tag;
 use DB;
@@ -25,6 +27,15 @@ class ProductController extends Controller
 
     }
 
+
+    
+    public function deleteSizeGuides($id)
+    {
+      
+        SizeGuide::where('product_id' , $id)->delete();
+    }
+
+
     public function getArrayFromString($tagsNamesArray)
     {
         $arrayNames = array();
@@ -34,7 +45,7 @@ class ProductController extends Controller
         return $arrayNames;
     }
 
-    public function updateData($product, $request, $id)
+    public function updateData($product, $request)
     {
         $product->category_id = $request->category_id;
         $product->price = $request->discount_price ?  $request->discount_price : $request->selling_price ;
@@ -46,16 +57,23 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->offer = $product->discount_price ? ( ($product->selling_price - $product->discount_price) * 100 ) / $product->selling_price : null ;
         $product->sku = $request->sku;
-        $product->sizes =  $request->sizesOptionsNames;
-        $product->colors = $request->colorsOptionsNames;
+        $product->sizes =  $request->sizesNamesArray;
+        $product->colors = $request->colorsNamesArray;
+        $product->wash_care = $request->wash_care;
+        $product->contents = $request->contents;
     }
 
     public function addVariations($request, $product)
     {
 
-        $colorsIds = $this->getArrayFromString($request->colorsNamesArray);
-        $sizesIds = $this->getArrayFromString($request->sizesNamesArray);
 
+
+        $colorsNamesArray = $this->getArrayFromString($request->colorsNamesArray);
+        $sizesNamesArray = $this->getArrayFromString($request->sizesNamesArray);
+
+        $colorsIds = Color::whereIn('name' , $colorsNamesArray)->pluck('id')->all();
+
+        $sizesIds = Size::whereIn('name' , $sizesNamesArray)->pluck('id')->all();
         foreach ($colorsIds as $colorId) {
             foreach ($sizesIds as $sizeId) {
                 DB::table('variations')->insert([
@@ -74,7 +92,7 @@ class ProductController extends Controller
 
     }
 
-    public function uploadImage($image, $product, $id)
+    public function uploadImage($image, $product)
     {
         $imageName = $image->getClientOriginalExtension();
         $imageName = time() . "." . $imageName;
@@ -121,12 +139,12 @@ class ProductController extends Controller
     {
         $product = new product;
         $image = request()->file("image");
-        $this->updateData($product, $request, null);
-        $this->uploadImage($image, $product, null);
+        $this->updateData($product, $request);
+        $this->uploadImage($image, $product);
 
         $product->save();
-        $this->assignTags($request->tagsNamesArray, $product);
-        $this->addVariations($request, $product);
+         $this->assignTags($request->tagsNamesArray, $product);
+         $this->addVariations($request, $product);
         $response = [
             'product' => $product,
         ];
@@ -138,12 +156,12 @@ class ProductController extends Controller
     {
 
         $product = Product::find($id);
-        $this->updateData($product, $request, $id);
+        $this->updateData($product, $request);
 
         $image = request()->file("image");
 
         if ($image) {
-            $this->uploadImage($image, $product, $id);
+            $this->uploadImage($image, $product);
         }
 
         $product->save();
@@ -198,12 +216,14 @@ class ProductController extends Controller
             if ($imageDeleted) {
 
                 $product->delete();
-               $this->deleteProductVariations($id);
+                $this->deleteProductVariations($id);
+               $this->deleteSizeGuides($id);
             }
 
         } else {
             $product->delete();
-            $this->deleteProductVariations($id);
+             $this->deleteProductVariations($id);
+            $this->deleteSizeGuides($id);
         }
 
         $response = [
@@ -213,7 +233,6 @@ class ProductController extends Controller
         return response($response, 201);
 
     }
-
 
     public function deleteProductVariations($id)
     {

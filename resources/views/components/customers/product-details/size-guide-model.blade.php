@@ -23,9 +23,9 @@
 
 
 
-                     <div class="switches">
-                         <span class="active"> centimeters</span>
-                         <span>inches</span>
+                     <div class="switches" id = "product_size_guide_switches">
+                         <span  class="active switch" >centimeters</span>
+                         <span class = "switch">inches</span>
                      </div>
 
 
@@ -36,64 +36,27 @@
                          <div class="table-responsive">
                              <table class="size-guide-table">
                                  <thead>
-                                     <tr>
+                                     <tr id = "size_guide_headings">
                                          <th scope="col">Size</th>
-                                         <th scope="col">Shoulder </th>
-                                         <th scope="col">Bust</th>
-                                         <th scope="col">Wist</th>
-                                         <th scope="col">Hip</th>
-                                         <th scope="col">Length</th>
+                                         <th scope="col">Shoulder(<span class = "unit">cm</span>) </th>
+                                         <th scope="col">Bust(<span class = "unit">cm</span>)</th>
+                                         <th scope="col">Wist(<span class = "unit">cm</span>)</th>
+                                         <th scope="col">Hip(<span class = "unit">cm</span>)</th>
+                                         <th scope="col">Length(<span class = "unit">cm</span>)</th>
                                      </tr>
                                  </thead>
-                                 <tbody>
-                                     <tr>
-                                         <th scope="row">S</th>
-                                         <td>18</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                     </tr>
-                                     <tr>
-                                         <th scope="row">M</th>
-                                         <td>20</td>
-                                         <td>28.5</td>
-                                         <td>8.25</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                     </tr>
-                                     <tr>
-                                         <th scope="row">L</th>
-                                         <td>22</td>
-                                         <td>30.5</td>
-                                         <td>9</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                     </tr>
-                                     <tr>
-                                         <th scope="row">XL</th>
-                                         <td>24</td>
-                                         <td>31.5</td>
-                                         <td>9.5</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                     </tr>
-                                     <tr>
-                                         <th scope="row">2XL</th>
-                                         <td>26</td>
-                                         <td>32.5</td>
-                                         <td>9.5</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                     </tr>
-                                     <tr>
-                                         <th scope="row">3XL</th>
-                                         <td>28</td>
-                                         <td>33.5</td>
-                                         <td>10</td>
-                                         <td>26.5</td>
-                                         <td>7.75</td>
-                                     </tr>
+                                 <tbody id = "size_guide_records">
+                                     @foreach ($product->sizeGuides as $key => $guide)
+                                         <tr >
+                                             <th scope="row"> {{ $guide->size_name }}</th>
+                                             <td>{{ $guide->shoulder }}</td>
+                                             <td>{{ $guide->bust }}</td>
+                                             <td>{{ $guide->wist }}</td>
+                                             <td>{{ $guide->hip }}</td>
+                                             <td>{{ $guide->length }}</td>
+                                         </tr>
+                                     @endforeach
+
                                  </tbody>
                              </table>
                          </div>

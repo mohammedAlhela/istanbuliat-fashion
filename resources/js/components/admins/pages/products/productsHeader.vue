@@ -10,19 +10,17 @@
                 <span> Products number </span>
             </v-tooltip>
 
-            <span>
-                <v-chip class="ma-2" dark label color="success">
-                    <a href="/admins/excel/export" class = "white-font">
+            
+           
+                               <v-chip class="ma-2"  small label color="#ebebeb">
+                    <a href="/admins/excel/export" >
                         <span class=""> Export Excel </span>
                     </a>
                 </v-chip>
-            </span>
 
-            <span>
-                <v-chip class="ma-2" dark label color="warning" >
-                    <span class = "white-font"> Export Pdf </span>
-                </v-chip>
-            </span>
+
+
+
         </div>
 
         <div class="right-header-section col-12 col-md-6">

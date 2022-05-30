@@ -1,7 +1,7 @@
 
 
 
-if (filteredProducts.length) {
+// if (filteredProducts.length) {
 
 
     function shopFilterPaginationChangePageLink(page) {
@@ -77,7 +77,7 @@ if (filteredProducts.length) {
         shopFilterPaginationChangePageLink(1); // set default page
         shopPaginationAddPagesLinks(); // generate page navigation
    
-}
+// }
 
 
 

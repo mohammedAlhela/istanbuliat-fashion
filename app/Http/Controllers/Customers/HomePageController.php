@@ -16,12 +16,11 @@ class HomePageController extends Controller
 
         $sliders = Slider::where('status', 1)
             ->get();
-
-        $categories = Category::get();
+            $categories = Category::where('status' , '!=' , 0)->get();
 
         $deals = Product::
             with(['category', 'variations', 'colors', 'sizes'])
-            ->where('offer', "!=", 0)->get();
+            ->where('offer', "!=", 0)->where('status' , 1)->get();
 
         $share = Product::
             with(['category', 'variations', 'colors', 'sizes'])->offset(8)
@@ -36,11 +35,6 @@ class HomePageController extends Controller
         ]);
     }
 
-    public function shareProduct()
-    {
-        $socialShare = Share::page('http://127.0.0.1:8000/shop?category=dresses', 'Shop new dresses products')->facebook()->twitter()->linkedin()->telegram()->whatsapp()->getRawLinks();
 
-dd($socialShare);
-    }
 
 }

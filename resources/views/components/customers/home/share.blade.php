@@ -7,7 +7,7 @@
 
     <div class="demo-gallery images-holder" id="share_gallery">
         @foreach ($share as $key => $product)
-        <div class="image-block" data-src="{{  $product->image }}" data-sub-html=" <div class = 'image-caption' style = 'position:relative; top:-30px' >  <h5 class = 'mb-3'  style = 'font-size:17px!important'> {{ $product->name }} </h5>
+        <div class="image-block" data-src="{{  $product->image }}" data-sub-html=" <div class = 'image-caption' style = 'position:relative; top:-15px' >  <h5 class = 'mb-2'  style = 'font-size:17px!important'> {{ $product->name }} </h5>
             <div class = 'icons-holder '> share on :
             <a href = 'https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000/product/{{ getQueryString($product->name) }}' style = 'color:white !important'
                 <i class  = 'fa fa-facebook-f facebook-bg mx-2'> </i> </a>

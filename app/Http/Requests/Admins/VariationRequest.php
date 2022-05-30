@@ -47,9 +47,9 @@ class VariationRequest extends FormRequest
         return [
             'size_id' => ['required'],
             'color_id' => ['required' , 
-            // new UniqueVariationRule($sizeId ,
+             new UniqueVariationRule($sizeId , $productId ,  $id)
             
-            // $productId)
+    
         
         ],
             'image' => [   $imageError , 'image', "mimes:jpg,png,jpeg,gif,svg,webp"],

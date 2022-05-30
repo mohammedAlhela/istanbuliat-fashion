@@ -26,21 +26,20 @@ class CategoryRequest extends FormRequest
 
         $id = app("request")->get("id");
 
-        $bigImageError = null;
-        $nameError = null ;
+        $imageError = null;
 
         if (!$id) {
 
-            $bigImageError = "required";
+            $imageError = "required";
         } else {
 
-            $bigImageError = "nullable";
+            $imageError = "nullable";
         }
 
         return [
             "name" => [ "unique:categories,name," .$id, "required", "min:3", "string", "max:50"],
 
-            "big_image" => [ $bigImageError , "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
+            "image" => [ $imageError , "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
         ];
 
     }

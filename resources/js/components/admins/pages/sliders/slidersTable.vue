@@ -7,15 +7,7 @@
     mobile-breakpoint="1000"
     class="datatable"
   >
-    <template v-slot:item.status="{ item }">
-      <td>
-        <v-chip v-if="item.status == 1" small class="" color="primary">
-          Active
-        </v-chip>
 
-        <v-chip v-else small class="" color="warning"> Not Active </v-chip>
-      </td>
-    </template>
 
     <template v-slot:item.image="{ item }">
       <td class="p-3">
@@ -27,6 +19,16 @@
       </td>
     </template>
 
+
+    <template v-slot:item.status="{ item }">
+      <td>
+        <v-chip v-if="item.status == 1" small class="" color="primary">
+          Active
+        </v-chip>
+
+        <v-chip v-else small class="" color="warning"> Not Active </v-chip>
+      </td>
+    </template>
 
     <template v-slot:item.actions="{ item }">
       <!-- actions -->
@@ -50,7 +52,7 @@
               </v-icon>
             </span>
           </template>
-          <span> Change slider status </span>
+          <span> Change status </span>
         </v-tooltip>
 
         <v-tooltip top>

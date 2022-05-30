@@ -20,15 +20,12 @@ export default {
                     value: "name",
                 },
 
-
-
-                    {
+                {
                     text: " Price",
                     align: "start",
                     sortable: true,
                     value: "price",
                 },
-
 
                 {
                     text: "Category",
@@ -64,7 +61,7 @@ export default {
             products: [],
             colors: [],
             sizes: [],
-            variations : [],
+            variations: [],
 
             categories: [],
 
@@ -102,6 +99,8 @@ export default {
                 short_description: "",
 
                 long_description: "",
+                wash_care: "",
+                contents: [],
             },
             defaultItem: {
                 tagsNamesArray: [], // push new tags to api
@@ -123,6 +122,8 @@ export default {
                 short_description: "",
 
                 long_description: "",
+                wash_care : "",
+                contents: [],
             },
 
             image: {
@@ -142,12 +143,12 @@ export default {
 
             status: "",
             featured: "",
-            trend : "",
+            trend: "",
             statusIsFiltered: "",
             featuredIsFiltered: "",
             trendIsFiltered: "",
             name: "",
-            price:"",
+            price: "",
 
             tag: {
                 id: "",
@@ -161,7 +162,6 @@ export default {
             category: {
                 id: "",
                 name: "",
-                subCategories: [],
             },
 
             defaultCategory: {
@@ -174,18 +174,6 @@ export default {
     },
 
     getters: {
-        getSubCategories: (state, getters, rootState, rootGetters) => {
-            if (state.editedIndex > -1) {
-                return state.editedItem.category.subCategories
-                    ? state.editedItem.category.subCategories
-                    : state.editedItem.category.sub_categories;
-            } else {
-                return state.editedItem.category.id
-                    ? state.editedItem.category.subCategories
-                    : state.subCategories;
-            }
-        },
-
         formTitle: (state) => {
             return state.editedIndex == -1
                 ? "Add new product"
@@ -247,7 +235,6 @@ export default {
                 conditions.push(getters.filterTrend);
             }
 
-
             if (state.statusIsFiltered) {
                 conditions.push(getters.filterStatus);
             }
@@ -291,7 +278,6 @@ export default {
             return item.trend == state.trend;
         },
 
-
         filterStatus: (state) => (item) => {
             return item.status == state.status;
         },
@@ -304,12 +290,8 @@ export default {
         },
 
         filterPrice: (state) => (item) => {
-
             return item.exact_price.toString().includes(state.price);
         },
-
-
-
 
         getColorsIdsFromArray: (state) => {
             let idsArray = [];
@@ -328,24 +310,22 @@ export default {
             return idsArray;
         },
 
-        
+        getColorsNamesFromArray: (state) => {
+            let namesArray = [];
+            state.editedItem.colorsNamesArray.forEach((color) => {
+                namesArray.push(color.name);
+            });
+            return namesArray;
+        },
 
-            getColorsNamesFromArray: (state) => {
-                let namesArray = [];
-                state.editedItem.colorsNamesArray.forEach((color) => {
-                    namesArray.push(color.name);
-                });
-                return namesArray;
-            },
-    
-            getSizesNamesFromArray: (state) => {
-                let namesArray = [];
-                state.editedItem.sizesNamesArray.forEach((size) => {
-                    namesArray.push(size.name);
-                });
-    
-                return namesArray;
-            },
+        getSizesNamesFromArray: (state) => {
+            let namesArray = [];
+            state.editedItem.sizesNamesArray.forEach((size) => {
+                namesArray.push(size.name);
+            });
+
+            return namesArray;
+        },
 
         // --------------- filter
     },
@@ -354,10 +334,12 @@ export default {
         // ---------- main
         assignOptions: (state, response) => {
             state.categories = response.categories;
-            state.subCategories = response.subCategories;
             state.colors = response.colors;
             state.sizes = response.sizes;
             state.tags = response.tags;
+            state.categories = state.categories.filter((item) => {
+                return item.status;
+            });
         },
 
         assignProducts: (state, response) => {
@@ -366,6 +348,8 @@ export default {
                 setTimeout(() => {
                     state.showContent = true;
                 }, 300);
+
+        
         },
         // ---------- main
 
@@ -378,7 +362,6 @@ export default {
             state.deleteIndex = item.id;
             state.deleteSnackbar = true;
         },
-
 
         showBlockDeleteSnackbar: (state) => {
             state.blockDeleteSnackbar = true;
@@ -407,7 +390,10 @@ export default {
                 state.editedItem.category = dataObject.e;
             } else if (dataObject.variableType == "tagsNamesArray") {
                 state.editedItem.tagsNamesArray = dataObject.e;
-            } else if (dataObject.variableType == "colorsNamesArray") {
+            } else if (dataObject.variableType == "contents") {
+                state.editedItem.contents = dataObject.e;
+            }
+             else if (dataObject.variableType == "colorsNamesArray") {
                 state.editedItem.colorsNamesArray = dataObject.e;
             } else if (dataObject.variableType == "sizesNamesArray") {
                 state.editedItem.sizesNamesArray = dataObject.e;
@@ -417,7 +403,13 @@ export default {
                 state.editedItem.discount_price = dataObject.e;
             } else if (dataObject.variableType == "sku") {
                 state.editedItem.sku = dataObject.e;
+            } else if (dataObject.variableType == "wash_care") {
+                state.editedItem.wash_care = dataObject.e;
             }
+
+
+
+
         },
 
         setFilterValues: (state, dataObject) => {
@@ -425,7 +417,7 @@ export default {
                 state.name = dataObject.e;
             } else if (dataObject.variableType == "category") {
                 state.category = dataObject.e;
-            }else if (dataObject.variableType == "price") {
+            } else if (dataObject.variableType == "price") {
                 state.price = dataObject.e;
             }
         },
@@ -435,7 +427,7 @@ export default {
         },
 
         resetPriceFilter(state) {
-           state.price = ""
+            state.price = "";
         },
 
         addActiveCategory: (state, item) => {
@@ -455,7 +447,6 @@ export default {
             state.trend = item.trend;
             state.trendIsFiltered = "filtered";
         },
-
 
         filterStatus: (state, item) => {
             state.status = item.status;
@@ -564,34 +555,28 @@ export default {
         },
 
         async delete({ state, dispatch, commit }) {
-
             if (state.variations.length) {
                 commit("fillBlockDeleteSnackbar");
                 commit("closeDeleteSnackbar");
                 commit("showBlockDeleteSnackbar");
             } else {
-                 commit("closeDeleteSnackbar");
+                commit("closeDeleteSnackbar");
                 const Data = await axios
                     .delete(`/product/${state.deleteIndex}`)
                     .catch((error) => {
                         toasts.methods.fireErrorToast();
                     });
-    
+
                 if (Data) {
                     const DATAFETCHED = await dispatch("fetch");
-                    toasts.methods.fireSuccessToast("Record deleted successfully");
+                    toasts.methods.fireSuccessToast(
+                        "Record deleted successfully"
+                    );
                 }
-            
             }
-
-
-
-
-    
         },
 
         async save({ state, commit, getters, dispatch }) {
-            commit("intializeSave");
             let productData = new FormData();
             productData.append("category_id", state.editedItem.category.id);
             productData.append("image", state.image.file);
@@ -612,22 +597,23 @@ export default {
                 "tagsNamesArray",
                 state.editedItem.tagsNamesArray
             );
-            productData.append(
-                "colorsNamesArray",
-                getters.getColorsIdsFromArray
-            );
-            productData.append("sizesNamesArray", getters.getSizesIdsFromArray);
 
             productData.append(
-                "colorsOptionsNames",
+                "contents",
+                state.editedItem.contents
+            );
+            productData.append(
+                "wash_care",
+                state.editedItem.wash_care
+            );
+            productData.append(
+                "colorsNamesArray",
                 getters.getColorsNamesFromArray
             );
             productData.append(
-                "sizesOptionsNames",
+                "sizesNamesArray",
                 getters.getSizesNamesFromArray
             );
-
-
 
             productData.append(
                 "short_description",
@@ -669,14 +655,15 @@ export default {
         async updateStatusOrFeaturedOrTrend({ dispatch }, item) {
             let data = new FormData();
 
-
-                if(item.updateFeatured) {
-                    data.append("updateFeatured", "update")
-                } if(item.updateStatus) {
-                    data.append("updateStatus", "update")
-                }if (item.updateTrend) {
-                    data.append("updateTrend", "update")
-                }
+            if (item.updateFeatured) {
+                data.append("updateFeatured", "update");
+            }
+            if (item.updateStatus) {
+                data.append("updateStatus", "update");
+            }
+            if (item.updateTrend) {
+                data.append("updateTrend", "update");
+            }
 
             const Data = await axios
                 .post(`/product/statusOrFeaturedUpdate/${item.id}`, data)
@@ -694,5 +681,11 @@ export default {
             commit("variations/manageVariations", item, { root: true });
             state.editedIndex = item.id;
         },
+        manageSizeGuides({ state, commit }, item) {
+            commit("sizeGuides/manageSizeGuides", item, { root: true });
+            state.editedIndex = item.id;
+        },
+        
+
     },
 };

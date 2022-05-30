@@ -126,6 +126,7 @@
                     <span class="items-snackbar-span mt-1">
                         {{ item.variations.length }} Items</span
                     >
+
                 </td>
             </template>
 
@@ -150,10 +151,10 @@
             <template v-slot:item.price="{ item }">
                 <td>
                     <span v-if="item.discount_price"
-                        >AED {{ item.discount_price }} =>
-                        {{ item.selling_price }}
+                        >AED {{ item.selling_price }} =>
+                        {{ item.price }}
                     </span>
-                    <span v-else>AED {{ item.selling_price }} </span>
+                    <span v-else>AED {{ item.price }} </span>
                 </td>
             </template>
 
@@ -255,7 +256,7 @@
                                 </v-icon>
                             </span>
                         </template>
-                        <span> edit record </span>
+                        <span> edit product </span>
                     </v-tooltip>
 
                     <v-tooltip top>
@@ -269,7 +270,7 @@
                                 </v-icon>
                             </span>
                         </template>
-                        <span> delete record </span>
+                        <span> delete product </span>
                     </v-tooltip>
 
                     <v-tooltip top>
@@ -285,6 +286,22 @@
                         </template>
                         <span> Manage product variations </span>
                     </v-tooltip>
+
+
+                                   <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                <v-icon
+                                    @click="manageSizeGuides(item)"
+                                    class="mr-2 icon variation-icon"
+                                >
+                                    mdi-ruler-square-compass
+                                </v-icon>
+                            </span>
+                        </template>
+                        <span> Manage product size guide </span>
+                    </v-tooltip>
+
 
                     <!-- actions -->
                 </td>
@@ -323,6 +340,8 @@ export default {
     methods: {
         ...mapActions("products", {
             manageVariations: "manageVariations",
+    manageSizeGuides: "manageSizeGuides",
+            
             updateStatusOrFeaturedOrTrend: "updateStatusOrFeaturedOrTrend",
         }),
 

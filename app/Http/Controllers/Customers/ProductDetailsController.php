@@ -70,8 +70,6 @@ class ProductDetailsController extends Controller
               }
              
              
-
-
             return view('customers.product-details')->with([
                 'product' => $product,
                 'colors' => $colors,
@@ -80,7 +78,7 @@ class ProductDetailsController extends Controller
                 'productDetailsImagesSliders' => $slidersImages,
 
                 // product details js data 
-                'jsProductHolder' => [$product],
+                'sizeGuides' => $product->sizeGuides,
                 'variations' => $variations
 
             ]);

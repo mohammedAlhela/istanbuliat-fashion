@@ -19,4 +19,9 @@ class Size extends Model
     {
         return $this->hasMany(Variation::class , 'size_id'  , 'id');
     }
+
+    public function sizeGuides()
+    {
+        return $this->hasMany(SizeGuide::class , 'size_id'  , 'id');
+    }
 }

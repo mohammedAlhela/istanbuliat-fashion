@@ -21,15 +21,13 @@ class CategoryFactory extends Factory
             'dresses',
             'abayas',
             'trend',
-            'hot deals',
-            'new arrival',
 
         );
 
         return [
             'name' => $this->faker->unique()->randomElement($namesArray),
             'description' => $this->faker->unique()->text(),
-            'big_image' => '/images/categories/category.jpg',
+            'image' => '/images/categories/category.jpg',
         ];
     }
 }

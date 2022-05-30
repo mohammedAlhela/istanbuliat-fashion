@@ -7008,7 +7008,7 @@ a.ui-button:active,
 .paragraph, .product-details-section #sizeGuideModel .switches span, .product-details-section .informations-section .product-details-accordion .accordion-item .accordion-body .measurements-size ul, .product-details-section .informations-section .product-details-accordion .accordion-item .accordion-body, .product-details-section .informations-section .options .sizes .size-blocks-holder .holder, .shop-section .price-section .min input::placeholder,
 .shop-section .price-section .max input::placeholder, .shop-section .price-section .min input,
 .shop-section .price-section .max input, .shop-section .price-section .min,
-.shop-section .price-section .max, .shop-section .menus-categories-filters-section .son-filter-block, .shop-section .categories-header-section, .shop-section .filter-section .filter-keys-section .clear-all, .shop-section .filter-section .filter-right-section .products-number, .shop-section .filter-section .filter-right-section .sort-by .sort-select, .shop-section .filter-section .filter-left-section .filter-modal-button, .shop-section .filter-section .toper-section, .shop-section .filter-section .clear-all, .modal-body .main .search input, .modal-body .main .search input::placeholder, .customers-footer .subscribe-section .subscribe-form form input, .customers-navbar .search-brand-user-wishlist-cart-section .holder .search-holder .search input, .customers-navbar .search-brand-user-wishlist-cart-section .holder .search-holder .search input::placeholder, .no-outline-select, .no-outline-button, .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block .shop-filter-menus-dropdown-toggle, .shop-filter-key-button, .shop-section .filter-section .filter-keys-section .keys .key, .text, .shop-section .products-content-holder .filter-results-holder, .shop-report-filter-header .value, .shop-section .filter-section .filter-right-section .sort-by .filter-header .value, .shop-section .filter-section .filter-left-section .filters-keys-menus .filter-header .value, .offers-link, .customers-navbar .upbar-section .holder a {
+.shop-section .price-section .max, .shop-section .menus-categories-filters-section .son-filter-block, .shop-section .categories-header-section, .shop-section .filter-section .filter-right-section .clear-all, .shop-section .filter-section .filter-right-section .products-number, .shop-section .filter-section .filter-right-section .sort-by .sort-select, .shop-section .filter-section .filter-left-section .filter-modal-button, .shop-section .filter-section .toper-section, .shop-section .filter-section .clear-all, .modal-body .main .search input, .modal-body .main .search input::placeholder, .customers-footer .subscribe-section .subscribe-form form input, .customers-navbar .search-brand-user-wishlist-cart-section .holder .search-holder .search input, .customers-navbar .search-brand-user-wishlist-cart-section .holder .search-holder .search input::placeholder, .no-outline-select, .no-outline-button, .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block .shop-filter-menus-dropdown-toggle, .shop-filter-key-button, .shop-section .filter-section .filter-keys-section .keys .key, .text, .shop-report-filter-header .value, .shop-section .filter-section .filter-right-section .sort-by .filter-header .value, .shop-section .filter-section .filter-left-section .filters-keys-menus .filter-header .value, .offers-link, .customers-navbar .upbar-section .holder a {
   color: #585555;
   font-size: 13px;
   letter-spacing: 1px;
@@ -7108,7 +7108,7 @@ a.ui-button:active,
   font-weight: 500;
 }
 
-.text, .shop-section .products-content-holder .filter-results-holder {
+.text {
   max-width: 450px;
   margin: auto;
   text-align: center;
@@ -7225,7 +7225,7 @@ a.ui-button:active,
 }
 
 @media (max-width: 768px) {
-  .text, .shop-section .products-content-holder .filter-results-holder {
+  .text {
     max-width: 400px;
   }
 
@@ -7250,7 +7250,7 @@ a.ui-button:active,
     font-size: 14px;
   }
 
-  .text, .shop-section .products-content-holder .filter-results-holder {
+  .text {
     font-size: 13px;
     line-height: 23px;
   }
@@ -7438,7 +7438,7 @@ a.ui-button:active,
 .shop-filter-key-button, .shop-section .filter-section .filter-keys-section .keys .key {
   cursor: pointer;
   border: 1px solid #c5c4c4;
-  padding: 2px 12px 5px;
+  padding: 2px 11px 4px;
   border-radius: 30px;
 }
 .shop-filter-key-button i, .shop-section .filter-section .filter-keys-section .keys .key i {
@@ -7502,7 +7502,7 @@ a.ui-button:active,
 }
 @media (max-width: 630px) {
   .shop-filter-key-button, .shop-section .filter-section .filter-keys-section .keys .key {
-    padding: 2px 7px;
+    padding: 0px 8px 2px;
     font-size: 11px !important;
   }
 }
@@ -7764,7 +7764,7 @@ a.ui-button:active,
   border-top: 1px solid #ebebeb;
   border-bottom: 1px solid #ebebeb;
 }
-.customers-footer .subscribe-section .text, .customers-footer .subscribe-section .shop-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .customers-footer .subscribe-section .filter-results-holder {
+.customers-footer .subscribe-section .text {
   max-width: 600px;
   margin-top: 10px;
   margin-bottom: 5px;
@@ -8195,7 +8195,7 @@ body.modal-open {
 .error-page-container a:hover {
   color: #524e4e !important;
 }
-.error-page-container .text, .error-page-container .shop-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .error-page-container .filter-results-holder {
+.error-page-container .text {
   margin-top: 10px;
 }
 
@@ -8533,7 +8533,7 @@ body.modal-open {
 .home-section .categories-section .categories-owl-carousel .owl-nav {
   display: none !important;
 }
-.home-section .categories-section .text, .home-section .categories-section .shop-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .home-section .categories-section .filter-results-holder {
+.home-section .categories-section .text {
   margin-top: 10px;
   margin-bottom: 5px;
 }
@@ -8600,7 +8600,7 @@ body.modal-open {
 .home-section .deals-section .deals-owl-carousel .owl-nav {
   display: none !important;
 }
-.home-section .deals-section .text, .home-section .deals-section .shop-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .home-section .deals-section .filter-results-holder {
+.home-section .deals-section .text {
   margin-top: 10px;
   margin-bottom: 5px;
 }
@@ -8649,7 +8649,7 @@ body.modal-open {
 .home-section .share-section .images-holder img {
   width: 100%;
 }
-.home-section .share-section .text, .home-section .share-section .shop-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .home-section .share-section .filter-results-holder {
+.home-section .share-section .text {
   margin-top: 10px;
   margin-bottom: 5px;
 }
@@ -8667,16 +8667,13 @@ body.modal-open {
     font-size: 20px !important;
   }
 }
-@media (min-width: 651px) {
-  .home-section .lg-outer.lg-grab img.lg-object {
-    max-width: 550px !important;
-    width: 550px !important;
-  }
+.home-section .lg-outer.lg-grab img.lg-object {
+  max-width: 500px !important;
+  width: 500px !important;
 }
-@media (max-width: 650px) and (min-width: 651px) {
-  .home-section .lg-outer.lg-grab img.lg-object {
-    width: 340px !important;
-  }
+.home-section .lg-outer .lg-img-wrap {
+  max-width: 500px !important;
+  display: none !important;
 }
 
 .shop-section .heading-section {
@@ -8685,7 +8682,7 @@ body.modal-open {
   background: #fbf6f6;
   border-top: 1px solid white;
 }
-.shop-section .heading-section .text, .shop-section .heading-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .heading-section .filter-results-holder {
+.shop-section .heading-section .text {
   max-width: 800px;
   margin: auto;
   margin-top: 8px;
@@ -8766,6 +8763,13 @@ body.modal-open {
   top: 25px;
   color: gray !important;
 }
+.shop-section .filter-section .filter-right-section .clear-all {
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+}
 .shop-section .filter-section .filter-keys-section {
   padding: 10px 0px 10px;
 }
@@ -8777,12 +8781,6 @@ body.modal-open {
   position: relative;
   margin-right: 10px;
   margin-bottom: 10px;
-}
-.shop-section .filter-section .filter-keys-section .clear-all {
-  display: inline-block;
-  margin-left: 20px;
-  border-bottom: 1px solid gray;
-  cursor: pointer;
 }
 @media (max-width: 768px) {
   .shop-section .filter-left-section {
@@ -8893,12 +8891,10 @@ body.modal-open {
   font-size: 10px;
   position: relative;
   left: 4px;
+  top: -4px;
 }
 .shop-section .menus-categories-filters-section .son-filter-block .shop-filter-icon-holder i.color {
   color: white !important;
-}
-.shop-section .menus-categories-filters-section .son-filter-block .shop-filter-icon-holder .category-icon {
-  top: -2px;
 }
 .shop-section .menus-categories-filters-section .son-filter-block .color-icon-holder {
   border: none;
@@ -9007,11 +9003,9 @@ body.modal-open {
   text-decoration: none !important;
 }
 .shop-section .products-content-holder .filter-results-holder {
-  flex: 0 0 100%;
-  max-width: 0 0 100% !important;
   min-height: 380px;
   text-align: left;
-  padding: 20px 10px;
+  padding: 20px 10px 20px 15px;
 }
 .shop-section .products-content-holder .filter-results-holder .shop-report-filter-header:nth-child(1), .shop-section .products-content-holder .filter-results-holder .filter-section .filter-left-section .filters-keys-menus .filter-header:nth-child(1), .shop-section .filter-section .filter-left-section .filters-keys-menus .products-content-holder .filter-results-holder .filter-header:nth-child(1), .shop-section .products-content-holder .filter-results-holder .filter-section .filter-right-section .sort-by .filter-header:nth-child(1), .shop-section .filter-section .filter-right-section .sort-by .products-content-holder .filter-results-holder .filter-header:nth-child(1) {
   margin-top: 10px;
@@ -9076,7 +9070,7 @@ body.modal-open {
 .product-details-section .deals-section .deals-owl-carousel .owl-nav {
   display: none !important;
 }
-.product-details-section .deals-section .text, .product-details-section .deals-section .shop-section .products-content-holder .filter-results-holder, .shop-section .products-content-holder .product-details-section .deals-section .filter-results-holder {
+.product-details-section .deals-section .text {
   margin-top: 10px;
   margin-bottom: 5px;
 }
@@ -9188,17 +9182,14 @@ body.modal-open {
 .product-details-section .images-section #product_details_thumb_image_slider .item {
   margin-top: 15px;
   cursor: pointer;
-  opacity: 0.6;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   transition: 0.3s all ease;
 }
 .product-details-section .images-section #product_details_thumb_image_slider .item:hover {
-  opacity: 1;
-  border: 2px solid gold;
+  border: 3px solid gold;
 }
 .product-details-section .images-section #product_details_thumb_image_slider .current .item {
-  opacity: 1;
-  border: 2px solid gold;
+  border: 3px solid gold;
 }
 .product-details-section .images-section .zoom {
   display: inline-block;

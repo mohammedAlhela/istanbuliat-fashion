@@ -97,9 +97,13 @@ class ProductsResource extends JsonResource
 
             'discount_price' => $this->discount_price,
 
+            'price' => $this->price,
+
             'exact_price' => $this->exact_price,
 
             'variations' => $this->variations,
+
+            'sizeGuides' => $this->sizeGuides,
 
             'tags' => $this->tags,
 
@@ -143,8 +147,10 @@ class ProductsResource extends JsonResource
             'colors' => $this->colors,
 
             'sizes' => $this->sizes,
+            'wash_care' => $this->wash_care,
+            'contents' =>  explode(",", $this->contents) ,
 
-        ];
+        ];   
 
     }
 }

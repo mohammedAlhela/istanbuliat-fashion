@@ -8,7 +8,7 @@
                 </categories-header>
 
                 <categories-table :headers="headers" :categories="categories" @showDeleteSnackbar="showDeleteSnackbar"
-                    @updateType="updateType" @editItem="editItem"></categories-table>
+                    @updateStatus="updateStatus" @editItem="editItem"></categories-table>
 
                 <delete-data-snackbar :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()"
                     @deleteData="destroy()" :useDefault="!categories.length"

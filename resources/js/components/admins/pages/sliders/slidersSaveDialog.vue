@@ -41,10 +41,7 @@
                                     </div>
 
                                     <div class="upload-container">
-                                        <v-form
-                                            enctype="multipart/form-data"
-                                            ref="big-image-form"
-                                        >
+                              
                                             <label
                                                 for="big-image-upload"
                                                 class="custom-file-upload"
@@ -67,7 +64,7 @@
                                                 >
                                                 </span>
                                             </span>
-                                        </v-form>
+                                 
                                     </div>
                                     <div class="clearing"></div>
                                 </div>

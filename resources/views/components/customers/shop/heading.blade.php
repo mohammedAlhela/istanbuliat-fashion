@@ -184,8 +184,6 @@
                                          ({{ $color->products_count }})
                                      </span>
 
-
-
                                      <div class="clearing"></div>
                                  </div>
                                  @endif
@@ -224,14 +222,21 @@
          </div>
 
 
+                   
+ 
          <div class="products-number" id = 'shop_filter_menus_products_number_bottom'>
          
          </div>
      </div>
      <div class="clearing"></div>
      <div class="filter-keys-section">
+
+     
+        
          <div class="keys" id="shop_filter_menus_values_keys">
          </div>
+
+  
 
          <div class="clearing"></div>
      </div>

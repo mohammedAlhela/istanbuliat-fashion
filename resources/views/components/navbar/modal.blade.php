@@ -40,7 +40,7 @@
 
                     @foreach ($categories as $key => $item)
                         <div class="link-block">
-                            <img src="{{ $item->big_image }}" alt="">
+                            <img src="{{ $item->image }}" alt="">
                             <a class="link"
                                 href="{{ route('customers-shop', ['category' => getQueryString($item->name)]) }}">
                                 {{ $item->name }}

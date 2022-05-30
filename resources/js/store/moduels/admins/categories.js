@@ -13,6 +13,10 @@ export default {
                     value: "image",
                 },
 
+
+                
+           
+
                 {
                     text: " Name",
                     align: "start",
@@ -25,6 +29,13 @@ export default {
                     align: "start",
                     sortable: true,
                     value: "description",
+                },
+
+                {
+                    text: " Status",
+                    align: "start",
+                    sortable: true,
+                    value: "status",
                 },
 
                 { text: "Actions", value: "actions", sortable: false },
@@ -60,29 +71,19 @@ export default {
                 type: "",
                 description: "",
             },
-            bigImage: {
+            image: {
                 file: "",
                 name: "",
                 preview: "",
             },
 
-            defaultBigImage: {
+            defaultImage: {
                 file: "",
                 name: "",
                 preview: "",
             },
 
-            smallImage: {
-                file: "",
-                name: "",
-                preview: "",
-            },
 
-            defaultSmallImage: {
-                file: "",
-                name: "",
-                preview: "",
-            },
             // ---------- dialog data
         };
     },
@@ -94,55 +95,29 @@ export default {
                 : "Update category data";
         },
 
-        datatableIndex: (state) => {
-            if (state.activeCategoryIndex > -1) {
-                return state.categories.findIndex(function (category) {
-                    return category.id == state.activeCategoryIndex;
-                });
-            }
-            return 0;
-        },
 
-        getSmallImage: (state) => {
+        getImage: (state) => {
             return (
-                state.smallImage.preview ||
-                state.editedItem.small_image ||
-                "/images/categories/small/category.jpg"
+                state.image.preview ||
+                state.editedItem.image ||
+                "/images/categories/category.jpg"
             );
         },
 
-        getBigImage: (state) => {
-            return (
-                state.bigImage.preview ||
-                state.editedItem.big_image ||
-                "/images/categories/big/category.jpg"
-            );
-        },
-
-        getSmallImageParagraph: (state) => {
-            if (state.errors.hasOwnProperty("small_image")) {
-                return `<span class = 'error-paragraph'>  ${state.errors.small_image[0]}  </span> `;
-            } else if (state.smallImage.name) {
-                return `<span class = 'paragraph'>  ${state.smallImage.name}  </span> `;
+        getImageParagraph: (state) => {
+            if (state.errors.hasOwnProperty("image")) {
+                return `<span class = 'error-paragraph'>  ${state.errors.image[0]}  </span> `;
+            } else if (state.image.name) {
+                return `<span class = 'paragraph'>  ${state.image.name}  </span> `;
             } else {
                 return `<span class = 'paragraph'> no image selected </span> `;
             }
         },
 
-        getBigImageParagraph: (state) => {
-            if (state.errors.hasOwnProperty("big_image")) {
-                return `<span class = 'error-paragraph'>  ${state.errors.big_image[0]}  </span> `;
-            } else if (state.bigImage.name) {
-                return `<span class = 'paragraph'>  ${state.bigImage.name}  </span> `;
-            } else {
-                return `<span class = 'paragraph'> no image selected </span> `;
-            }
-        },
     },
 
     mutations: {
         // ---------- main
-
         assignApiData: (state, categories) => {
             state.categories = categories;
             setTimeout(() => {
@@ -201,8 +176,7 @@ export default {
             state.buttonLoading = false;
             state.errors = {};
             state.editedItem = Object.assign({}, state.defaultItem);
-            state.bigImage = Object.assign({}, state.defaultBigImage);
-            state.smallImage = Object.assign({}, state.defaultSmallImage);
+            state.image = Object.assign({}, state.defaultImage);
             state.editedIndex = -1;
         },
 
@@ -229,25 +203,17 @@ export default {
             state.buttonLoading = false;
         },
 
-        bigImageSelected: (state, element) => {
-            state.bigImage.file = element.target.files[0];
-            state.bigImage.name = element.target.files[0].name;
+        imageSelected: (state, element) => {
+            state.image.file = element.target.files[0];
+            state.image.name = element.target.files[0].name;
             let reader = new FileReader();
-            reader.readAsDataURL(state.bigImage.file);
+            reader.readAsDataURL(state.image.file);
             reader.onload = (element) => {
-                state.bigImage.preview = element.target.result;
+                state.image.preview = element.target.result;
             };
         },
 
-        smallImageSelected: (state, element) => {
-            state.smallImage.file = element.target.files[0];
-            state.smallImage.name = element.target.files[0].name;
-            let reader = new FileReader();
-            reader.readAsDataURL(state.smallImage.file);
-            reader.onload = (element) => {
-                state.smallImage.preview = element.target.result;
-            };
-        },
+
         // ---------- dialog data ---------------------------
     },
 
@@ -286,8 +252,7 @@ export default {
         async save({ state, commit, dispatch }) {
             commit("intializeSave");
             let categoryData = new FormData();
-            categoryData.append("big_image", state.bigImage.file);
-            categoryData.append("small_image", state.smallImage.file);
+            categoryData.append("image", state.image.file);
             categoryData.append("name", state.editedItem.name);
 
             categoryData.append(
@@ -327,15 +292,18 @@ export default {
             }
         },
 
-        async updateType({ dispatch }, item) {
+
+
+        async updateStatus({  dispatch }, item) {
             const Data = await axios
-                .get(`/category/updateType/${item.id}`)
+                .get(`/category/updateStatus/${item.id}`)
                 .catch((error) => {
                     toasts.methods.fireErrorToast();
                 });
 
             const DATAFETCHED = await dispatch("fetch");
-            toasts.methods.fireSuccessToast("Type updated successfully");
+            toasts.methods.fireSuccessToast("Status updated successfully");
         },
+
     },
 };

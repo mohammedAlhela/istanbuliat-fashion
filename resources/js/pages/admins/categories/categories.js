@@ -1,5 +1,5 @@
 
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import categoriesTable from '../../../components/admins/pages/categories/categoriesTable.vue'
 import categoriesHeader from '../../../components/admins/pages/categories/categoriesHeader.vue'
 import categoriesSaveDialog from '../../../components/admins/pages/categories/categoriesSaveDialog.vue'
@@ -31,7 +31,7 @@ export default {
     ...mapActions('categories', {
       fetch: 'fetch',
       destroy: 'delete',
-      updateType: 'updateType',
+      updateStatus: 'updateStatus',
 
     }),
 

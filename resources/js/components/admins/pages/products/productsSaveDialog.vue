@@ -22,10 +22,10 @@
             @submit.prevent="saveData()"
             enctype="multipart/form-data"
             lazy-validation
-            ref="saveDataForm"
+            ref="productSaveDialog"
           >
             <v-row>
-              <v-col cols="12">
+              <v-col cols="12 mb-5">
                 <div class="header">The product preview image</div>
 
                 <span class="image-paragraph">
@@ -39,13 +39,13 @@
                   </div>
 
                   <div class="upload-container">
-                    <v-form enctype="multipart/form-data" ref="saveDataForm">
-                      <label for="preview-image" class="custom-file-upload">
+       
+                      <label for="productSaveDialogImage" class="custom-file-upload">
                         <v-icon class="icon"> mdi-pencil </v-icon>
                       </label>
                       <input
                         class="d-none"
-                        id="preview-image"
+                        id="productSaveDialogImage"
                         name="preview-image"
                         type="file"
                         @change="imageSelected"
@@ -53,7 +53,7 @@
                       <span class="d-inline-block ml-2">
                         <span v-html="getImageParagraph"> </span>
                       </span>
-                    </v-form>
+                  
                   </div>
 
                   <div class="clearing"></div>
@@ -61,7 +61,7 @@
               </v-col>
               <!-- send images form -->
 
-              <v-col cols="12" md="6" class="py-0 pt-3">
+              <v-col cols="12" md="6" class="py-0">
                 <div class="input-header"><span> Category </span></div>
                 <v-autocomplete
                   required
@@ -91,7 +91,7 @@
                   solo
                   dense
                   return-object
-                  :value="editedItem.sizes"
+                  :value="editedItem.colorsNamesArray"
                   @input="fillDialogValues('colorsNamesArray', $event)"
                   multiple
                 ></v-autocomplete>
@@ -109,7 +109,7 @@
                   solo
                   dense
                   return-object
-                  :value="editedItem.sizes"
+                  :value="editedItem.sizesNamesArray"
                   @input="fillDialogValues('sizesNamesArray', $event)"
                   multiple
                 ></v-autocomplete>
@@ -185,7 +185,22 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" class="py-0">
+
+      
+                <v-col cols="12" md="6" class="py-0">
+                <div class="input-header"><span> Short description </span></div>
+
+                <v-textarea
+                  required
+                  :rules="errors.short_description"
+                  solo
+                  dense
+                  :value="editedItem.short_description"
+                  @input="fillDialogValues('shortDescription', $event)"
+                ></v-textarea>
+              </v-col>
+
+                <v-col cols="12" md="6" class="py-0">
                 <div class="input-header"><span> Long description </span></div>
 
                 <v-textarea
@@ -198,18 +213,38 @@
                 ></v-textarea>
               </v-col>
 
-              <v-col cols="12" class="py-0">
-                <div class="input-header"><span> Short description </span></div>
-
-                <v-textarea
-                  required
-                  :rules="errors.short_description"
+                            <v-col cols="12" md="6" class="py-0">
+                <div class="input-header"><span> Materials Contents </span></div>
+                <v-combobox
+  
+                  multiple
+                  :value=" editedItem.contents"
+                  @input="fillDialogValues('contents', $event)"
                   solo
                   dense
-                  :value="editedItem.short_description"
-                  @input="fillDialogValues('shortDescription', $event)"
-                ></v-textarea>
+                  append-icon
+                  chips
+                  deletable-chips
+                >
+                </v-combobox>
               </v-col>
+
+
+                              <v-col cols="12" md="6" class="py-0">
+                <div class="input-header"><span> Wash care </span></div>
+                <v-text-field
+                  required
+            
+                  solo
+                  dense
+                  type="text"
+                  :value="editedItem.wash_care"
+                  @input="fillDialogValues('wash_care', $event)"
+                ></v-text-field>
+              </v-col>
+
+
+
 
               <!-- actions button  -->
               <v-col cols="12" class="buttons-holder">
@@ -270,7 +305,7 @@ export default {
     ]),
 
     saveData() {
-      this.$refs.saveDataForm.validate()
+      this.$refs.productSaveDialog.validate()
       this.saveAction()
     },
 

@@ -17,10 +17,10 @@ class ShopController extends Controller
     public function index()
     {
 
-        $products = Product::orderBy('updated_at')->with('category')->get();
+        $products = Product::orderBy('updated_at')->where('status' , 1)->with('category')->get();
         $sizes = Size::all();
         $colors = Color::all();
-        $categories = Category::with('products')->get();
+        $categories = Category::where('status' , '!=' , 0)->with('products')->get();
         $max_price = Product::orderBy('price' , 'desc')->first()->price;
 
         foreach ($colors as $color) { 

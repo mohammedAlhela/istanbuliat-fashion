@@ -88,7 +88,7 @@
                     mdi-pencil
                   </v-icon>
 
-                  <v-icon class="icon" @click="manageImages(variation)">
+                  <v-icon class="icon ml-1" @click="manageImages(variation)">
                     mdi-folder-multiple-image
                   </v-icon>
                 </div>
