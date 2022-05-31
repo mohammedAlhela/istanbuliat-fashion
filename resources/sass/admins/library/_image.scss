@@ -1,5 +1,6 @@
 .upload-image-container {
   .big-image-container {
+    max-width:1000px;
     width: 60%;
     float: left;
 
@@ -17,6 +18,7 @@
   .small-image-container {
     width: 40%;
     float: left;
+    max-width:500px;
 
     @media (max-width: 1000px) {
       float: none;

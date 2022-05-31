@@ -20,46 +20,6 @@
                                 </a>
                             </v-chip>
                         </span>
-
-                        <!-- <v-chip class="p-2" small label color="#f0f8ff">
-                            <a href="" class="" @click.prevent="showImportForm()">
-                                <span class=""> Import Excel </span>
-                            </a>
-                        </v-chip> -->
-
-                        <v-expand-transition>
-                            <div v-if="importForm">
-                                <v-form class="form" @submit.prevent="importData()" enctype="multipart/form-data"
-                                    lazy-validation ref="importDataForm">
-                                    <div class="upload-file-container">
-                                        <div class="upload-container">
-                                            <v-form enctype="multipart/form-data" ref="big-image-form">
-                                                <label for="big-image-upload" class="custom-file-upload">
-                                                    <v-icon class="icon">
-                                                        mdi-pencil
-                                                    </v-icon>
-                                                </label>
-                                                <input class="d-none" id="big-image-upload" name="file" type="file"
-                                                    @change="fileSelected" />
-
-                                                <span class="d-inline-block ml-2">
-                                                    <span v-html="
-                                                        getFileParagraph
-                                                    ">
-                                                    </span>
-
-                                                </span>
-                                            </v-form>
-                                        </div>
-                                        <div class="clearing"></div>
-                                    </div>
-
-                                    <v-btn type="submit" color="primary" class="ma-2 white--text import-button">
-                                        Upload
-                                    </v-btn>
-                                </v-form>
-                            </div>
-                        </v-expand-transition>
                     </div>
 
                     <div class="col-4 text-right pr-5">
@@ -110,7 +70,7 @@
 
                                     </div>
                                     <div class="col-6 justify-content-end align-items-center d-flex">
-                                        <v-sheet :rounded="rounded" height="20" width="60" :color="item.hex"></v-sheet>
+                                        <v-sheet style = "cursor: pointer;" :rounded="rounded" height="20" width="60" :color="item.hex" @click="editItem(item)"></v-sheet>
                                     </div>
                                 </div>
                             </v-card-title>

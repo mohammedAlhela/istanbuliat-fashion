@@ -273,6 +273,7 @@ textarea:focus {
 }
 
 .upload-image-container .big-image-container, .upload-file-container .big-image-container {
+  max-width: 1000px;
   width: 60%;
   float: left;
 }
@@ -289,6 +290,7 @@ textarea:focus {
 .upload-image-container .small-image-container, .upload-file-container .small-image-container {
   width: 40%;
   float: left;
+  max-width: 500px;
 }
 @media (max-width: 1000px) {
   .upload-image-container .small-image-container, .upload-file-container .small-image-container {

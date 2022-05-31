@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Admins;
 use App\Exports\SizeExport;
 use App\Http\Controllers\Controller;
 use App\Imports\SizeImport;
-use App\Models\Size;
 use App\Models\Product;
-use App\Models\Variation;
-use Excel;
+use App\Models\Size;
 use DB;
+use Excel;
 use Illuminate\Http\Request;
 
 class SizeController extends Controller
@@ -21,6 +20,18 @@ class SizeController extends Controller
         $this->middleware([
             'admin']);
 
+    }
+
+    public function updateData($size, $request)
+    {
+        $size->name = $request->name;
+
+        $size->save();
+        $response = [
+            'size' => $size,
+        ];
+
+        return response($response, 201);
     }
 
     public function validateData($request, $id)
@@ -35,19 +46,7 @@ class SizeController extends Controller
 
     public function index()
     {
-        $sizes = Size::orderBy('id', 'DESC')->with('variations')->get();
-
-        foreach ($sizes as $size) { 
-            $productsIds = DB::table('variations')->where('size_id', $size->id)->pluck('product_id')->all();
-            $uniqueProductsIds = array();
-            foreach ( $productsIds as $productId) { 
-             if(!in_array($productId , $uniqueProductsIds)) { 
-                array_push($uniqueProductsIds , $productId) ;
-             }
-            }
-            $size->products = Product::whereIn('id' , $uniqueProductsIds)->get() ;
-        }
-
+        $sizes = Size::orderBy('id', 'DESC')->get();
 
         $response = [
             'sizes' => $sizes,
@@ -58,34 +57,16 @@ class SizeController extends Controller
 
     public function store(Request $request)
     {
-
-        $this->validateData($request, null);
-
         $size = new Size;
-        $size->name = $request->name;
-
-        $size->save();
-        $response = [
-            'size' => $size,
-        ];
-
-        return response($response, 201);
+        $this->validateData($request, null);
+        $this->updateData($size, $request);
     }
 
     public function update(Request $request, $id)
     {
-
-        $this->validateData($request, $id);
-
         $size = Size::find($id);
-        $size->name = $request->name;
-
-        $size->save();
-        $response = [
-            'size' => $size,
-        ];
-
-        return response($response, 201);
+        $this->validateData($request, $id);
+        $this->updateData($size, $request);
     }
 
     public function delete($id)
@@ -95,28 +76,27 @@ class SizeController extends Controller
         $size->delete();
 
         $response = [
-            'message' => 'Size deleted successfully',
+            'size' =>  $size,
         ];
         return response($response, 201);
     }
 
-    public function import(Request $request)
-    {
+    // public function import(Request $request)
+    // {
 
-        $fields = $request->validate([
-            'file' => ['required'],
+    //     $fields = $request->validate([
+    //         'file' => ['required'],
 
-        ]);
+    //     ]);
 
-        Excel::import(new SizeImport,  request()->file("file" ));
-        return redirect()->back()->with('message', 'data impoted successfully');
+    //     Excel::import(new SizeImport, request()->file("file"));
+    //     return redirect()->back()->with('message', 'data impoted successfully');
 
-    }
+    // }
 
     public function export(Request $request)
     {
         return Excel::download(new SizeExport, 'sizes.xlsx');
-
 
     }
 

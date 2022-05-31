@@ -63,7 +63,7 @@
 
 
                          <div class="img">
-                             <img src="/images/options/sizes/size-guid.png" alt="sizing guide" />
+                             <img src="/images/options/sizes/size-guid1.png" alt="sizing guide" />
                          </div>
 
                          <div class="guide-informations-list">

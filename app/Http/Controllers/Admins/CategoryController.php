@@ -18,15 +18,37 @@ class CategoryController extends Controller
 
     }
 
-    public function uploadImage($image, $category, $id)
+    public function updateData($category, $request)
     {
+
+        $category->name = $request->name;
+
+        $category->description = $request->description;
+    }
+
+    public function uploadImage($category, $id)
+    {
+
+        $image = request()->file("image");
         if ($image) {
+            // delete old image
+              if ($id && $category->image != '/images/categories/category.jpg' && file_exists(public_path() . $category->image)) {
+                unlink(substr($category->image, 1));
+            }
+            // delete old image
             $imageName = $image->getClientOriginalExtension();
             $imageName = time() . "." . $imageName;
-            Image::make($image)->fit(800, 1200)->save(public_path("/images/categories/") . $imageName);
+            Image::make($image)->fit(100, 100)->save(public_path("/images/categories/") . $imageName, 20);
             $category->image = "/images/categories/" . $imageName;
         }
 
+        $category->save();
+
+        $response = [
+            'category' => $category,
+        ];
+
+        return response($response, 201);
 
     }
 
@@ -48,42 +70,20 @@ class CategoryController extends Controller
 
         $category = new Category;
 
-        $category->name = $request->name;
+        $this->updateData($category, $request);
 
-        $category->description = $request->description;
+        $this->uploadImage($category, null);
 
-        $image = request()->file("image");
-
-        $this->uploadImage($image , $category, null);
-
-        $category->save();
-
-        $response = [
-            'category' => $category,
-        ];
-
-        return response($response, 201);
     }
 
     public function update(CategoryRequest $request, $id)
     {
         $category = Category::find($id);
 
-        $category->name = $request->name;
+        $this->updateData($category, $request);
 
-        $category->description = $request->description;
-  
-        $image = request()->file("image");
+        $this->uploadImage($category, $id);
 
-        $this->uploadImage($image, $category, $id);
-
-        $category->save();
-
-        $response = [
-            'category' => $category,
-        ];
-
-        return response($response, 201);
     }
 
     public function delete($id)
@@ -91,10 +91,10 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
 
-        if ($category->image && $category->image != '/images/categories/category.jpg' && file_exists(public_path() . $category->image)) {
-            $imageDeleted = unlink(substr($category->image, 1));
+        if ($category->image != '/images/categories/category.jpg' && file_exists(public_path() . $category->image)) {
+            $imageFileDeleted = unlink(substr($category->image, 1));
 
-            if ($imageDeleted ) {
+            if ($imageFileDeleted) {
 
                 $category->delete();
 
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         }
 
         $response = [
-            'message' => "Category deleted",
+            'category' => $category,
         ];
 
         return response($response, 201);
@@ -118,7 +118,7 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
 
-        $category->status  ? $category->status = 0 :  $category->status = 1;
+        $category->status ? $category->status = 0 : $category->status = 1;
 
         $category->save();
 

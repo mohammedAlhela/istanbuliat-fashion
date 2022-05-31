@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Size extends Model
 {
@@ -12,6 +13,11 @@ class Size extends Model
     protected $guarded = [];
 
     protected $fillable = [ 'id', 'name'];
+
+    protected $appends = [
+        'products',
+    ];
+
 
     public $timestamps = false;
 
@@ -23,5 +29,19 @@ class Size extends Model
     public function sizeGuides()
     {
         return $this->hasMany(SizeGuide::class , 'size_id'  , 'id');
+    }
+
+    public function getProductsAttribute()
+    {
+
+        $productsIds = DB::table('variations')->where('size_id', $this->id)->pluck('product_id')->all();
+        $uniqueProductsIds = array();
+        foreach ($productsIds as $productId) {
+            if (!in_array($productId, $uniqueProductsIds)) {
+                array_push($uniqueProductsIds, $productId);
+            }
+        }
+        return DB::table('products')->whereIn('id', $uniqueProductsIds)->get();
+
     }
 }

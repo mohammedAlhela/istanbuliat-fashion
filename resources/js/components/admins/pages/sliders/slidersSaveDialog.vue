@@ -70,7 +70,7 @@
                                 </div>
                             </v-col>
 
-                                 <v-col cols="12">
+                         <v-col cols="12" class = "mt-3">
                                 <span class="image-paragraph">(small screen image)
                                     Maximum allowed file size is 1000 KB.
                                     Recomended image dimensions are 800 width

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class ProductOfferSeeder extends Seeder
@@ -15,13 +16,13 @@ class ProductOfferSeeder extends Seeder
 
     public function run()
     {
-        $products = Product::all();
+        // $products = Product::all();
 
-            foreach ($products  as $product) {
+        //     foreach ($products  as $product) {
 
-            $product->offer = $product->discount_price ? ( ($product->selling_price - $product->discount_price) * 100 ) / $product->selling_price : null ;
-            $product->save();
-            }
+        //     $product->offer = $product->discount_price ? ( ($product->selling_price - $product->discount_price) * 100 ) / $product->selling_price : null ;
+        //     $product->save();
+        //     }
 
     }
 }

@@ -37,9 +37,6 @@ class ColorsExportResource extends JsonResource
 
             'note' => count($this->variations) ? "this record has related data please dont delete it" : "",
 
-            // 'created_at' => $this->created_at,
-
-            // 'updated_at' => $this->updated_at,
 
         ];
 

@@ -35,21 +35,18 @@ class SliderRequest extends FormRequest
             $bigImageError = "required";
             $smallImageError = "required";
 
-
-
-
         } else {
 
             $bigImageError = "nullable";
             $smallImageError = "nullable";
 
-
         }
 
         return [
             "title" => ["required", "min:5", "string", "max:50"],
-            "big_image" => [$bigImageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
-            "small_image" => [$smallImageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
+            "link" => ["required"],
+            "big_image" => [$bigImageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
+            "small_image" => [$smallImageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
 
         ];
 

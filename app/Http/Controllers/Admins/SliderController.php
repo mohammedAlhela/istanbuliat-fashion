@@ -14,8 +14,8 @@ class SliderController extends Controller
 
         $this->middleware([
 
-            'admin']);
-
+            'admin',
+        ]);
     }
 
     public function index()
@@ -28,73 +28,40 @@ class SliderController extends Controller
         ];
 
         return response($response, 201);
-
     }
 
-    public function store(SliderRequest $request)
+    public function updateData($slider, $request)
     {
-        $slider = new Slider;
+
         $slider->title = $request->title;
         $slider->link = $request->link;
-
-        $big_image = request()->file("big_image");
-        $bigImageName = $big_image->getClientOriginalExtension();
-        $bigImageName = time() . "." . $bigImageName;
-        Image::make($big_image)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName);
-
-        $small_image = request()->file("small_image");
-        $smallImageName = $small_image->getClientOriginalExtension();
-        $smallImageName = time() . "." . $smallImageName;
-        Image::make($small_image)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName);
-
-        $slider->big_image = "/images/sliders/big/" . $bigImageName;
-        $slider->small_image = "/images/sliders/small/" . $smallImageName;
-
-        $slider->save();
-
-        $response = [
-            'slider' => $slider,
-        ];
-
-        return response($response, 201);
-
     }
 
-    public function update(SliderRequest $request, $id)
+    public function uploadImages($slider, $id)
     {
-        $slider = slider::find($id);
-        $slider->title = $request->title;
-        $slider->link = $request->link;
-
-        // add images section +++++++++++
-        $big_image = request()->file("big_image");
-        $small_image = request()->file("small_image");
-
-        if ($big_image) {
-            // delete the old big image
-
-            if ($slider->big_image && $slider->big_image != '/images/sliders/big/slider.jpg' && file_exists(public_path() . $slider->big_image)) {
+        $bigImage = request()->file("big_image");
+        if ($bigImage) {
+            // delete old big image
+            if ($id && $slider->big_image != '/images/sliders/big/slider.jpg' && file_exists(public_path() . $slider->big_image)) {
                 unlink(substr($slider->big_image, 1));
             }
-
-            $bigImageName = $big_image->getClientOriginalExtension();
+            // delete old big image
+            $bigImageName = $bigImage->getClientOriginalExtension();
             $bigImageName = time() . "." . $bigImageName;
-            Image::make($big_image)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName);
+            Image::make($bigImage)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName, 80);
             $slider->big_image = "/images/sliders/big/" . $bigImageName;
-
         }
 
-        if ($small_image) {
-            // delete the old big image
-
-            if ($slider->small_image && $slider->small_image != '/images/sliders/small/slider.jpg' && file_exists(public_path() . $slider->small_image)) {
+        $smallImage = request()->file("small_image");
+        if ($smallImage) {
+            // delete old small image
+            if ($id && $slider->small_image != '/images/sliders/small/slider.jpg' && file_exists(public_path() . $slider->small_image)) {
                 unlink(substr($slider->small_image, 1));
             }
-
-            $smallImageName = $small_image->getClientOriginalExtension();
+            // delete old small image
+            $smallImageName = $smallImage->getClientOriginalExtension();
             $smallImageName = time() . "." . $smallImageName;
-            Image::make($small_image)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName);
-
+            Image::make($smallImage)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName, 50);
             $slider->small_image = "/images/sliders/small/" . $smallImageName;
 
         }
@@ -108,21 +75,46 @@ class SliderController extends Controller
         return response($response, 201);
     }
 
+    public function store(SliderRequest $request)
+    {
+        $slider = new Slider;
+        $this->updateData($slider, $request);
+        $this->uploadImages($slider, null);
+    
+    }
+
+    public function update(SliderRequest $request, $id)
+    {
+        $slider = slider::find($id);
+        $this->updateData($slider, $request);
+        $this->uploadImages($slider, $id);
+    }
+
     public function delete($id)
     {
 
         $slider = slider::find($id);
 
-        if ($slider->big_image && $slider->big_image != '/images/sliders/big/slider.jpg' && file_exists(public_path() . $slider->big_image)) {
-            $bigImageDeleted = unlink(substr($slider->big_image, 1));
-            $smallImageDeleted = unlink(substr($slider->small_image, 1));
+        if ($slider->big_image != '/images/sliders/big/slider.jpg') {
+            $bigImageFileDeleted = false;
+            $smallImageFileDeleted = false;
+            $bigImageFileIsExist = file_exists(public_path() . $slider->big_image);
 
-            if ($bigImageDeleted && $smallImageDeleted) {
+            $smallImageFileIsExist = file_exists(public_path() . $slider->small_image);
+
+            if ($bigImageFileIsExist) {
+                $bigImageFileDeleted = unlink(substr($slider->big_image, 1));
+            }
+
+            if ($smallImageFileIsExist) {
+                $smallImageFileDeleted = unlink(substr($slider->small_image, 1));
+            }
+
+            if ((!$bigImageFileIsExist && !$smallImageFileIsExist) || (($bigImageFileIsExist && $bigImageFileDeleted) && (!$smallImageFileIsExist)) || (($smallImageFileIsExist && $smallImageFileDeleted) && (!$bigImageFileIsExist)) || (($smallImageFileIsExist && $smallImageFileDeleted) && ($bigImageFileIsExist && $bigImageFileDeleted))) {
 
                 $slider->delete();
 
             }
-
         } else {
 
             $slider->delete();
@@ -130,6 +122,7 @@ class SliderController extends Controller
 
         $response = [
             'slider' => $slider,
+
         ];
 
         return response($response, 201);
@@ -146,11 +139,10 @@ class SliderController extends Controller
         $slider->save();
 
         $response = [
+
             'slider' => $slider,
         ];
 
         return response($response, 201);
-
     }
-
 }

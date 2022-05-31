@@ -3,7 +3,6 @@
     margin: auto;
     width: 300px;
     height: 100%;
-
 }
 
 .modal.left .modal-content {
@@ -13,7 +12,6 @@
 
 .modal.left .modal-body {
     padding: 0px !important;
-
 }
 
 /* ----- MODAL STYLE ----- */
@@ -24,69 +22,62 @@
 }
 
 .modal-body {
-    border-radius:  0px !important;
+    border-radius: 0px !important;
     .main {
         width: 87%;
-      margin: 5px auto;
-      margin-top: 30px;
-      .search {
-        display: inline-block;
-        position: relative;
-        min-width: 246px;
+        margin: 5px auto;
+        margin-top: 30px;
+        .search {
+            display: inline-block;
+            position: relative;
+            min-width: 246px;
 
-         @extend .link-left-to-right;
+            @extend .link-left-to-right;
 
-        &:after {
-            top: 33px;
-            background: $black-gray;
-            height: 1px !important;
-        }
+            &:after {
+                top: 33px;
+                background: $black-gray;
+                height: 1px !important;
+            }
 
-        input {
+            input {
+                border: none;
+                border-bottom: 1px solid $light-icon-color;
 
-            border: none;
-            border-bottom: 1px solid $light-icon-color;
+                border-radius: 0px !important;
+                padding-bottom: 18px !important;
 
-            border-radius: 0px !important;
-            padding-bottom: 18px !important;
+                @extend .no-focus;
 
-            @extend .no-focus;
+                &::placeholder {
+                    @extend .paragraph;
+                }
 
-            &::placeholder {
                 @extend .paragraph;
-
             }
+            button {
+                position: absolute;
+                top: -5px;
+                right: 20px;
 
-            @extend .paragraph;
-        }
-        button {
-            position: absolute;
-            top: -5px;
-            right: 20px;
-    
-            .search-image {
-                width: 16px;
-    
-    
+                .search-image {
+                    width: 16px;
+                }
             }
         }
     }
-    }
-
-
 
     .links-blocks-holder {
         margin-top: 30px;
         .link-block {
-
             padding: 10px 20px 10px 20px;
 
             cursor: pointer;
             &:hover {
-                .icon i , a {
+                .icon i,
+                a {
                     color: $main-color !important;
                 }
-
             }
 
             img {
@@ -102,8 +93,6 @@
                 cursor: pointer;
 
                 @extend .link;
-
-
             }
             .active {
                 color: $main-color !important;
@@ -121,7 +110,7 @@
                     color: $black-gray !important;
                 }
                 cursor: pointer;
-              margin-top: 20px;
+                margin-top: 20px;
                 float: right;
                 padding-right: 10px;
                 text-align: right;
@@ -199,25 +188,32 @@
     content: "\f13a";
 }
 
-
-
 body.modal-open {
     height: 100vh;
     overflow-y: hidden;
-  }
+}
+
+// success alert
+.success-alert {
+    text-align: center !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    background-color: $light-gold !important;
+    border-color: white !important;
+    @extend .paragraph;
+    margin-bottom: 0px !important;
+
+    .close {
+        span {
+            color: $black-gray !important;
+        }
+    }
+}
 
 
-
-  // success alert 
-  .success-alert { 
-   text-align: center !important;
-      padding-left: 20px !important;
-      padding-right: 20px !important;
-      background-color:  $light-gold !important;
-      border-color: white !important;
-      color: $black-gray!important;
-      margin-bottom: 0px !important;
-      font-size: 14px;
-
-  }
-
+// images zoom in products details 
+@media(max-width:650px) { 
+    .zomm-image {
+        cursor: unset !important;
+    }
+}
