@@ -147,6 +147,15 @@ export default {
 
   actions: {
 
+
+     closeDialogAction({commit }) {
+      commit('closeDialog');
+      setTimeout (()=> { 
+        commit("products/closeData", null, { root: true });
+      }  , 200)
+
+    },
+
     async delete({ state, dispatch, commit }) {
       commit('closeDeleteSnackbar')
       const Data = await axios
@@ -163,9 +172,6 @@ export default {
 
   async  save({ state, commit, dispatch }) {
       commit('intializeSave')
-
-
-
 
       let sizeGuideData = new FormData()
       sizeGuideData.append('id', state.editedItem.id)

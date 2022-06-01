@@ -229,6 +229,18 @@ export default {
 
   actions: {
 
+    
+
+    closeDialogAction({commit }) {
+      commit('closeDialog');
+      setTimeout (()=> { 
+        commit("products/closeData", null, { root: true });
+      }  , 200)
+    
+
+    },
+
+    
     async delete({ state, dispatch, commit }) {
       commit('closeDeleteSnackbar')
       const Data = await axios

@@ -124,7 +124,7 @@
                     {{ item.name }} <br />
 
                     <span class="items-snackbar-span mt-1">
-                        {{ item.variations.length }} Items</span
+                        {{ item.variations.length }} Variations</span
                     >
 
                 </td>

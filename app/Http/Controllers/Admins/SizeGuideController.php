@@ -20,13 +20,15 @@ class SizeGuideController extends Controller
     public function delete($id)
     {
         $sizeGuide = SizeGuide::find($id);
-            $sizeGuide->delete();
-        return 'record deleted successfully';
+        $sizeGuide->delete();
+        $response = [
+            'sizeGuide' => $sizeGuide,
+        ];
+        return response($response, 201);
     }
 
     public function updateData($sizeGuide, $request)
     {
-
         $sizeGuide->product_id = $request->product_id;
         $sizeGuide->size_id = $request->size_id;
         $sizeGuide->product_name = $request->product_name;

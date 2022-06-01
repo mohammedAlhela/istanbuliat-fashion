@@ -23,6 +23,17 @@ class VariationController extends Controller
 
     }
 
+
+    
+    public function updateData($variationImage, $request)
+    {
+
+        $variationImage->variation_id = $request->variation_id;
+        $variationImage->color_id = $request->color_id;
+        $variationImage->size_id = $request->size_id;
+    }
+
+
     public function updateProduct($product_id)
     {
         $product = Product::find($product_id);
@@ -56,19 +67,21 @@ class VariationController extends Controller
 
         $productVariation = Variation::find($id);
 
-        if ($productVariation->image && $productVariation->image != '/images/products/variations/variation.jpg' && file_exists(public_path() . $productVariation->image)) {
+        if ( $productVariation->image != '/images/products/variations/variation.jpg' && file_exists(public_path() . $productVariation->image)) {
 
-            $fileDeleted = unlink(substr($productVariation->image, 1));
+            $imageFileDeleted = unlink(substr($productVariation->image, 1));
 
-            if ($productVariation) {
+            if ($imageFileDeleted) {
 
                 $productVariation->delete();
+                VariationImage::where('variation_id' , $id)->delete();
 
             }
 
         } else {
            
             $productVariation->delete();
+            VariationImage::where('variation_id' , $id)->delete();
         }
 
         $this->updateProduct($productVariation->product_id);
@@ -88,7 +101,7 @@ class VariationController extends Controller
         $imageSrc = null;
         $imageName = $image->getClientOriginalExtension();
         $imageName = time() . '.' . $imageName;
-        $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName);
+        $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName , 50);
         $imageSrc = '/images/products/variations/' . $imageName;
 
         DB::table('variations')->insert([
@@ -118,13 +131,14 @@ class VariationController extends Controller
     public function update(VariationRequest $request, $id)
     {
         $product = Product::find($request->product_id);
+        
         $image = request()->file('image');
         $imageSrc = null;
 
         if ($image) {
             $imageName = $image->getClientOriginalExtension();
             $imageName = time() .'.' . $imageName;
-            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName);
+            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName , 50);
             $imageSrc = '/images/products/variations/' . $imageName;
 
             $productVariation = DB::table('variations')->where('id', $id)->get()->first();

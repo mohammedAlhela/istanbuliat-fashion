@@ -16,15 +16,15 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(5)->create();
         //\App\Models\Category::factory(6)->create();
         // \App\Models\Color::factory(6)->create();
-         //\App\Models\Size::factory(6)->create();
-        //   \App\Models\Product::factory(6)->create();
-        //    \App\Models\Tag::factory(10)->create();
+        //\App\Models\Size::factory(6)->create();
+        //  \App\Models\Product::factory(15)->create();
+        //   \App\Models\Tag::factory(10)->create();
         //   \App\Models\Tag::factory(10)->create();
         //   \App\Models\Variation::factory(40)->create();
-        //  $this->call([ProductTagSeeder::class]);
+        //$this->call([ProductTagSeeder::class]);
         //   $this->call([CategoryProductDemoSeeder::class]);
         //   $this->call([ProductPriceSeeder::class]);
-       //   $this->call([ProductOptionsSeeder::class]);
+        // $this->call([ProductOptionsSeeder::class]);
         // $this->call([ProductOfferSeeder::class]);
 
     }

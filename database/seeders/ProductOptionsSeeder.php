@@ -21,7 +21,10 @@ class ProductOptionsSeeder extends Seeder
 
         $products = Product::all();
                 foreach($products as $product) { 
-                $product->status = 1;
+                // $product->image = '/images/products/product.jpg';
+                // $product->wash_care = 'Cold water wash';
+                // $product->contents = '60% cottons,40% ligra';
+                //  $product->status = 1;
                 $product->save();
             }
     }

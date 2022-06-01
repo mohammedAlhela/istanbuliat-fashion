@@ -16,64 +16,40 @@ jQuery(document).ready(function ($) {
         },
     });
 
-    $(".product_details-owl-carousel").owlCarousel({
-        loop: false,
-        margin: 10,
-        nav: true,
 
-        autoplay: false,
-        dots: false,
+    $(".categories-owl-carousel").owlCarousel({
+        smartSpeed: 600,
+        loop: false,
         navText: [
             "<i class ='fa fa-chevron-left'> </i>",
             "<i class ='fa fa-chevron-right'> </i>",
         ],
         responsive: {
             0: {
-                items: 1,
-            },
-        },
-    });
-
-    $(".categories-owl-carousel").owlCarousel({
-        loop: true,
-
-        nav: true,
-        smartSpeed: 600,
-
-        autoplay: true,
-        autoplayTimeout: 3000,
-
-        navText: ["", ""],
-
-        responsive: {
-            0: {
+                margin: 10,
                 items: 2,
-                margin: 20,
             },
 
-            768: {
+            700: {
                 margin: 20,
                 items: 3,
             },
 
             992: {
-                margin: 40,
+                margin: 20,
                 items: 4,
             },
         },
     });
 
-    $(".deals-owl-carousel").owlCarousel({
-        loop: true,
-
-        // nav: true,
+    $(".deals-owl-carousel").owlCarousel({  nav: true,
+        
         smartSpeed: 600,
-
-        autoplay: true,
-        autoplayTimeout: 5000,
-
-        // navText: ["", ""],
-
+        loop: false,
+        navText: [
+            "<i class ='fa fa-chevron-left'> </i>",
+            "<i class ='fa fa-chevron-right'> </i>",
+        ],
         responsive: {
             0: {
                 margin: 10,

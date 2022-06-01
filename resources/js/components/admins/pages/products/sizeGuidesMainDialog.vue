@@ -8,7 +8,7 @@
         >
             <v-card class="variations-dialog-container " flat>
                 <v-toolbar dark color="blue">
-                    <v-btn icon @click="closeDialog()" class="no-focus">
+                    <v-btn icon @click="closeDialogAction()" class="no-focus">
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                     <v-toolbar-title>
@@ -166,6 +166,7 @@ export default {
     methods: {
         ...mapActions("sizeGuides", {
             destroy: "delete",
+                closeDialogAction: 'closeDialogAction',
         }),
 
         ...mapMutations("sizeGuides", [
@@ -173,7 +174,7 @@ export default {
             "editItem",
             "showDeleteSnackbar",
             "closeDeleteSnackbar",
-            "closeDialog",
+          
         ]),
     },
 };

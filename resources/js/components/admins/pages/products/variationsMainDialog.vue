@@ -3,7 +3,7 @@
     <v-dialog v-if="editedIndex > -1" v-model="dialog" fullscreen transition="dialog-bottom-transition">
       <v-card class="variations-dialog-container" flat>
         <v-toolbar dark color="blue">
-          <v-btn icon @click="closeDialog()" class="no-focus">
+          <v-btn icon @click="closeDialogAction()" class="no-focus">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title> Manage product variations</v-toolbar-title>
@@ -106,7 +106,7 @@
 
         <delete-data-snackbar :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()" @deleteData="destroy()"
           :useDefault="!products[datatableIndex].variations.length"
-          customParagraph="are you sure you want to delete the product variation ?"></delete-data-snackbar>
+          customParagraph="are you sure you want to delete the product variation ? "></delete-data-snackbar>
 
         <variations-save-dialog>
         </variations-save-dialog>
@@ -164,6 +164,8 @@ export default {
     ...mapActions('variations', {
       destroy: 'delete',
       manageImages: 'manageImages',
+      closeDialogAction: 'closeDialogAction',
+      
 
     }),
 
@@ -172,7 +174,7 @@ export default {
       'editItem',
       'showDeleteSnackbar',
       'closeDeleteSnackbar',
-      'closeDialog',
+   
     ]),
   },
 }

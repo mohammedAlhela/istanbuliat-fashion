@@ -50,12 +50,15 @@ class ProductRequest extends FormRequest
             "colorsNamesArray" => [$colorsError],
             "sizesNamesArray" => [$sizesError],
             "selling_price" => ["required"],
-            "category_id" => ["required"],
+            "contents" => ["required"],
+            "wash_care" => ["required"],
+
 
             "name" => ["unique:products,name," . $id, "required", "string", "min:5", "max:50"],
             "short_description" => ["required", "string", "min:10", "max:300"],
             "long_description" => ["required", "string", "min:50", "max:1000"],
-            "image" => [$imageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
+            "image" => [$imageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" , "max:1000"],
+            
         ];
 
     }

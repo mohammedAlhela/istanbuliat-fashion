@@ -68,18 +68,7 @@ class ProductsResource extends JsonResource
         }
         // generate sizes array and string from the relation sizes
 
-        // calc qty and orders from the variations
-        $total_qty = 0;
-        $total_ordered = 0;
 
-        $productVariations = DB::table('variations')->where('product_id', $this->id)->get();
-
-        foreach ($productVariations as $variation) {
-            $total_qty += (int) $variation->stock_qty;
-            $total_ordered += (int) $variation->stock_ordered;
-        }
-
-        // calc and qty orders from the variations
 
         return [
 
@@ -140,14 +129,16 @@ class ProductsResource extends JsonResource
 
             'updated_at' => $this->updated_at,
 
-            'stock_orders' => $total_qty,
+            'stock_orders' => $this->stock_ordered,
 
-            'stock_qty' => $total_ordered,
+            'stock_qty' =>$this->stock_qty,
 
             'colors' => $this->colors,
 
             'sizes' => $this->sizes,
+
             'wash_care' => $this->wash_care,
+            
             'contents' =>  explode(",", $this->contents) ,
 
         ];   

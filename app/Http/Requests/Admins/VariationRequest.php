@@ -52,7 +52,7 @@ class VariationRequest extends FormRequest
     
         
         ],
-            'image' => [   $imageError , 'image', "mimes:jpg,png,jpeg,gif,svg,webp"],
+            'image' => [   $imageError , 'image', "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
         ];
     }
 

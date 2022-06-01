@@ -16,17 +16,114 @@
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <!-- Styles -->
+
+
+    <style>
+        .preloader {
+            background-color: rgb(235, 241, 247);
+            height: 100vh !important;
+            width: 100% !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999999 !important;
+            transition: 0.6s 0.6s all ease-in-out;
+            margin: 0 auto;
+            overflow: hidden;
+            display: flex;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .preloader .loader-holder {
+            height: 120px !important;
+        }
+
+        .preloader p {
+            font-weight: 500 !important;
+            color: #3a3636;
+        }
+
+        .preloader .loader3 {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            padding: 0px;
+            text-align: left;
+            margin-left: 12px;
+        }
+
+        .preloader .loader3 span {
+            position: absolute;
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            background: #ffafaf;
+            -webkit-animation: loader3 1.5s linear infinite;
+            animation: loader3 1.5s linear infinite;
+        }
+
+        .preloader .loader3 span:last-child {
+            animation-delay: -0.9s;
+            -webkit-animation-delay: -0.9s;
+        }
+
+        @keyframes loader3 {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1, 1);
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes loader3 {
+            0% {
+                -webkit-transform: scale(0, 0);
+                opacity: 0.8;
+            }
+
+            100% {
+                -webkit-transform: scale(1, 1);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .preloader .loader3 {
+                margin-left: 0px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
     <!-- get all categories for navbar -->
     <?php
     use App\Models\Category;
-    $categories = Category::where('status' , '!=' , 0)->get();
+    $categories = Category::where('status', '!=', 0)->get();
     ?>
     <!-- get all categories for navbar -->
     <div id="app">
         <div id="main_content">
+
+            <div class="preloader" id="preloader">
+                <div class="loader-holder">
+                    <p>istanbuliat</p>
+                    <div class="loader3">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
             @if (session()->has('message'))
                 <div class=" alert alert-success alert-dismissible fade show success-alert" role="alert">
                     <div class="fluid-container">
@@ -49,9 +146,7 @@
                         </button> </div>
                 </div>
             @endif
-            <div class="active-loader" id="active_loader">
-                @include('components.loader')
-            </div>
+
             @include('components.navbar.main')
             <main>
                 @yield('content')
@@ -114,11 +209,11 @@
 
         // product details section 
         let productDetailsDataObject = {
-            productDetailsImagesSliders : {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
-            filteredProductDetailsImagesSliders : {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
+            productDetailsImagesSliders: {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
+            filteredProductDetailsImagesSliders: {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
             variations: {!! json_encode(isset($variations) ? $variations : []) !!},
             sizeGuides: {!! json_encode(isset($sizeGuides) ? $sizeGuides : []) !!},
-            sizeGuideType : 'cm' , 
+            sizeGuideType: 'cm',
             filteredVariations: {!! json_encode(isset($variations) ? $variations : []) !!},
             activeVariation: {},
             colors: {!! json_encode(isset($colors) ? $colors : []) !!},
@@ -134,12 +229,12 @@
         let variations = productDetailsDataObject.variations;
         let sizeGuides = productDetailsDataObject.sizeGuides;
         let sizeGuideType = productDetailsDataObject.sizeGuideType;
-        
-        
+
+
 
         let filteredProductDetailsImagesSliders = productDetailsDataObject.filteredProductDetailsImagesSliders;
         let productDetailsImagesSliders = productDetailsDataObject.productDetailsImagesSliders;
-        
+
 
         let filteredVariations = productDetailsDataObject.filteredVariations;
 
@@ -200,7 +295,7 @@
         setTimeout(hideLoader, timer);
 
         function hideLoader() {
-            document.getElementById('active_loader').classList.add('d-none')
+            document.getElementById('preloader').classList.add('d-none')
         }
     </script>
     <!-- custom js files  -->

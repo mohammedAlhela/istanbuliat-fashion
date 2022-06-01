@@ -1,12 +1,12 @@
  <div class="informations-section">
      <div class="name">
-         {{ "Women Maroon Printed Accordion Pleated Fit & Flare Dress" }}
+         {{ $product->name }}
          {{-- {{  $product->name  }} --}}
 
      </div>
 
      <div class="sku">
-         SKU : {{ 'ks596859tut' }}
+         SKU :          {{ $product->sku }}
      </div>
      <div class="price">
          @if ($product->offer)

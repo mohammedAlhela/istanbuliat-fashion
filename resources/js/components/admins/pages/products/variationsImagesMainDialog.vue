@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog
-      v-if="editedIndex > -1"
+      v-if="editedIndex ==  1"
       v-model="dialog"
       fullscreen
       transition="dialog-bottom-transition"
@@ -33,6 +33,8 @@
             <span> Add new Image </span>
           </v-tooltip>
         </v-toolbar>
+
+   
 
         <v-card-text v-if="variations[datatableIndex].images.length">
           <v-card

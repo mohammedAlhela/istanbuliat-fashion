@@ -290,7 +290,7 @@ export default {
         },
 
         filterPrice: (state) => (item) => {
-            return item.exact_price.toString().includes(state.price);
+            return item.price.toString().includes(state.price);
         },
 
         getColorsIdsFromArray: (state) => {

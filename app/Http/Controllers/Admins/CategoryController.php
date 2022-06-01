@@ -38,7 +38,7 @@ class CategoryController extends Controller
             // delete old image
             $imageName = $image->getClientOriginalExtension();
             $imageName = time() . "." . $imageName;
-            Image::make($image)->fit(100, 100)->save(public_path("/images/categories/") . $imageName, 20);
+            Image::make($image)->fit(800, 1200)->save(public_path("/images/categories/") . $imageName, 50);
             $category->image = "/images/categories/" . $imageName;
         }
 
