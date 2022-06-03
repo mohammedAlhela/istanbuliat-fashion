@@ -116,7 +116,6 @@
 
             <div class="preloader" id="preloader">
                 <div class="loader-holder">
-                    <p>istanbuliat</p>
                     <div class="loader3">
                         <span></span>
                         <span></span>
@@ -207,7 +206,7 @@
         })
         // convert data in products to use sort filter
 
-        // product details section 
+        // // product details section 
         let productDetailsDataObject = {
             productDetailsImagesSliders: {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
             filteredProductDetailsImagesSliders: {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
@@ -253,7 +252,7 @@
 
 
 
-        // product details section 
+        // // product details section 
 
 
         let shopPaginationPagesLinksNumber = shopPaginationReturnPagesLinksNumber();
@@ -284,13 +283,13 @@
             }"><a  href="javascript:shopPaginationgoToPageLink(${i})">${i}</a></li>`;
             }
 
-            el.innerHTML = filteredProducts.length > 9 ? pagesLinksData : ``;
+            el.innerHTML = filteredProducts.length > 12 ? pagesLinksData : ``;
 
 
 
         }
 
-        let timer = window.location.pathname.trim() == '/shop' ? 1000 : 500;
+        let timer = window.location.pathname.trim() == '/shop' ? 1000 : 300;
 
         setTimeout(hideLoader, timer);
 
@@ -303,8 +302,8 @@
     <script src="{{ asset('js/custom/filter-functions.js') }}"></script>
     <script src="{{ asset('js/custom/queries-filter.js') }}"></script>
     <script src="{{ asset('js/custom/pagination.js') }}"></script>
-    <script src="{{ asset('js/custom/event-filter.js') }}"></script>
-    <!-- custom js files  -->
+    <script src="{{ asset('js/custom/event-filter.js') }}"></script> 
+    <!-- custom js files  
 
 </body>
 

@@ -716,17 +716,28 @@ body {
   padding-left: 10px;
 }
 .variations-dialog-container .variation-card .informations-holder div {
-  margin-top: 6px;
+  margin-top: 10px;
 }
 .variations-dialog-container .image, .variations-dialog-container .datatable .slider-image, .datatable .variations-dialog-container .slider-image {
   width: 350px !important;
   border-radius: 5px;
 }
 
+.size-guides-section .informations-holder {
+  padding-left: 0px !important;
+  margin-top: 0px !important;
+}
+.size-guides-section .informations-holder div:nth-of-type(1) {
+  margin-top: 0px;
+}
+.size-guides-section .size-card-header {
+  background-color: aliceblue;
+  padding: 15px;
+}
+
 .preloader, .blanklaoder {
   background-color: rgb(235, 241, 247);
   width: 100vw;
-  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -736,6 +747,7 @@ body {
   transition: 0.6s;
   margin: 0 auto;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 .preloader .preloader-circle {
@@ -943,6 +955,10 @@ body {
   opacity: 1;
 }
 
+.size-guides-section {
+  display: none;
+}
+
 .dashboard-container {
   padding: 10px 20px 50px;
   opacity: 0;
@@ -950,6 +966,12 @@ body {
   margin: 30px 0px 50px 0px;
   width: 90%;
   margin-left: 5%;
+}
+.dashboard-container a {
+  display: block !important;
+}
+.dashboard-container a:hover {
+  text-decoration: none !important;
 }
 @media (max-width: 1650px) {
   .dashboard-container {

@@ -58,7 +58,7 @@
                  @endforeach
              </div>
              <div class="size-guide">
-                 <a href="#" data-toggle="modal" data-target="#sizeGuideModel"> Size Guide</a>
+                 <a href="#" data-toggle="modal" data-target="#sizeGuideModel"> Size Guide</a>   <a href="#">add to wishlist</a>
              </div>
          </div>
      </div>
@@ -77,9 +77,16 @@
          </button>
      </div>
 
-     <div class="wishlist">
-         <a href="#">add to wishlist</a>
-     </div>
+
+     <div class = "share"> share on :
+        <a href = "{{ getQueryString($product->name) }}">  <i class  = 'fa fa-facebook-f facebook-bg mx-2'> </i>       </a>
+    
+            <a href = 'https://twitter.com/intent/tweet?text=Shop+new+dresses+products&url=http://127.0.0.1:8000/product/{{ getQueryString($product->name) }}' >
+                <i class  = 'fa fa-twitter twitter-bg mx-2'> </i> </a>
+                <a href = 'https://www.instagram.com/?url=http://127.0.0.1:8000/product/{{ getQueryString($product->name) }}'>
+                    <i class  = 'fa fa-instagram instagram-bg mx-2 fa-big'> </i> </a>
+
+    </div>
 
      @include(
          'components.customers.product-details.size-guide-model'

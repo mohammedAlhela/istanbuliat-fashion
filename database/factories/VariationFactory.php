@@ -26,9 +26,9 @@ class VariationFactory extends Factory
     {
 
         return [
-            'color_id' => $this->faker->numberBetween(1, 6),
+            'color_id' => $this->faker->numberBetween(1, 7),
             'size_id' => $this->faker->numberBetween(1, 6),
-            'product_id' => $this->faker->numberBetween(1, 20),
+            'product_id' => $this->faker->numberBetween(1, 15),
             'sku' => Str::random(12),
             'selling_price' => $this->faker->numberBetween(500, 1000),
             'discount_price' => $this->faker->numberBetween(50, 200),

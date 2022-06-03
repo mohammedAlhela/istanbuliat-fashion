@@ -19,13 +19,20 @@ class ProductOptionsSeeder extends Seeder
     public function run()
     {
 
+    
         $products = Product::all();
-                foreach($products as $product) { 
-                // $product->image = '/images/products/product.jpg';
-                // $product->wash_care = 'Cold water wash';
-                // $product->contents = '60% cottons,40% ligra';
-                //  $product->status = 1;
-                $product->save();
-            }
+        foreach ($products as $product) {
+            $colorsIdsArray = Variation::where('product_id', $product->id)->pluck('color_id')->all();
+            $sizesIdsArray = Variation::where('product_id', $product->id)->pluck('size_id')->all();
+            $colorsNamesArray = Color::whereIn('id',  $colorsIdsArray )->pluck('name')->all();
+            $sizesNamesArray = Size::whereIn('id',  $sizesIdsArray )->pluck('name')->all();
+            $colorsString = join(",", $colorsNamesArray);
+            $sizesString = join(",", $sizesNamesArray);
+            $product->sizes = $sizesString;
+            $product->colors = $colorsString;
+            $product->save();
+        
+        }
+
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\VariationRequest;
 use App\Models\Product;
 use App\Models\Variation;
+use App\Models\VariationImage;
+
 use App\Models\Color;
 use App\Models\Size;
 use DB;

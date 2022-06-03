@@ -1,7 +1,6 @@
 .preloader , .blanklaoder {
     background-color: rgb(235, 241, 247);
     width: 100vw;
-    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
@@ -13,6 +12,7 @@
     transition: 0.6s;
     margin: 0 auto;
     overflow: hidden;
+    min-height: 100vh;
 
   }
   .preloader .preloader-circle {

@@ -31,7 +31,7 @@
              <div class="filters-menus">
                  <!-- category filter  -->
                  <div class="filter-block">
-                     <button class='shop-filter-menus-dropdown-toggle '>
+                     <button class='shop-filter-menus-dropdown-toggle'>
                          Categories  <i class="fa fa-chevron-down toggle-menu-icon"></i>
                      </button>
                      <ul class="shop-filter-menu">
@@ -126,7 +126,7 @@
                          <div class="menus-categories-filters-section" id="shop_filter_sizes_menu_blocks_father">
 
                              @foreach ($sizes as $key => $size)
-                            @if($size->products_count  )
+                       
                                      <div class="son-filter-block">
                                          <div class="shop-filter-icon-holder shop-filter-size-trigger">
                                              <i class="icon fa fa-check toggle-menu-icon category-icon "></i>
@@ -137,12 +137,12 @@
                                          </div>
 
                                          <span class="items">
-                                             ({{ $size->products_count }})
+                                             ({{ count($size->products )}})
                                          </span>
 
                                          <div class="clearing"></div>
                                      </div>
-                             @endif
+                     
                              @endforeach
 
                          </div>
@@ -167,7 +167,7 @@
                          <div class="menus-categories-filters-section " id="shop_filter_colors_menu_blocks_father">
 
                              @foreach ($colors as $key => $color)
-                             @if($color->products_count  )
+                   
                                  <div class="son-filter-block">
 
                                      <div class="shop-filter-icon-holder shop-filter-color-trigger color-icon-holder"
@@ -181,12 +181,12 @@
                                      </div>
 
                                      <span class="items">
-                                         ({{ $color->products_count }})
+                                         ({{ count($color->products ) }})
                                      </span>
 
                                      <div class="clearing"></div>
                                  </div>
-                                 @endif
+                           
                              @endforeach
 
                          </div>

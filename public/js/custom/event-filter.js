@@ -19,21 +19,101 @@ function addActiveVariation(type) {
         }
     }
 
-    changeProductDetailsSliderImages("add", type);
+    changeProductDetailsSliderImages("add" , type);
 }
 
-function resetActiveVariation() {
+function resetActiveVariation(type) {
     $("#product_details_availability_report")
         .children(".holder")
         .removeClass("active");
 
-    changeProductDetailsSliderImages("reset");
+    changeProductDetailsSliderImages("reset" , type);
+}
+
+
+function changeProductDetailsSliderImages(key , type) {
+    if(type == 'color') { 
+
+  
+    if (key == "reset") {
+        filteredProductDetailsImagesSliders = productDetailsImagesSliders;
+    } else {
+        filteredProductDetailsImagesSliders =
+            productDetailsImagesSliders.filter((item) => {
+                return item.color_id == activeColor.id;
+            });
+    }
+
+    let sliderData = ``;
+
+    let sliderArray = [];
+
+    let thumbSliderArray = [];
+
+    filteredProductDetailsImagesSliders.forEach((item) => {
+        sliderData += `<div class = 'zoom zomm-image image-holder'>`;
+        sliderData += `<img class='item' src='${item.image}'>`;
+        sliderData += `</div>`;
+
+        sliderArray.push(sliderData);
+
+        sliderData = ``;
+
+        sliderData += `<img class='item' src='${item.image}'>`;
+
+        thumbSliderArray.push(sliderData);
+
+        sliderData = ``;
+    });
+
+    sliderArray = sliderArray.join();
+    sliderArray = sliderArray.replace(",", "");
+
+    thumbSliderArray = thumbSliderArray.join();
+    thumbSliderArray = thumbSliderArray.replace(",", "");
+
+    var sync1 = $("#product_details_preview_image_slider");
+    sync1.fadeTo(400, 0.6);
+
+    setTimeout(() => {
+        sync1.trigger("replace.owl.carousel", sliderArray);
+        sync1.trigger("to.owl.carousel", [0, 1]);
+        sync1.trigger("refresh.owl.carousel");
+    }, 600);
+
+    setTimeout(() => {
+        sync1.fadeTo(400, 1);
+    }, 500);
+    var sync2 = $("#product_details_thumb_image_slider");
+    sync2.fadeTo(400, 0.6);
+
+    setTimeout(() => {
+        sync2.trigger("replace.owl.carousel", thumbSliderArray);
+        sync2.trigger("refresh.owl.carousel");
+        sync2.find(".owl-item").eq(0).addClass("current");
+    }, 600);
+
+    setTimeout(() => {
+        sync2.fadeTo(400, 1);
+    }, 500);
+
+
+    if(window.innerWidth >= 650) { 
+
+    setTimeout(() => {
+        $(".zomm-image").zoom({
+            magnify: 1.5,
+        });
+    }, 800);
+
+    }
+}
 }
 
 function convertToCm() {
     let guidesData = ``;
     sizeGuides.forEach((item) => {
-        item.length = Math.round(item.length * 2.54);
+        item.length =   Math.round(item.length * 2.54);
         item.hip = Math.round(item.hip * 2.54);
         item.wist = Math.round(item.wist * 2.54);
         item.bust = Math.round(item.bust * 2.54);
@@ -63,11 +143,11 @@ function convertToCm() {
 function convertToIn() {
     let guidesData = ``;
     sizeGuides.forEach((item) => {
-        item.length = Math.round(item.length / 2.54);
-        item.hip = Math.round(item.hip / 2.54);
-        item.wist = Math.round(item.wist / 2.54);
+        item.length =  Math.round(item.length / 2.54);
+        item.hip =  Math.round(item.hip / 2.54);
+        item.wist =  Math.round(item.wist / 2.54);
         item.bust = Math.round(item.bust / 2.54);
-        item.shoulder = Math.round(item.shoulder / 2.54);
+        item.shoulder =   Math.round(item.shoulder / 2.54);
 
         guidesData += `<tr>`;
         guidesData += `<th scope = 'row'> ${item.size_name}  `;
@@ -314,7 +394,7 @@ jQuery(document).ready(function ($) {
             colorsBlocks.forEach((item) => {
                 item.classList.remove("disabled");
             });
-            resetActiveVariation();
+            resetActiveVariation('size');
         } else if ($(this).hasClass("disabled")) {
         } else {
             $("#product_details_sizes_holder .holder").removeClass("active");
@@ -378,7 +458,7 @@ jQuery(document).ready(function ($) {
                 item.classList.remove("disabled");
             });
 
-            resetActiveVariation();
+            resetActiveVariation('color');
         } else if ($(this).hasClass("disabled")) {
         } else {
             $("#product_details_colors_holder .holder").removeClass("active");

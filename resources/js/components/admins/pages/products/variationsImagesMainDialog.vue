@@ -8,7 +8,7 @@
     >
       <v-card class="variations-dialog-container" flat>
         <v-toolbar dark color="blue">
-          <v-btn icon @click="closeDialog()" class="no-focus">
+          <v-btn icon @click="closeDialogAction()" class="no-focus">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title> Manage Variation Images</v-toolbar-title>
@@ -110,6 +110,7 @@ export default {
   methods: {
     ...mapActions('variationsImages', {
       destroy: 'delete',
+      closeDialogAction : 'closeDialogAction'
     }),
 
     ...mapMutations('variationsImages', [
@@ -117,7 +118,7 @@ export default {
       'editItem',
       'showDeleteSnackbar',
       'closeDeleteSnackbar',
-      'closeDialog',
+ 
     ]),
   },
 }

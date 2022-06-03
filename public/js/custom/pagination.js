@@ -1,7 +1,7 @@
 
 
 
-// if (filteredProducts.length) {
+if(window.location.pathname  == '/shop') { 
 
 
     function shopFilterPaginationChangePageLink(page) {
@@ -77,10 +77,10 @@
         shopFilterPaginationChangePageLink(1); // set default page
         shopPaginationAddPagesLinks(); // generate page navigation
    
-// }
 
 
 
+}
 
 
 

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 import router from '../router/index'
 // admins pagess
 import admins from './moduels/admins/users'
+import dashboard from './moduels/admins/dashboard'
 import sliders from './moduels/admins/sliders'
 import categories from './moduels/admins/categories'
 import colors from './moduels/admins/colors'
@@ -30,7 +31,8 @@ export default new Vuex.Store({
         products,
         variations,
         variationsImages,
-        sizeGuides
+        sizeGuides,
+        dashboard
         // admins pagess
 
   

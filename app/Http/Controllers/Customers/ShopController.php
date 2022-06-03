@@ -23,28 +23,6 @@ class ShopController extends Controller
         $categories = Category::where('status' , '!=' , 0)->with('products')->get();
         $max_price = Product::orderBy('price' , 'desc')->first()->price;
 
-        foreach ($colors as $color) { 
-            $productsIds = DB::table('variations')->where('color_id', $color->id)->pluck('product_id')->all();
-            $uniqueProductsIds = array();
-            foreach ( $productsIds as $productId) { 
-             if(!in_array($productId , $uniqueProductsIds)) { 
-                array_push($uniqueProductsIds , $productId) ;
-             }
-            }
-            $color->products_count =  count ($uniqueProductsIds);
-        }
-
-        foreach ($sizes as $size) { 
-            $productsIds = DB::table('variations')->where('size_id', $size->id)->pluck('product_id')->all();
-            $uniqueProductsIds = array();
-            foreach ( $productsIds as $productId) { 
-             if(!in_array($productId , $uniqueProductsIds)) { 
-                array_push($uniqueProductsIds , $productId) ;
-             }
-            }
-            $size->products_count =  count ($uniqueProductsIds);
-        }
-
         return view('customers.shop')->with([
             'products' => $products,
             'categories' => $categories,

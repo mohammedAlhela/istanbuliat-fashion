@@ -684,6 +684,7 @@ export default {
         manageSizeGuides({ state, commit }, item) {
             commit("sizeGuides/manageSizeGuides", item, { root: true });
             state.editedIndex = item.id;
+
         },
         
 

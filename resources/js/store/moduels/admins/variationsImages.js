@@ -176,6 +176,17 @@ export default {
 
   actions: {
 
+
+    closeDialogAction({commit }) {
+      commit('closeDialog');
+      setTimeout (()=> { 
+        commit("variations/closeData", null, { root: true });
+      }  , 200)
+    
+
+    },
+
+
     async delete({ state, dispatch, commit }) {
 
       console.log(state.deleteIndex)

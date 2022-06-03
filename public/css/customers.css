@@ -7241,7 +7241,7 @@ a.ui-button:active,
   }
 
   .mega-header, .header, .links-header {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .product-content .name, .product-content .price {
@@ -7440,9 +7440,10 @@ a.ui-button:active,
 
 .shop-filter-button, .shop-section .filter-section .filter-keys-section .keys .key, .shop-section .filter-section .filter-right-section .sort-by .sort-select, .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block .shop-filter-menus-dropdown-toggle {
   cursor: pointer;
-  padding: 2px 12px 4px;
-  border-radius: 5px;
+  padding: 0px 9px 2px;
   border: 1px solid #d1d1d1;
+  font-size: 12px !important;
+  margin-top: 10px;
 }
 .shop-filter-button i, .shop-section .filter-section .filter-keys-section .keys .key i, .shop-section .filter-section .filter-right-section .sort-by .sort-select i, .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block .shop-filter-menus-dropdown-toggle i {
   font-size: 10px !important;
@@ -8677,19 +8678,22 @@ body.modal-open {
 }
 .shop-section .filter-section .filter-left-section .filters-keys-menus .filter-header {
   display: inline-block;
-  width: 53px;
 }
 .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus {
   width: calc(100% - 60px);
   display: inline-block;
 }
 .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block {
-  margin-left: 5px;
+  margin-right: 5px;
   display: inline-block;
   position: relative;
 }
+.shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block .active, .shop-section .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block .pagination-section #pagination_pages_links li:hover, .shop-section .pagination-section #pagination_pages_links .filter-section .filter-left-section .filters-keys-menus .filters-menus .filter-block li:hover {
+  border-color: #3a3636;
+}
 .shop-section .filter-section .filter-left-section .clear-all {
   display: none;
+  margin-top: 5px;
 }
 .shop-section .filter-section .filter-left-section .filter-modal-button {
   display: none;
@@ -8746,6 +8750,14 @@ body.modal-open {
   position: relative;
   margin-right: 10px;
   margin-bottom: 10px;
+  border: none !important;
+  border-bottom: 1px solid #d1d1d1 !important;
+  padding: 0px 3px 0px !important;
+  margin-right: 15px;
+  margin-top: 0px !important;
+}
+.shop-section .filter-section .filter-keys-section .keys .key:hover {
+  border-color: #3a3636 !important;
 }
 @media (max-width: 768px) {
   .shop-section .filter-left-section {
@@ -8765,6 +8777,7 @@ body.modal-open {
     float: none !important;
     text-align: left !important;
     margin-bottom: 10px !important;
+    margin-top: 10px !important;
   }
   .shop-section .filter-right-section .products-number {
     margin-left: 0px;
@@ -8772,8 +8785,11 @@ body.modal-open {
     position: unset !important;
     float: right;
   }
+  .shop-section .filter-right-section .sort-by {
+    left: 0px !important;
+  }
   .shop-section .filter-right-section .sort-select {
-    padding: 5px 0px 5px 25px !important;
+    margin-left: 18px;
   }
 }
 @media (max-width: 550px) {
@@ -8782,9 +8798,6 @@ body.modal-open {
   }
   .shop-section .filter-section .toper-section .clear-all {
     display: inline-block !important;
-  }
-  .shop-section .filter-section .filter-left-section .shop-filter-menus-dropdown-toggle {
-    padding: 4px 0px 0px 8px !important;
   }
   .shop-section .filter-section .filter-left-section .clear-all {
     display: none !important;
@@ -8905,6 +8918,14 @@ body.modal-open {
     top: -2px !important;
   }
 }
+@media (max-width: 433px) {
+  .shop-section .filter-right-section .sort-by .filter-header {
+    display: block !important;
+  }
+  .shop-section .filter-right-section .sort-by .sort-select {
+    margin-left: 0px !important;
+  }
+}
 .shop-section .products-content-holder {
   min-height: 380px !important;
 }
@@ -9017,7 +9038,7 @@ body.modal-open {
   color: white !important;
 }
 .shop-section .pagination-section .disabled {
-  opacity: 0.2;
+  opacity: 0.4;
 }
 .shop-section .pagination-section .disabled:hover {
   background-color: #d2d2d2 !important;
@@ -9096,6 +9117,35 @@ body.modal-open {
 }
 .product-details-section .images-section #product_details_thumb_image_slider .current .item {
   border: 3px solid gold;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav {
+  margin-top: 0px !important;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav button {
+  position: absolute;
+  top: calc(50% - 20px);
+  background: white;
+  padding: 8px 6px 10px !important;
+  border-radius: 0% !important;
+  opacity: 0.8;
+  transition: 0.2s all ease;
+  margin: 0px !important;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav button i {
+  color: #3a3636 !important;
+  font-size: 12px !important;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav button:nth-child(1) {
+  left: 0px;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav button:nth-child(2) {
+  right: 0px;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav button:hover {
+  opacity: 1;
+}
+.product-details-section .images-section #product_details_thumb_image_slider .owl-nav svg {
+  width: 8px !important;
 }
 .product-details-section .images-section .zoom {
   display: inline-block;
@@ -9221,6 +9271,7 @@ body.modal-open {
   margin: 10px 0px;
 }
 .product-details-section .informations-section .options .sizes .size-guide a {
+  margin-right: 5px;
   color: #3a3636 !important;
   text-decoration: underline;
   font-size: 13px;
@@ -9251,16 +9302,16 @@ body.modal-open {
 .product-details-section .informations-section .cart {
   margin: 20px 0px 20px;
 }
-.product-details-section .informations-section .wishlist {
-  margin: 10px 0px;
-}
-.product-details-section .informations-section .wishlist a {
-  color: #3a3636 !important;
-  text-decoration: underline;
+.product-details-section .informations-section .share {
   font-size: 13px;
+  font-weight: 500;
+  color: #3a3636;
+  margin: 10px 0px 0px;
+  text-transform: capitalize;
 }
-.product-details-section .informations-section .wishlist a:hover {
-  color: #3a3636 !important;
+.product-details-section .informations-section .share i {
+  color: #3a3636;
+  font-size: 18px;
 }
 .product-details-section .informations-section .product-details-accordion {
   margin-top: 30px;

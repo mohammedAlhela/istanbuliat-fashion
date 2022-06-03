@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
         nav: true,
         smartSpeed: 1000,
         autoplay: true,
-        autoplayTimeout: 7000,
+        autoplayTimeout: 8000,
         navText: ["", ""],
         responsive: {
             0: {
@@ -110,7 +110,8 @@ jQuery(document).ready(function ($) {
     // light gallery  +++++++++++
 
     $(".shop-filter-menus-dropdown-toggle").click(function () {
-        //
+        $(".shop-filter-menus-dropdown-toggle").removeClass('active')
+       $(this).addClass('active')
         if ($(this).next(".shop-filter-menu").css("display") == "none") {
             $(".shop-filter-menu").fadeOut(10);
             $(this).next(".shop-filter-menu").fadeIn(300);
@@ -142,6 +143,12 @@ jQuery(document).ready(function ($) {
             !$(target).hasClass("toggle-menu-icon")
         ) {
             $(".shop-filter-menu").fadeOut(10);
+
+            
+    $(".shop-filter-menus-dropdown-toggle").removeClass('active')
+
+
+            
         }
     });
 
@@ -158,9 +165,10 @@ jQuery(document).ready(function ($) {
         .owlCarousel({
             items: 1,
             smartSpeed: 1000,
-            nav: true,
+            dots: false,
+            nav: false,
             autoplay: false,
-            dots: true,
+         
             loop: true,
             responsiveRefreshRate: 200,
             navText: [
@@ -178,7 +186,7 @@ jQuery(document).ready(function ($) {
         })
         .owlCarousel({
             items: slidesPerPage,
-            dots: true,
+            dots: false,
             nav: true,
             margin: 10,
             smartSpeed: 1000,
@@ -238,7 +246,7 @@ jQuery(document).ready(function ($) {
         sync1.data("owl.carousel").to(number, 300, true);
     });
 
-    //  product details section +++++++++++++++++++++++++++
+    // product details section +++++++++++++++++++++++++++
 
     if(window.innerWidth >= 650) { 
         setTimeout(() => {

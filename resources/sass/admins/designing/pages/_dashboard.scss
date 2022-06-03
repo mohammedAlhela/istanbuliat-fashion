@@ -1,4 +1,10 @@
 .dashboard-container {
+  a  { 
+    &:hover { 
+      text-decoration: none !important;
+    }
+    display: block !important;
+  }
   padding: 10px 20px 50px;
     opacity: 0;
     transition: .6s all ease-in-out;

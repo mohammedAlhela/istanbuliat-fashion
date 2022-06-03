@@ -8,8 +8,7 @@
 
 .shop-filter-button {
     cursor: pointer;
-    padding: 2px 12px 4px;
-    border-radius: 5px;
+    padding: 0px 9px 2px;
     border: 1px solid #d1d1d1;
 
     @extend .paragraph;
@@ -19,6 +18,9 @@
     &:hover {
          border-color: $black-gray
     }
+
+    font-size: 12px !important;
+    margin-top: 10px
 }
 
 .no-outline-select {

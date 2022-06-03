@@ -1,3 +1,4 @@
+import { mapState, mapActions } from 'vuex'
 import informationsCards from '../../../components/admins/pages/dashboard/informationsCards.vue'
 import dataCharts from '../../../components/admins/pages/dashboard/dataCharts.vue'
 import ordersAndSubscribers from '../../../components/admins/pages/dashboard/ordersAndSubscribers.vue'
@@ -10,26 +11,38 @@ export default {
     ordersAndSubscribers,
   },
 
-data () {
-    return {
-     showContent : false ,
-    }
-},
-
-
-created () {
+  created () {
     this.$store.commit("openLoader");
  },
+ mounted() {
+  this.products.length ?this.dataIsFetched(): this.fetch();
+},
+
+  computed: {
+    ...mapState(
+      'dashboard',
+
+      ['products', 'subscribers', 'admins' , 'showContent' , 'customers']
+    ),
+
+  },
 
 
 
+  methods: {
+    ...mapActions('dashboard', {
+      fetch: 'fetch',
 
-  mounted () {
-    setTimeout(() => {
+    }),
+
+    dataIsFetched () {
         this.$store.commit("closeLoader");
-        this.showContent = true;
-    }, 1500)
+     }
+
+  },
 
 
-  }
+
+
+  
 }

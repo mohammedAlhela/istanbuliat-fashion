@@ -48,6 +48,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             // admins routes section
+
+            Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admins/dashboard.php'));
+
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admins/admins.php'));

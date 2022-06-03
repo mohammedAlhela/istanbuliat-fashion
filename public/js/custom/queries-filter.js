@@ -1,4 +1,4 @@
-
+if(true) { 
 let url = window.location.href;
 let myHref = new URL(url) ;
 
@@ -96,3 +96,4 @@ shopFilterProductsFromCategoryQueryParam();
 shopFilterProductsFromOfferQueryParam();
 shopFilterProductsFromNameQueryParam();
 shopFilterProductsFromTypeQueryParam();
+}

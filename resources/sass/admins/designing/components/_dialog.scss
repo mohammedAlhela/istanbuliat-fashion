@@ -19,7 +19,7 @@ width: calc(400px);  margin: 20px;
       margin-top: 20px;
       padding-left: 10px;
       div {
-        margin-top: 6px;
+        margin-top: 10px;
       }
     }
   }
@@ -29,4 +29,23 @@ width: calc(400px);  margin: 20px;
     border-radius: 5px;
   }
 }
+
+
+
+
+.size-guides-section { 
+  .informations-holder  { 
+    padding-left: 0px !important;
+    margin-top: 0px !important;
+  }
+  .informations-holder div:nth-of-type(1) { 
+    margin-top: 0px;
+  }
+ .size-card-header { 
+background-color: aliceblue;
+padding: 15px;
+ }
+}
+
+
 

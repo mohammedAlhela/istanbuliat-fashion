@@ -1,9 +1,16 @@
 <template>
 
 <div class="row p-4">
-    <div class="col-8">
+    <div class=" col-12 col-lg-8">
+
+        <div class = "main-header p-3 mt-5 pt-5">
+          Todays Orders
+        </div>
+
+
         <v-card>
-<div class="messages-table-container">
+
+
     <v-data-table
       :headers="ordrsHeaders"
       :items="orders"
@@ -26,16 +33,21 @@
         </td>
       </template>
     </v-data-table>
-  </div>
+
         </v-card>
 
     </div>
-    <div class="col-4">
+    <div class="col-12 col-lg-4">
+      
+        <div class = "main-header p-3 mt-5 pt-5">
+     Subscribers
+        </div>
+
         <v-card>
-    <div class="messages-table-container">
+
     <v-data-table
       :headers="subscribersHeaders"
-      :items="orders"
+      :items="subscribers"
       :items-per-page="5"
       item-key="item.id"
       mobile-breakpoint="1200"
@@ -55,7 +67,6 @@
         </td>
       </template>
     </v-data-table>
-  </div>
         </v-card>
 
     </div>
@@ -66,7 +77,8 @@
 <script>
 export default {
   name: 'ordersAndSubscribers',
-
+  props : ['subscribers']
+,
 
   data() {
     return {
@@ -170,59 +182,6 @@ export default {
 
       ],
 
-         subscribers: [
-        {
-
-            email: 'mohamd alhelal@gmail.com',
-              date : "10:26",
-
-
-
-        },
-
-            {
-
-            email: 'mohamd alhelal@gmail.com',
-            date : "10:26",
-
-
-
-        },
-
-
-    {
-
-            email: 'mohamd alhelal@gmail.com',
-              date : "10:26",
-
-
-
-        },
-
-
-
-    {
-
-            email: 'mohamd alhelal@gmail.com',
-               date : "10:26",
-
-
-
-        },
-
-
-    {
-
-            email: 'mohamd alhelal@gmail.com',
-            date : "10:26",
-
-
-
-        },
-
-
-
-      ],
     }
   },
 }

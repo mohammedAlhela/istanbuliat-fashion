@@ -52,7 +52,7 @@
 
             .filter-header {
                 display: inline-block;
-                width: 53px;
+    
                 @extend .shop-report-filter-header;
             }
 
@@ -60,18 +60,24 @@
                 width: calc(100% - 60px);
                 display: inline-block;
                 .filter-block {
-                    margin-left: 5px;
+                    margin-right: 5px;
                     display: inline-block;
                     position: relative;
                     // margin-right: 10px;
                     .shop-filter-menus-dropdown-toggle {
                         @extend .shop-filter-button;
                     }
+
+                    .active { 
+                        border-color: $black-gray
+                    }
                 }
             }
         }
         .clear-all {
             display: none;
+            margin-top: 5px;
+
         }
 
         .filter-modal-button {
@@ -164,6 +170,15 @@
                 @extend .shop-filter-button;
                 margin-right: 10px;
                 margin-bottom: 10px;
+                border: none !important;
+                border-bottom: 1px solid #d1d1d1 !important;
+                padding: 0px 3px 0px !important;
+                margin-right: 15px;
+                margin-top: 0px !important;
+
+                &:hover {
+                    border-color: $black-gray !important
+               }
             }
         }
 
@@ -191,6 +206,9 @@
         float: none !important;
         text-align: left !important;
         margin-bottom: 10px !important;
+        margin-top: 10px !important;.sort-by { 
+         
+        }
 
         .products-number {
             margin-left: 0px;
@@ -201,9 +219,11 @@
 
 
 
-
+.sort-by { 
+    left: 0px !important;
+}
         .sort-select { 
-            padding: 5px 0px 5px 25px !important;
+            margin-left: 18px;
         }
     }
  
@@ -219,10 +239,10 @@
         }
 
         .filter-left-section {
-            .shop-filter-menus-dropdown-toggle {
-                padding: 4px 0px 0px 8px !important;
+            // .shop-filter-menus-dropdown-toggle {
+            //     padding: 4px 0px 0px 8px !important;
          
-            }
+            // }
             .clear-all {
                 display: none !important ;
             }
@@ -384,6 +404,22 @@ ul.shop-filter-menu {
     }
 }
 
+
+ 
+}
+
+@media (max-width: 433px) {
+.filter-header { 
+    // margin-bottom: 10px !important;
+}
+.filter-right-section .sort-by .filter-header { 
+display: block !important;
+
+} 
+
+ .filter-right-section .sort-by .sort-select {
+ margin-left: 0px !important;
+}
 
  
 }

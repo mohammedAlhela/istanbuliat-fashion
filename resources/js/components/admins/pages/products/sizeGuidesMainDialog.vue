@@ -6,7 +6,8 @@
             fullscreen
             transition="dialog-bottom-transition"
         >
-            <v-card class="variations-dialog-container " flat>
+
+          <v-card class="variations-dialog-container size-guides-section" flat>
                 <v-toolbar dark color="blue">
                     <v-btn icon @click="closeDialogAction()" class="no-focus">
                         <v-icon>mdi-close</v-icon>
@@ -18,7 +19,8 @@
                             :key="index"
                         >
                             {{ size.name }}
-                            <span v-if="sizes.length - index != 1">
+                            <span v-if="products[datatableIndex]
+                                .relatedSizes.length - index != 1">
                                 ,</span
                             > </span
                         >)
@@ -45,34 +47,38 @@
                     </v-tooltip>
                 </v-toolbar>
 
-                <v-card-text v-if="products[datatableIndex].sizeGuides.length" >
+               <v-card-text v-if="products[datatableIndex].sizeGuides.length" >
               
                     <v-card
-                        class="variation-card"
+                        class="variation-card "
                         v-for="(sizeGuide, index) in products[datatableIndex]
                             .sizeGuides"
                         :key="index"
                     >
-                        <v-card-text>
+                        <v-card-text class = "p-0">
                             <div class="informations-holder">
-                                <div class="header size-guide-header">
+                                <div class="header size-card-header ">
                                     Size :
                                     <span class="paragraph">
                                         {{ sizeGuide.size_name }}
                                     </span>
                                 </div>
 
+                                <div class = "p-3 pt-0">
+
+                              
+
                                 <div class="header">
                                     bust :
                                     <span class="paragraph">
-                                        ${{ sizeGuide.bust }} cm
+                                        {{ sizeGuide.bust }} cm
                                     </span>
                                 </div>
 
                                 <div class="header">
                                     shoulder :
                                     <span class="paragraph">
-                                        ${{ sizeGuide.shoulder }} cm
+                                        {{ sizeGuide.shoulder }} cm
                                     </span>
                                 </div>
 
@@ -114,18 +120,22 @@
                                         mdi-pencil
                                     </v-icon>
                                 </div>
+  </div>
+
+
+
                             </div>
 
                             <div class="clearing"></div>
                         </v-card-text>
                     </v-card>
-                </v-card-text>
+                </v-card-text> 
 
-                <v-card-text v-else class="mt-5">
+               <v-card-text v-else class="mt-5">
                     <span class="header"> No size guides added yet </span>
-                </v-card-text>
+                </v-card-text> 
 
-                <delete-data-snackbar
+               <delete-data-snackbar
                     :deleteSnackbar="deleteSnackbar"
                     @closing="closeDeleteSnackbar()"
                     @deleteData="destroy()"
@@ -136,16 +146,16 @@
                 <size-guides-save-dialog
                     :relatedSizes="products[datatableIndex].relatedSizes"
                 >
-                </size-guides-save-dialog>
+                </size-guides-save-dialog> 
 
                 <div class="clearing"></div>
-            </v-card>
+            </v-card> 
         </v-dialog>
     </div>
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import sizeGuidesSaveDialog from "./sizeGuidesSaveDialog.vue";
 export default {
     components: {

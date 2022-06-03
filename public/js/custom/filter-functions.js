@@ -1,29 +1,3 @@
-function filterPriceRange(event, key) {
-    if (key == "min") {
-        minPrice = event.target.value;
-    } else {
-        maxPrice = event.target.value;
-    }
-
-
-    let priceObjectIndex = filterValuesArray.findIndex(function (item) {
-        return item.key == "price";
-    });
-
-    if (priceObjectIndex > -1) {
-        filterValuesArray[
-            priceObjectIndex
-        ].value = `${minPrice != null ? minPrice : 0}-${maxPrice!= null ? maxPrice : max_price } AED`;
-    } else {
-           filterValuesArray.push(
-            (priceObject = {
-                key: "price",
-                value: `${minPrice!= null ? minPrice : 0}-${maxPrice!= null ? maxPrice : max_price} AED`,
-            })
-        );
-    }
-    shopFilterProducts();
-}
 
 function triggerShopFilterMainSearch(e, idKey) {
     e.preventDefault();
@@ -36,13 +10,44 @@ function triggerShopFilterMainSearch(e, idKey) {
 
     window.location.replace(`/shop?name=${data}`);
 }
+if(window.location.pathname  == '/shop') { 
+
+function filterPriceRange(event, key) {
+    if (key == "min") {
+        minPrice = event.target.value;
+    } else {
+        maxPrice = event.target.value;
+    }
+
+    let priceObjectIndex = filterValuesArray.findIndex(function (item) {
+        return item.key == "price";
+    });
+
+    if (priceObjectIndex > -1) {
+        filterValuesArray[priceObjectIndex].value = `${
+            minPrice != null ? minPrice : 0
+        }-${maxPrice != null ? maxPrice : max_price} AED`;
+    } else {
+        filterValuesArray.push(
+            (priceObject = {
+                key: "price",
+                value: `${minPrice != null ? minPrice : 0}-${
+                    maxPrice != null ? maxPrice : max_price
+                } AED`,
+            })
+        );
+    }
+    shopFilterProducts();
+}
+
+
 
 function checkIfColorIsExist(item) {
     let exist = false;
     activeColorsNames.forEach((color) => {
         item.colors.search(color) > -1
             ? (exist = true)
-            : console.log("not exist");
+            : console.log(item.colors);
     });
 
     return exist;
@@ -60,14 +65,14 @@ function checkIfSizeIsExist(item) {
 }
 
 function filterPrice(item) {
-    if(maxPrice && minPrice) { 
-    return item.price >= minPrice && item.price <= maxPrice ;
-    }else if (!maxPrice && minPrice) { 
-        return item.price >= minPrice ;
-    }else if (maxPrice && !minPrice) { 
-        return item.price <= maxPrice ;
-    }else if (!maxPrice && !minPrice) { 
-        return true ;
+    if (maxPrice && minPrice) {
+        return item.price >= minPrice && item.price <= maxPrice;
+    } else if (!maxPrice && minPrice) {
+        return item.price >= minPrice;
+    } else if (maxPrice && !minPrice) {
+        return item.price <= maxPrice;
+    } else if (!maxPrice && !minPrice) {
+        return true;
     }
 }
 
@@ -93,7 +98,7 @@ function shopFilterProducts() {
             (offer ? item.offer != null && item.offer <= offer : true) &&
             (activeColorsNames.length ? checkIfColorIsExist(item) : true) &&
             (activeSizesNames.length ? checkIfSizeIsExist(item) : true) &&
-            (filterPrice(item))
+            filterPrice(item)
         );
     });
 
@@ -132,7 +137,7 @@ function sortData(e) {
     shopAppendProductsData(data);
 }
 
-function shopAppendProductsData(filteredData, itemsPerPage = 9, page = 1) {
+function shopAppendProductsData(filteredData, itemsPerPage = 12, page = 1) {
     let shopProductsData = ``;
     if (filteredData.length) {
         // for (var index = 0; index < filteredData.length; index++) {
@@ -266,9 +271,7 @@ function shopAppendProductsData(filteredData, itemsPerPage = 9, page = 1) {
     shopAppendSelectedItemsNumber();
 
     if (filteredProducts.length < 10) {
-        document
-            .getElementById("pagination_prev_link")
-            .classList.add("d-none");
+        document.getElementById("pagination_prev_link").classList.add("d-none");
         document.getElementById("pagination_next_link").classList.add("d-none");
     } else {
         document
@@ -365,11 +368,73 @@ function clearShopFilterKeyValue(key, value) {
     }
 
     if (key == "color") {
-        $("#shop_filter_colors_menu_reset").trigger("click");
+        filterValuesArray = filterValuesArray.filter((item) => {
+            return item.value != value;
+        });
+
+        activeColorsNames = activeColorsNames.filter((item) => {
+            return item != value;
+        });
+
+        $(".shop-filter-color-trigger")
+            .children(".icon")
+            .removeClass("opacityTrue");
+
+        let colorsBlocks = document.getElementById(
+            "shop_filter_colors_menu_blocks_father"
+        ).children;
+
+        colorsBlocks = Array.from(colorsBlocks);
+
+        colorsBlocks.forEach((item) => {
+            if (
+                activeColorsNames.indexOf(
+                    item.children.item(1).innerText.trim()
+                ) > -1
+            ) {
+                item.children
+                    .item(0)
+                    .children.item(0)
+                    .classList.add("opacityTrue");
+            }
+        });
+
+        shopFilterProducts();
     }
 
     if (key == "size") {
-        $("#shop_filter_sizes_menu_reset").trigger("click");
+        filterValuesArray = filterValuesArray.filter((item) => {
+            return item.value != value;
+        });
+
+        activeSizesNames = activeSizesNames.filter((item) => {
+            return item != value;
+        });
+
+        $(".shop-filter-size-trigger")
+            .children(".icon")
+            .removeClass("opacityTrue");
+
+        let sizesBlocks = document.getElementById(
+            "shop_filter_sizes_menu_blocks_father"
+        ).children;
+
+        sizesBlocks = Array.from(sizesBlocks);
+
+        sizesBlocks.forEach((item) => {
+            if (
+                activeSizesNames.indexOf(
+                    item.children.item(1).innerText.trim()
+                ) > -1
+            ) {
+                item.children
+                    .item(0)
+                    .children.item(0)
+                    .classList.add("opacityTrue");
+            }
+        });
+
+        shopFilterProducts();
     }
 
     if (key == "price") {
@@ -414,11 +479,8 @@ function shopAppendFilterKeysValues() {
 
     $("#shop_filter_menus_values_keys").empty().append(filterData);
 }
-
-
+}
+   
 // product details section +++++++++++++++++++++++
-
-
-
 
 // product details section +++++++++++++++++++++++

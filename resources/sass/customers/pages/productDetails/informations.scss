@@ -166,6 +166,7 @@
             .size-guide {
                 margin: 10px 0px;
                 a {
+                    margin-right: 5px;
                     color: $black-gray !important;
                     text-decoration: underline;
                     font-size: 13px;
@@ -208,16 +209,22 @@
             @extend .add-to-cart-button;
         }
     }
-    .wishlist {
-        margin: 10px 0px;
-        a {
-            color: $black-gray !important;
-            text-decoration: underline;
-            font-size: 13px;
-            &:hover {
-                color: $black-gray !important;
-            }
-        }
+
+
+    .share { 
+      
+            font-size: 13px ;
+            font-weight: 500 ;
+            color: $black-gray ;
+            margin: 10px 0px 0px;
+            text-transform: capitalize;
+ i { 
+    color: $black-gray
+    ;
+font-size: 18px;
+ }
+        
+        
     }
 
     @import "./accodrion.scss";

@@ -144,7 +144,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = collect(ProductsResource::collection(Product::orderBy('created_at', 'DESC')->with(['category', 'variations', 'tags', 'colors', 'sizes'])->get()));
+        $products = collect(ProductsResource::collection(Product::orderBy('created_at', 'DESC')->with(['category', 'variations', 'tags', 'colors', 'sizes' , 'sizeGuides'])->get()));
         $tags = DB::table('tags')->get();
         $response = [
             'products' => $products,
