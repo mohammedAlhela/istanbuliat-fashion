@@ -34,7 +34,7 @@ export default {
         ...mapActions("admins", {
             fetch: "fetch",
             destroy: "delete",
-            changeStatus: "changeStatus",
+            updateStatus: 'updateStatus',
         }),
 
         ...mapMutations("admins", [

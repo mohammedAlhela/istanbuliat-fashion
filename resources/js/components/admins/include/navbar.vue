@@ -38,13 +38,13 @@
                                     aria-labelledby="navbarDropdown"
                                     id="account-menu"
                                 >
-                                    <li>
+                                    <!-- <li>
                                         <a
                                             class="dropdown-item"
                                             href="/user/profile"
                                             >Account</a
                                         >
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <form
                                             id="big_screen_logout_form"

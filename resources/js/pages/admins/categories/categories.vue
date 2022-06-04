@@ -4,10 +4,13 @@
             <admins-navbar></admins-navbar>
             <loader />
             <div class="categories-container" :class="{ show_content: showContent }">
-                <categories-header :categories="categories" @openSaveDialog="openSaveDialog">
+                <categories-header          :filteredCategories="filteredCategories"
+                    :search="search"
+                    @openSaveDialog="openSaveDialog"
+                    @setSearchValue="setSearchValue">
                 </categories-header>
 
-                <categories-table :headers="headers" :categories="categories" @showDeleteSnackbar="showDeleteSnackbar"
+                <categories-table :headers="headers" :filteredCategories="filteredCategories" @showDeleteSnackbar="showDeleteSnackbar"
                     @updateStatus="updateStatus" @editItem="editItem"></categories-table>
 
                 <delete-data-snackbar :deleteSnackbar="deleteSnackbar" @closing="closeDeleteSnackbar()"

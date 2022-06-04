@@ -33,8 +33,11 @@ class AdminsResource extends JsonResource
 
             'password' => '',
 
-            'role' => $this->role,
+            'role' => $this->role == 1 ? "admin" : "manager",
 
+            'last_seen' => $this->last_seen,
+
+            'status' => $this->status == 1 ? "active" : "blocked",
         ];
 
     }

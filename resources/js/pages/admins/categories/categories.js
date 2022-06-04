@@ -1,5 +1,5 @@
 
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations  , mapGetters} from 'vuex'
 import categoriesTable from '../../../components/admins/pages/categories/categoriesTable.vue'
 import categoriesHeader from '../../../components/admins/pages/categories/categoriesHeader.vue'
 import categoriesSaveDialog from '../../../components/admins/pages/categories/categoriesSaveDialog.vue'
@@ -22,8 +22,10 @@ export default {
     ...mapState(
       'categories',
 
-      ['headers', 'categories', 'deleteSnackbar', 'showContent' , "blockDeleteSnackbar" , "blockDeleteReport"]
+      ['headers', 'categories', 'deleteSnackbar', 'showContent' , "blockDeleteSnackbar" , "blockDeleteReport" , "search"]
     ),
+
+    ...mapGetters("categories", ["filteredCategories"]),
 
   },
 
@@ -41,6 +43,7 @@ export default {
       'showDeleteSnackbar',
       "closeBlockDeleteSnackbar",
       'closeDeleteSnackbar',
+      "setSearchValue",
     ]),
 
     dataIsFetched () {

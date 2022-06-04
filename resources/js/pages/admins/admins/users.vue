@@ -18,7 +18,7 @@
                     :headers="headers"
                     :filteredAdmins="filteredAdmins"
                     @showDeleteSnackbar="showDeleteSnackbar"
-                    @changeStatus="changeStatus"
+                   @updateStatus="updateStatus"
                     @editItem="editItem"
                 ></users-table>
                 <delete-data-snackbar

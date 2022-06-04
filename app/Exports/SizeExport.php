@@ -13,13 +13,14 @@ class SizeExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
 
     public function collection()
     {
-        return Size::select('name')->get();
+        return Size::all();
     }
 
     public function headings(): array
     {
         return [
-            'size',
+            'Addmission',
+            'name',
         ];
     }
 

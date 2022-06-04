@@ -11,7 +11,6 @@ export default {
                     sortable: true,
                     value: "name",
                 },
-
                 {
                     text: "Last Seen",
                     value: "last_seen",
@@ -24,11 +23,17 @@ export default {
                     sortable: true,
                 },
 
+                {
+                    text: "Status",
+                    value: "status",
+                    sortable: true,
+                },
+
                 { text: "Actions", value: "actions", sortable: false },
             ],
             search: "",
             admins: [],
-            showContent : false ,
+            showContent: false,
             // ---------- main
 
             // ---------- delete
@@ -94,13 +99,7 @@ export default {
             return adminsFork;
         },
 
-        filterData: (state) => (item) => {
-            return (
-                item.name.toLowerCase().includes(state.search.toLowerCase()) ||
 
-                item.email.toLowerCase().includes(state.search.toLowerCase())
-            );
-        },
 
         datatableIndex: (state) => {
             if (state.editedIndex > -1) {
@@ -117,8 +116,8 @@ export default {
         assignApiData: (state, admins) => {
             state.admins = admins;
             setTimeout(() => {
-                state.showContent = true ;
-            } , 300)
+                state.showContent = true;
+            }, 500);
         },
         setSearchValue: (state, e) => {
             state.search = e;
@@ -130,18 +129,8 @@ export default {
             state.deleteSnackbar = false;
         },
         showDeleteSnackbar: (state, item) => {
-
-
-
-
-
-
-                state.deleteIndex = item.id;
-                state.deleteSnackbar = true;
-
-
-
-
+            state.deleteIndex = item.id;
+            state.deleteSnackbar = true;
         },
         // ---------- delete
 
@@ -171,23 +160,13 @@ export default {
 
             setTimeout(() => {
                 state.editedIndex = -1;
-            }, 300);
+            }, 500);
         },
 
-
-
         editItem: (state, item) => {
-
-
-
-
-
-        state.editedIndex = item.id;
+            state.editedIndex = item.id;
             state.editedItem = Object.assign({}, item);
             state.dialog = true;
-
-
-
         },
 
         intializeSave: (state) => {
@@ -208,16 +187,13 @@ export default {
     },
 
     actions: {
-        async fetch({ state, commit }) {
-            const Data = await axios
-                .get("/admins")
-                .catch((error) => {
-                    toasts.methods.fireErrorToast();
-                });
+        async fetch({ commit }) {
+            const Data = await axios.get("/admins").catch((error) => {
+                toasts.methods.fireErrorToast();
+            });
 
-            commit("closeLoader" , null , {root:true})
+            commit("closeLoader", null, { root: true });
             commit("assignApiData", Data.data.admins);
-
         },
 
         async delete({ state, dispatch, commit }) {
@@ -251,7 +227,6 @@ export default {
                     );
                 }
             } else {
-                alert(state.editedItem.password)
                 const Data = await axios
                     .post(
                         `/admin/update/${state.editedIndex}`,
@@ -269,6 +244,17 @@ export default {
                     );
                 }
             }
+        },
+
+        async updateStatus({ dispatch }, item) {
+            const Data = await axios
+                .get(`/admin/updateStatus/${item.id}`)
+                .catch((error) => {
+                    toasts.methods.fireErrorToast();
+                });
+
+            const DATAFETCHED = await dispatch("fetch");
+            toasts.methods.fireSuccessToast("Status updated successfully");
         },
     },
 };

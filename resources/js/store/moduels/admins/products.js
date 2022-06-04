@@ -347,7 +347,7 @@ export default {
             (state.tagsRecords = response.tags),
                 setTimeout(() => {
                     state.showContent = true;
-                }, 300);
+                }, 500);
 
         
         },
@@ -479,9 +479,12 @@ export default {
             state.dialog = false;
             state.buttonLoading = false;
             state.errors = {};
-            state.editedItem = Object.assign({}, state.defaultItem);
-            state.image = Object.assign({}, state.defaultImage);
-            state.editedIndex = -1;
+ 
+            setTimeout(() => {
+                state.editedItem = Object.assign({}, state.defaultItem);
+                state.image = Object.assign({}, state.defaultImage);
+                state.editedIndex = -1;
+            }, 500);
         },
 
         editItem: (state, item) => {

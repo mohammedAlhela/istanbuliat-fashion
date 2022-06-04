@@ -188,9 +188,12 @@ export default {
       state.saveDialog = false
       state.buttonLoading = false
       state.errors = {}
-      state.editedItem = Object.assign({}, state.defaultItem)
-      state.image = Object.assign({}, state.defaultImage)
-      state.editedIndex = -1
+   
+      setTimeout(() => {
+        state.editedItem = Object.assign({}, state.defaultItem)
+        state.image = Object.assign({}, state.defaultImage)
+        state.editedIndex = -1;
+    }, 500);
     },
 
     editItem: (state, item) => {

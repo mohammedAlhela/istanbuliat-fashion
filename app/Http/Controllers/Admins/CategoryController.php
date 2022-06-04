@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\CategoryRequest;
+use App\Http\Resources\Admins\CategoriesResource;
 use App\Models\Category;
+use App\Exports\CategoryExport;
 use Image;
 
 class CategoryController extends Controller
@@ -55,7 +57,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = Category::orderBy("created_at", "DESC")->with('products')->get();
+        $categories = collect(CategoriesResource::collection(Category::orderBy("created_at", "DESC")->with('products')->get()));
 
         $response = [
             'categories' => $categories,
@@ -129,5 +131,14 @@ class CategoryController extends Controller
         return response($response, 201);
 
     }
+
+    
+    public function exportExcel()
+    {
+
+        return Excel::download(new CategoryExport, 'categories.xlsx');
+
+    }
+
 
 }

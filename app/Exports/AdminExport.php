@@ -25,6 +25,8 @@ class AdminExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
             'name',
             'Email',
             'Role',
+            'Status',
+            'last_seen',
             'created_at',
             'updated_at',
 

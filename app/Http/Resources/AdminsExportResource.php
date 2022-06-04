@@ -29,7 +29,9 @@ class AdminsExportResource extends JsonResource
             'id' => (int) $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => $this->role === 1 ? "Admin" : "manager" ,
+            'role' => $this->role == 1 ? "manager" : "admin" ,
+            'status' => $this->status == 1 ? "active" : "blocked" ,
+            'last_seen' => $this->last_seen,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

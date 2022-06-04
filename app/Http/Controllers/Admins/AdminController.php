@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
+use App\Exports\AdminExport;
 use App\Http\Requests\Admins\AdminRequest;
 use App\Http\Resources\Admins\AdminsResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-
-use App\Exports\AdminExport;
 
 use Excel;
 
@@ -92,5 +91,24 @@ class AdminController extends Controller
         return Excel::download(new AdminExport, 'admins.xlsx');
 
     }
+
+
+    public function updateStatus($id)
+    {
+
+        $user = User::find($id);
+
+        $user->status ? $user->status = 0 : $user->status = 1;
+
+        $user->save();
+
+        $response = [
+            'user' => $user,
+        ];
+
+        return response($response, 201);
+
+    }
+
 
 }

@@ -43,6 +43,7 @@ export default {
             categories: [],
             products: [],
             showContent: false,
+            search: "",
             // ---------- main
 
             // ---------- delete
@@ -84,6 +85,9 @@ export default {
             },
 
 
+
+
+    
             // ---------- dialog data
         };
     },
@@ -114,6 +118,38 @@ export default {
             }
         },
 
+
+        filteredCategories: (state, getters) => {
+            var categoriesFork = state.categories;
+
+            let conditions = [];
+
+            if (state.search) {
+                conditions.push(getters.filterData);
+            }
+
+            if (conditions.length > 0) {
+                return categoriesFork.filter((category) => {
+                    return conditions.every((condition) => {
+                        return condition(category);
+                    });
+                });
+            }
+
+            return categoriesFork;
+        },
+
+
+
+        filterData: (state) => (item) => {
+            return (
+                item.name.toLowerCase().includes(state.search.toLowerCase()) ||
+
+                item.status.toLowerCase().includes(state.search.toLowerCase()) 
+
+            );
+        },
+
     },
 
     mutations: {
@@ -122,7 +158,7 @@ export default {
             state.categories = categories;
             setTimeout(() => {
                 state.showContent = true;
-            }, 300);
+            }, 500);
         },
         // ---------- main
 
@@ -175,9 +211,13 @@ export default {
             state.dialog = false;
             state.buttonLoading = false;
             state.errors = {};
-            state.editedItem = Object.assign({}, state.defaultItem);
-            state.image = Object.assign({}, state.defaultImage);
-            state.editedIndex = -1;
+ 
+        
+            setTimeout(() => {
+                state.editedItem = Object.assign({}, state.defaultItem);
+                state.image = Object.assign({}, state.defaultImage);
+                state.editedIndex = -1;
+            }, 500);
         },
 
         editItem: (state, item) => {
@@ -186,7 +226,7 @@ export default {
 
             setTimeout(() => {
                 state.dialog = true;
-            }, 300);
+            }, 500);
         },
 
         intializeSave: (state) => {
@@ -213,6 +253,11 @@ export default {
             };
         },
 
+        setSearchValue: (state, e) => {
+            state.search = e;
+
+            console.log(state.search)
+        },
 
         // ---------- dialog data ---------------------------
     },

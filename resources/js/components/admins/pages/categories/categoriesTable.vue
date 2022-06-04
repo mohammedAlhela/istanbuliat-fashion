@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="categories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1000"
+  <v-data-table :headers="headers" :items="filteredCategories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1000"
     class="datatable">
 
 
@@ -31,11 +31,7 @@
 
             <template v-slot:item.status="{ item }">
       <td>
-        <v-chip v-if="item.status == 1" small class="" color="primary">
-          Active
-        </v-chip>
-
-        <v-chip v-else small class="" color="warning"> Not Active </v-chip>
+      <v-chip small :color="item.status == 'active' ? 'success' : 'error'"> {{ item.status }} </v-chip>
       </td>
     </template>
     
@@ -90,7 +86,7 @@
 export default {
   name: 'CategoriesTable',
   props: {
-    categories: {
+    filteredCategories: {
       required: true,
       type: Array,
     },

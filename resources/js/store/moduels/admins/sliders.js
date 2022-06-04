@@ -152,7 +152,7 @@ export default {
             state.sliders = sliders;
             setTimeout(() => {
                 state.showContent = true;
-            }, 300);
+            }, 500);
         },
 
         updateSliderStatus: (state, objectData) => {
@@ -193,11 +193,15 @@ export default {
             state.dialog = false;
             state.buttonLoading = false;
             state.errors = {};
-            state.editedItem = Object.assign({}, state.defaultItem);
+   
 
-            state.bigImage = Object.assign({}, state.defaultBigImage);
-            state.smallImage = Object.assign({}, state.defaultSmallImage);
-            state.editedIndex = -1;
+          
+            setTimeout(() => {
+                state.editedItem = Object.assign({}, state.defaultItem);
+                state.bigImage = Object.assign({}, state.defaultBigImage);
+                state.smallImage = Object.assign({}, state.defaultSmallImage);
+                state.editedIndex = -1;
+            }, 500);
         },
 
         editItem: (state, item) => {
