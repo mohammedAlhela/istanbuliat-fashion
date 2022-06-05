@@ -87,7 +87,7 @@ class ProductController extends Controller
                     'sku' => $product->sku . $colorId . $sizeId,
                     'selling_price' => $product->selling_price,
                     'discount_price' => $product->discount_price,
-                    'image' => '/images/products/variations/variation.jpg',
+                    'image' => '/images/products/variations/variation.webp',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -101,14 +101,14 @@ class ProductController extends Controller
         $image = request()->file("image");
         if ($image) {
             // delete old image
-            if ($id && file_exists(public_path() . $product->image) && $product->image != "/images/products/product.jpg") {
+            if ($id && file_exists(public_path() . $product->image) && $product->image != "/images/products/product.webp") {
                 unlink(substr($product->image, 1));
             }
             // delete old image
-            $imageName = $image->getClientOriginalExtension();
-            $imageName = time() . "." . $imageName;
+      
+            $imageName = time() . ".webp" ;
             Image::make($image)->fit(600, 800)->save(public_path("/images/products/") . $imageName, 50);
-            if ($product->image && file_exists(public_path() . $product->image) && $product->image != "/images/products/product.jpg") {
+            if ($product->image && file_exists(public_path() . $product->image) && $product->image != "/images/products/product.webp") {
                 unlink(substr($product->image, 1));
             }
             $product->image = "/images/products/" . $imageName;
@@ -207,7 +207,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        if (file_exists(public_path() . $product->image) && $product->image != "/images/products/product.jpg") {
+        if (file_exists(public_path() . $product->image) && $product->image != "/images/products/product.webp") {
             $imageFileDeleted = unlink(substr($product->image, 1));
 
             if ($updateStatus) {

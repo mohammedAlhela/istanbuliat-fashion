@@ -104,7 +104,7 @@ export default {
             return (
                 state.image.preview ||
                 state.editedItem.image ||
-                "/images/categories/category.jpg"
+                "/images/categories/category.webp"
             );
         },
 

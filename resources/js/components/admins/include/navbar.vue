@@ -10,7 +10,7 @@
                         <a href="/admins/dashboard">
                             <img
                                 class="brand-image"
-                                src="/images/main/brand.png"
+                                src="/images/main/brand.webp"
                                 alt="no image"
                         /></a>
                         <p class="bread-crumb">
@@ -38,13 +38,6 @@
                                     aria-labelledby="navbarDropdown"
                                     id="account-menu"
                                 >
-                                    <!-- <li>
-                                        <a
-                                            class="dropdown-item"
-                                            href="/user/profile"
-                                            >Account</a
-                                        >
-                                    </li> -->
                                     <li>
                                         <form
                                             id="big_screen_logout_form"

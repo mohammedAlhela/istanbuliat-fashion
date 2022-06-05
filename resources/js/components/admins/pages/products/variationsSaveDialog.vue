@@ -27,8 +27,8 @@
               <!-- send images form -->
               <v-col cols="12 mb-3">
                 <span class="image-paragraph">
-                  Maximum allowed file size is 1000 KB. Recomended image
-                  dimensions are 900 width and 600 height
+                Maximum allowed file size is 1000 KB. Recomended image
+                  dimensions are 600 width and 800 height
                 </span>
 
                 <div class="upload-image-container">

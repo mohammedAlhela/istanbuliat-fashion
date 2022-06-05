@@ -62,3 +62,27 @@ class SizeGuideController extends Controller
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

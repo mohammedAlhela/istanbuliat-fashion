@@ -32,14 +32,18 @@ class VariationImageController extends Controller
         $image = request()->file("image");
         if ($image) {
             // delete old image
-            if ($id && $variationImage->image != '/images/products/variations/variation.jpg' && file_exists(public_path() . $variationImage->image)) {
+            if ($id && $variationImage->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $variationImage->image)) {
                 unlink(substr($variationImage->image, 1));
             }
             // delete old image
-            $imageName = $image->getClientOriginalExtension();
-            $imageName = time() . "." . $imageName;
+     
+            $imageName = time() . ".webp" ;
             Image::make($image)->fit(600, 800)->save(public_path("/images/products/variations/") . $imageName , 50);
             $variationImage->image = "/images/products/variations/" . $imageName;
+        }
+
+        if($id == null) { 
+            $variationImage->image = "/images/products/variations/variation.webp";
         }
 
         $variationImage->save();
@@ -78,7 +82,7 @@ class VariationImageController extends Controller
 
         $variationImage = VariationImage::find($id);
 
-        if ($variationImage->image != '/images/products/variations/variation.jpg' && file_exists(public_path() . $variationImage->image)) {
+        if ($variationImage->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $variationImage->image)) {
 
             $imageFileDeleted = unlink(substr($variationImage->image, 1));
 

@@ -242,10 +242,6 @@
                   @input="fillDialogValues('wash_care', $event)"
                 ></v-text-field>
               </v-col>
-
-
-
-
               <!-- actions button  -->
               <v-col cols="12" class="buttons-holder">
                 <v-btn

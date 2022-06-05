@@ -149,7 +149,8 @@ export default {
             trendIsFiltered: "",
             name: "",
             price: "",
-
+            minPrice: "",
+            maxPrice: "",
             tag: {
                 id: "",
                 name: "",
@@ -187,7 +188,7 @@ export default {
             } else if (state.editedItem.image) {
                 dynamicData = state.editedItem.image;
             } else {
-                dynamicData = "/images/products/product.jpg";
+                dynamicData = "/images/products/product.webp";
             }
 
             return dynamicData;
@@ -223,7 +224,7 @@ export default {
                 conditions.push(getters.filterName);
             }
 
-            if (state.price) {
+            if (state.minPrice  || state.maxPrice) {
                 conditions.push(getters.filterPrice);
             }
 
@@ -290,7 +291,18 @@ export default {
         },
 
         filterPrice: (state) => (item) => {
-            return item.price.toString().includes(state.price);
+            if (state.minPrice && state.maxPrice) { 
+                return item.price>= state.minPrice && item.price <= state.maxPrice;
+            }
+
+            else if (!state.minPrice && state.maxPrice) { 
+                return  item.price <= state.maxPrice;
+            }
+
+            else if (state.minPrice && !state.maxPrice) { 
+                return item.price>= state.minPrice ;
+            }
+           
         },
 
         getColorsIdsFromArray: (state) => {
@@ -344,6 +356,26 @@ export default {
 
         assignProducts: (state, response) => {
             state.products = response.products;
+
+            state.products.forEach(product => {
+                product.variations.forEach ((variation)=> { 
+                    variation.images.forEach((image)=> { 
+                        image.preview = { 
+                            name : '',
+                            preview : '',
+                            file : ''
+                          }
+                    })
+                })
+
+
+
+
+              });
+        
+
+
+
             (state.tagsRecords = response.tags),
                 setTimeout(() => {
                     state.showContent = true;
@@ -416,9 +448,13 @@ export default {
             if (dataObject.variableType == "name") {
                 state.name = dataObject.e;
             } else if (dataObject.variableType == "category") {
-                state.category = dataObject.e;
-            } else if (dataObject.variableType == "price") {
-                state.price = dataObject.e;
+                 state.category = Object.assign({}, dataObject.e);
+        
+            } else if (dataObject.variableType == "minPrice") {
+                state.minPrice = dataObject.e;
+            }
+            else if (dataObject.variableType == "maxPrice") {
+                state.maxPrice = dataObject.e;
             }
         },
 
@@ -427,7 +463,8 @@ export default {
         },
 
         resetPriceFilter(state) {
-            state.price = "";
+            state.minPrice = "";
+            state.maxPrice = "";
         },
 
         addActiveCategory: (state, item) => {
@@ -580,6 +617,7 @@ export default {
         },
 
         async save({ state, commit, getters, dispatch }) {
+            commit('intializeSave')
             let productData = new FormData();
             productData.append("category_id", state.editedItem.category.id);
             productData.append("image", state.image.file);

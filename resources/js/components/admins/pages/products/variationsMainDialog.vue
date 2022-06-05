@@ -29,6 +29,7 @@
               <div class="informations-holder">
   
                 <div class="header">
+                       {{ variation.id }}
                   Color :
                   <span class="paragraph">
                     {{ variation.color.name }}
@@ -113,7 +114,7 @@
 
        <variations-images-main-dialog 
        :datatableIndex="variationsDatatableIndex"
-          :variations="products[datatableIndex].variations" :editedIndex="editedIndex"
+          :variations="products[datatableIndex].variations" :variationEditedIndex="$store.state.variations.editedIndex"
           >
 
         </variations-images-main-dialog> 

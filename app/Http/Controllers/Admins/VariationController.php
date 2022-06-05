@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Admins;
-use App\Http\Controllers\Admins\ProductController;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\VariationRequest;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\Variation;
 use App\Models\VariationImage;
-
-use App\Models\Color;
-use App\Models\Size;
 use DB;
 use Illuminate\Http\Request;
 use Image;
@@ -25,68 +24,92 @@ class VariationController extends Controller
 
     }
 
-
-    
-    public function updateData($variationImage, $request)
-    {
-
-        $variationImage->variation_id = $request->variation_id;
-        $variationImage->color_id = $request->color_id;
-        $variationImage->size_id = $request->size_id;
-    }
-
-
     public function updateProduct($product_id)
     {
         $product = Product::find($product_id);
         // update the product options
         $colorsIdsArray = Variation::where('product_id', $product_id)->pluck('color_id')->all();
         $sizesIdsArray = Variation::where('product_id', $product_id)->pluck('size_id')->all();
-        $colorsNamesArray = Color::whereIn('id',  $colorsIdsArray )->pluck('name')->all();
-        $sizesNamesArray = Size::whereIn('id',  $sizesIdsArray )->pluck('name')->all();
+        $colorsNamesArray = Color::whereIn('id', $colorsIdsArray)->pluck('name')->all();
+        $sizesNamesArray = Size::whereIn('id', $sizesIdsArray)->pluck('name')->all();
         $colorsString = join(",", $colorsNamesArray);
         $sizesString = join(",", $sizesNamesArray);
         $product->sizes = $sizesString;
         $product->colors = $colorsString;
 
-
-        // update qty 
+        // update qty
         $qty = 0;
         $variations = $product->variations;
-        foreach($variations as $variation) { 
+        foreach ($variations as $variation) {
             $qty += $variation->stock_qty;
         }
         $product->stock_qty = $qty;
-          // update qty 
-          $product->save();
-     
+        // update qty
+        $product->save();
 
     }
 
+    public function updateImages($request)
+    {
+
+        $images = VariationImage::where('variation_id', $request->id)->get();
+
+        foreach ($images as $image) {
+            $image->color_id = $request->color_id;
+            $image->save();
+        }
+
+    }
+
+    public function deleteImages($id)
+    {
+
+        $images = VariationImage::where('variation_id', $id)->get();
+
+        foreach ($images as $item) {
+
+            if ($item->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $item->image)) {
+
+                $imageFileDeleted = unlink(substr($item->image, 1));
+
+                if ($imageFileDeleted) {
+
+                    $item->delete();
+
+                }
+
+            } else {
+
+                $item->delete();
+            }
+        }
+
+    }
 
     public function delete($id)
     {
 
         $productVariation = Variation::find($id);
 
-        if ( $productVariation->image != '/images/products/variations/variation.jpg' && file_exists(public_path() . $productVariation->image)) {
+        if ($productVariation->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $productVariation->image)) {
 
             $imageFileDeleted = unlink(substr($productVariation->image, 1));
 
             if ($imageFileDeleted) {
 
                 $productVariation->delete();
-                VariationImage::where('variation_id' , $id)->delete();
+                VariationImage::where('variation_id', $id)->delete();
 
             }
 
         } else {
-           
+
             $productVariation->delete();
-            VariationImage::where('variation_id' , $id)->delete();
+            VariationImage::where('variation_id', $id)->delete();
         }
 
         $this->updateProduct($productVariation->product_id);
+        $this->deleteImages($id);
 
         return 'product variation deleted successfully';
 
@@ -101,13 +124,12 @@ class VariationController extends Controller
 
         $image = request()->file('image');
         $imageSrc = null;
-        $imageName = $image->getClientOriginalExtension();
-        $imageName = time() . '.' . $imageName;
-        $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName , 50);
+        $imageName = time() . ".webp";
+        $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName, 50);
         $imageSrc = '/images/products/variations/' . $imageName;
 
         DB::table('variations')->insert([
-            'sku' => $product->sku.$request->color_id .$request->size_id,
+            'sku' => $product->sku . $request->color_id . $request->size_id,
             'stock_qty' => $request->stock_qty,
             'stock_ordered' => 0,
             'selling_price' => $request->selling_price ? $request->selling_price : $product->selling_price,
@@ -120,8 +142,6 @@ class VariationController extends Controller
 
         $this->updateProduct($request->product_id);
 
-
-
         $response = [
             'message' => 'product variation added successfully',
         ];
@@ -133,19 +153,19 @@ class VariationController extends Controller
     public function update(VariationRequest $request, $id)
     {
         $product = Product::find($request->product_id);
-        
+
         $image = request()->file('image');
         $imageSrc = null;
 
         if ($image) {
-            $imageName = $image->getClientOriginalExtension();
-            $imageName = time() .'.' . $imageName;
-            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName , 50);
+
+            $imageName = time() . ".webp";
+            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName, 50);
             $imageSrc = '/images/products/variations/' . $imageName;
 
             $productVariation = DB::table('variations')->where('id', $id)->get()->first();
 
-            if ($productVariation->image && $productVariation->image != '/images/products/variations/variation.jpg' && file_exists(public_path() . $productVariation->image)) {
+            if ($productVariation->image && $productVariation->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $productVariation->image)) {
                 unlink(substr($productVariation->image, 1));
             }
 
@@ -161,10 +181,11 @@ class VariationController extends Controller
             'discount_price' => $request->discount_price,
             'color_id' => $request->color_id,
             'size_id' => $request->size_id,
-            'sku' => $product->sku.$request->color_id .$request->size_id,
+            'sku' => $product->sku . $request->color_id . $request->size_id,
         ]);
 
         $this->updateProduct($request->product_id);
+        $this->updateImages($request);
 
         $response = [
             'message' => 'product variation updated successfully',

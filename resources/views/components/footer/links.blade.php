@@ -113,12 +113,12 @@
             <div class="social-media">
                 <a href="https://www.facebook.com/pages/category/Shopping---Retail/Istanbuliat-UAE-112297630516968/">
 
-                <img src="/images/social/facebook.png" alt="">
+                <img src="/images/social/facebook.webp" alt="">
                 </a>
                 <a href="https://twitter.com/hashtag/%C4%B0stanbulAt?src=hash">
-                <img src="/images/social/twitter.png" alt=""></a>
+                <img src="/images/social/twitter.webp" alt=""></a>
                 <a href="https://www.instagram.com/istanbul_fashion_by_umufatih/?hl=en"> 
-                <img src="/images/social/instagram.png" alt=""></a>
+                <img src="/images/social/instagram.webp" alt=""></a>
             </div>
 
 

@@ -3,7 +3,7 @@
     .cover {
        @extend  .hover-effect;
         position: relative;
-        background-image: url('/videos/good.jpg');
+        background-image: url('/videos/good.webp');
         @extend .bg-image;
 
         video {

@@ -106,7 +106,7 @@ export default {
             return (
                 state.smallImage.preview ||
                 state.editedItem.small_image ||
-                "/images/sliders/small/slider.jpg"
+                "/images/sliders/small/slider.webp"
             );
         },
 
@@ -114,7 +114,7 @@ export default {
             return (
                 state.bigImage.preview ||
                 state.editedItem.big_image ||
-                "/images/sliders/big/slider.jpg"
+                "/images/sliders/big/slider.webp"
             );
         },
 

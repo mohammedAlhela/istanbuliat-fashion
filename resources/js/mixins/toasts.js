@@ -6,6 +6,7 @@ export default {
         Toast.fire({
             icon: "success",
             title: message ,
+            timer: 2000,
 
         });
     },
@@ -13,7 +14,8 @@ export default {
     fireErrorToast: (message = 'Obs something went error on the server' ) => {
         Toast.fire({
             icon: "error",
-            title: message
+            title: message,
+            timer: 2000,
 
         });
     },
@@ -22,7 +24,7 @@ export default {
         Toast.fire({
             icon: "warning",
             title: message ,
-            // timer: 1000000,
+             timer: 2000,
         });
     },
 

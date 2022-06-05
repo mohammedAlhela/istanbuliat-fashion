@@ -86,7 +86,7 @@ export default {
         dynamicData =  state.editedItem.image
       } else {
         dynamicData =
-          '/images/products/variations/variation.jpg'
+          '/images/products/variations/variation.webp'
       }
 
       return dynamicData
@@ -303,8 +303,17 @@ export default {
 
 
     manageImages({ state, commit }, item) {
+
+
+
+
        commit("variationsImages/manageImages", item, { root: true });
-      state.editedIndex = item.id;
+       state.editedIndex = item.id;
+  
+
+
+      console.log(item.images)
+    
   },
 
   },

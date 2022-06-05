@@ -28,7 +28,7 @@
                             <v-col cols="12">
                                 <span class="image-paragraph"> (big screen image)
                                     Maximum allowed file size is 1000 KB.
-                                    Recomended image dimensions are 1920 width
+                                    Recomended image dimensions are 1920 width , 
                                     and 845 height
                                 </span>
 

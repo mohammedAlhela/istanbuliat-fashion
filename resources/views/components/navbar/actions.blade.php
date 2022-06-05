@@ -27,7 +27,7 @@
 
     <div class="brand">
         <a href="/">
-            <img class="image" src="/images/main/brand.png" alt="no brand image">
+            <img class="image" src="/images/main/brand.webp" alt="no brand image">
         </a>
     </div>
     <div class="user-wishlist-cart">

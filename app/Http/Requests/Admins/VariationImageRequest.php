@@ -24,18 +24,9 @@ class VariationImageRequest extends FormRequest
     public function rules()
     {
 
-        $id = app("request")->get("id");
 
-        $imageError = null;
-        if (!$id) {
-            $imageError = "required";
-
-        }
-        else  {
-            $imageError = "nullable";
-        }
         return [
-            'image' => [   $imageError , 'image', "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
+            'image' => [  'nullable' ,'image', "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
         ];
     }
 }

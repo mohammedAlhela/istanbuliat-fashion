@@ -63,7 +63,7 @@
 
 
                          <div class="img">
-                             <img src="/images/options/sizes/size-guid1.png" alt="sizing guide" />
+                             <img src="/images/options/sizes/size-guid1.webp" alt="sizing guide" />
                          </div>
 
                          <div class="guide-informations-list">
@@ -87,7 +87,7 @@
 
 
                          <div class="img">
-                             <img src="/images/options/sizes/size-guide2.png" alt="sizing guide" />
+                             <img src="/images/options/sizes/size-guide2.webp" alt="sizing guide" />
                          </div>
 
                      </div>

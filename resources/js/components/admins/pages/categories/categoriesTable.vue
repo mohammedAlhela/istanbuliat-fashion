@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="filteredCategories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1000"
+  <v-data-table :headers="headers" :items="filteredCategories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1300"
     class="datatable">
 
 

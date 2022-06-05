@@ -42,12 +42,12 @@ class SliderController extends Controller
         $bigImage = request()->file("big_image");
         if ($bigImage) {
             // delete old big image
-            if ($id && $slider->big_image != '/images/sliders/big/slider.jpg' && file_exists(public_path() . $slider->big_image)) {
+            if ($id && $slider->big_image != '/images/sliders/big/slider.webp' && file_exists(public_path() . $slider->big_image)) {
                 unlink(substr($slider->big_image, 1));
             }
             // delete old big image
-            $bigImageName = $bigImage->getClientOriginalExtension();
-            $bigImageName = time() . "." . $bigImageName;
+            
+            $bigImageName = time() . ".webp" ;
             Image::make($bigImage)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName, 80);
             $slider->big_image = "/images/sliders/big/" . $bigImageName;
         }
@@ -55,12 +55,12 @@ class SliderController extends Controller
         $smallImage = request()->file("small_image");
         if ($smallImage) {
             // delete old small image
-            if ($id && $slider->small_image != '/images/sliders/small/slider.jpg' && file_exists(public_path() . $slider->small_image)) {
+            if ($id && $slider->small_image != '/images/sliders/small/slider.webp' && file_exists(public_path() . $slider->small_image)) {
                 unlink(substr($slider->small_image, 1));
             }
             // delete old small image
-            $smallImageName = $smallImage->getClientOriginalExtension();
-            $smallImageName = time() . "." . $smallImageName;
+           
+            $smallImageName = time() . ".webp" ;
             Image::make($smallImage)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName, 50);
             $slider->small_image = "/images/sliders/small/" . $smallImageName;
 
@@ -95,7 +95,7 @@ class SliderController extends Controller
 
         $slider = slider::find($id);
 
-        if ($slider->big_image != '/images/sliders/big/slider.jpg') {
+        if ($slider->big_image != '/images/sliders/big/slider.webp') {
             $bigImageFileDeleted = false;
             $smallImageFileDeleted = false;
             $bigImageFileIsExist = file_exists(public_path() . $slider->big_image);

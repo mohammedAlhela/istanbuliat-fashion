@@ -34,13 +34,13 @@ class CategoryController extends Controller
         $image = request()->file("image");
         if ($image) {
             // delete old image
-              if ($id && $category->image != '/images/categories/category.jpg' && file_exists(public_path() . $category->image)) {
+              if ($id && $category->image != '/images/categories/category.webp' && file_exists(public_path() . $category->image)) {
                 unlink(substr($category->image, 1));
             }
             // delete old image
-            $imageName = $image->getClientOriginalExtension();
-            $imageName = time() . "." . $imageName;
-            Image::make($image)->fit(800, 1200)->save(public_path("/images/categories/") . $imageName, 50);
+        
+            $imageName = time() . ".webp" ;
+            Image::make($image)->fit(80, 30)->save(public_path("/images/categories/") . $imageName, 50);
             $category->image = "/images/categories/" . $imageName;
         }
 
@@ -93,7 +93,7 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
 
-        if ($category->image != '/images/categories/category.jpg' && file_exists(public_path() . $category->image)) {
+        if ($category->image != '/images/categories/category.webp' && file_exists(public_path() . $category->image)) {
             $imageFileDeleted = unlink(substr($category->image, 1));
 
             if ($imageFileDeleted) {

@@ -24,7 +24,7 @@
                             @input="fillfilterValues('name', $event)"
                             class="pa-4"
                             type="text"
-                            label="Enter the search term"
+                            label="Name"
                         ></v-text-field>
                         <v-btn
                             @click="resetNameFilter()"
@@ -50,12 +50,21 @@
                     </template>
                     <div style="background-color: white; width: 280px">
                         <v-text-field
-                            :value="price"
-                            @input="fillfilterValues('price', $event)"
-                            class="pa-4"
+                            :value="minPrice"
+                            @input="fillfilterValues('minPrice', $event)"
+                            class="pa-4 pb-0"
                             type="text"
-                            label="Enter the search term"
+                            label="Min Price"
                         ></v-text-field>
+
+                        <v-text-field
+                            :value="maxPrice"
+                            @input="fillfilterValues('maxPrice', $event)"
+                            class="pa-4 pt-0"
+                            type="text"
+                            label="Max Price"
+                        ></v-text-field>
+
                         <v-btn
                             @click="resetPriceFilter()"
                             small
@@ -70,12 +79,36 @@
 
             <template v-slot:header.category="{ header }">
                 {{ header.text }}
+                <v-menu offset-y :close-on-content-click="false">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn class="no-focus" icon v-bind="attrs" v-on="on">
+                            <v-icon small :color="category.id ? 'primary' : ''">
+                                mdi-filter
+                            </v-icon>
+                        </v-btn>
+                    </template>
+                    <div style="background-color: white; width: 280px">
+                        <v-autocomplete
+                            :items="categories"
+                            item-text="name"
+                            item-value="id"
+                            return-object
+                            :value="category"
+                            @input="fillfilterValues('category', $event)"
+                            label="Category Name"
+                            class="pa-4"
+                        ></v-autocomplete>
 
-                <span v-if="category.id">
-                    <v-btn class="no-focus" icon @click="resetCategoryFilter()">
-                        <v-icon>mdi-cached</v-icon>
-                    </v-btn>
-                </span>
+                        <v-btn
+                            @click="resetCategoryFilter()"
+                            small
+                            text
+                            color="primary"
+                            class="ml-2 mb-2"
+                            >Clean</v-btn
+                        >
+                    </div>
+                </v-menu>
             </template>
 
             <template v-slot:header.status="{ header }">
@@ -126,7 +159,6 @@
                     <span class="items-snackbar-span mt-1">
                         {{ item.variations.length }} Variations</span
                     >
-
                 </td>
             </template>
 
@@ -287,8 +319,7 @@
                         <span> Manage product variations </span>
                     </v-tooltip>
 
-
-                                   <v-tooltip top>
+                    <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
                                 <v-icon
@@ -301,7 +332,6 @@
                         </template>
                         <span> Manage product size guide </span>
                     </v-tooltip>
-
 
                     <!-- actions -->
                 </td>
@@ -320,17 +350,17 @@ export default {
 
             {
                 name: "name",
-                price: "price",
+                minPrice: "minPrice",
+                maxPrice: "maxPrice",
                 headers: "headers",
-
                 tag: "tag",
                 category: "category",
-
                 statusIsFiltered: "statusIsFiltered",
                 featuredIsFiltered: "featuredIsFiltered",
                 trendIsFiltered: "trendIsFiltered",
                 status: "status",
                 featured: "featured",
+                categories: "categories",
             }
         ),
 
@@ -340,15 +370,15 @@ export default {
     methods: {
         ...mapActions("products", {
             manageVariations: "manageVariations",
-    manageSizeGuides: "manageSizeGuides",
-            
+            manageSizeGuides: "manageSizeGuides",
+
             updateStatusOrFeaturedOrTrend: "updateStatusOrFeaturedOrTrend",
         }),
 
         ...mapMutations("products", [
             "editItem",
             "showDeleteSnackbar",
-            "addActiveCategory",
+            // "addActiveCategory",
             "closeStatusFilter",
             "closeFeaturedFilter",
             "closeTrendFilter",
