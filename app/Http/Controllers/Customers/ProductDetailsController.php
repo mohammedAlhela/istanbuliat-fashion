@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\Variation;
 use App\Models\Color;
 use App\Models\Size;
 
@@ -25,11 +24,11 @@ class ProductDetailsController extends Controller
         } else {
 
             $product = Product::
-            with(['category', 'variations', 'tags', 'colors', 'sizes'])->where('slug', $slug)->first();
+            with(['category', 'variations', 'colors', 'sizes'])->where('slug', $slug)->first();
             $variations = $product->variations;
 
             $relatedProducts = Product::
-                    with(['category', 'variations', 'tags', 'colors', 'sizes'])
+                    with(['category'])
                     ->where('category_id', $product->category_id)
                     ->where('id', '!=', $product->id)
                     ->get();
@@ -39,6 +38,7 @@ class ProductDetailsController extends Controller
             //  getting product related colors and sizes from variations  
             $colorsIds = [];
             $sizesIds = [];
+            $slidersImages = [];
             $variations = $product->variations;  
             foreach ($variations as $variation) { 
                 if(!in_array($variation->color_id , $colorsIds)) { 
@@ -53,7 +53,16 @@ class ProductDetailsController extends Controller
             $colors = Color::whereIn('id' , $colorsIds)->get();
             $sizes = Size::whereIn('id' , $sizesIds)->get();
              //  getting product related colors and sizes from variations 
-              $slidersImages = [];
+
+             $productVariation = new \stdClass ;
+             $productVariation->id =  $product->id;  
+             $productVariation->variation_id = count($variations)  ? $variations[0]->id :  $product->id  ; 
+             $productVariation->color_id =  2   ;
+             $productVariation->size_id =   2  ;
+             $productVariation->image =  $product->image; 
+             array_push($slidersImages , $productVariation);
+
+            
               foreach ($variations as $key=>$variation) { 
                      foreach ($variation->images as $imageKey=>$image)   { 
                         array_push($slidersImages , $image) ;
@@ -64,10 +73,18 @@ class ProductDetailsController extends Controller
                      $baseVariation->variation_id =  $variation->id + $variation->color_id + $variation->size_id; 
                      $baseVariation->color_id =  $variation->color_id  ;
                      $baseVariation->size_id =  $variation->size_id ;
-                     $baseVariation->image =  $variation->image;  
+                     $baseVariation->image =  $variation->image; 
+                     
+   
+
 
                      array_push($slidersImages , $baseVariation) ;
+                   
+                   
               }
+
+                                
+      
              
              
             return view('customers.product-details')->with([
@@ -76,8 +93,6 @@ class ProductDetailsController extends Controller
                 'sizes' => $sizes,
                 'relatedProducts' => $relatedProducts,
                 'productDetailsImagesSliders' => $slidersImages,
-
-                // product details js data 
                 'sizeGuides' => $product->sizeGuides,
                 'variations' => $variations
 

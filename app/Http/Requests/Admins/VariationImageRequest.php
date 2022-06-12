@@ -26,7 +26,7 @@ class VariationImageRequest extends FormRequest
 
 
         return [
-            'image' => [  'nullable' ,'image', "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
+            'image' => [  'nullable' ,'image', "mimes:jpg,png,jpeg,gif,svg,webp" ],
         ];
     }
 }

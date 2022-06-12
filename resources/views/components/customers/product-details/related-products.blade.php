@@ -1,4 +1,4 @@
-<div class="deals-section ">
+<div class="deals-section">
     <div class="mega-header"> you may also like</div>
 
     <div class="deals-owl-carousel owl-carousel owl-theme" >

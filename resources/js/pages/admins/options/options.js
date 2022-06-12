@@ -31,9 +31,7 @@ export default {
     methods: {
         closeLoader () {
             this.$store.commit('closeLoader')
-            setTimeout(() => {
                 this.showContent = true
-            }, 300)
         }
     }
 }

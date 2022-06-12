@@ -4,9 +4,11 @@
         <template v-slot:item.name="{ item }">
             <td class="p-3">
                 {{ item.name }}
+
+                <div class = "mt-1 paragraph">
+                 {{ item.last_seen }}
+                </div>
                 <div class="mt-2 primary-font">
-
-
                     <v-chip small :color="item.role == 'manager' ? 'primary' : 'warning'"> {{ item.role }} </v-chip>
                 </div>
 

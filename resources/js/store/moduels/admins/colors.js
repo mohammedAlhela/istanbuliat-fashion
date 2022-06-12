@@ -116,7 +116,7 @@ export default {
             state.editedItem = Object.assign({}, state.defaultItem);
             setTimeout(() => {
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         closeFileData: (state) => {

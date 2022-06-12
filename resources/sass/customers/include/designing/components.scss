@@ -35,17 +35,17 @@
             @extend .link-left-to-right;
 
             &:after {
-                top: 33px;
+                top: 40px;
                 background: $black-gray;
                 height: 1px !important;
             }
 
             input {
+                padding-bottom: 10px !important;
                 border: none;
                 border-bottom: 1px solid $light-icon-color;
 
                 border-radius: 0px !important;
-                padding-bottom: 18px !important;
 
                 @extend .no-focus;
 
@@ -56,8 +56,10 @@
                 @extend .paragraph;
             }
             button {
+                @extend .no-focus;
                 position: absolute;
-                top: -5px;
+                top: 4px;
+
                 right: 20px;
 
                 .search-image {
@@ -110,7 +112,7 @@
                     color: $black-gray !important;
                 }
                 cursor: pointer;
-                margin-top: 20px;
+                margin-top: 22px;
                 float: right;
                 padding-right: 10px;
                 text-align: right;
@@ -121,8 +123,23 @@
         }
     }
 
+
+    .offer { 
+        text-decoration: underline !important;
+ 
+
+        @extend .offers-link;
+        
+        display: block;
+        margin: 20px 0px 0px 26px;
+
+        padding-bottom: 30px;
+       
+    }
+
     .user-holder {
         margin: 10px 0px 0px 30px;
+        display: block;
         .user-image {
             display: inline-block;
             width: 25px;
@@ -145,38 +162,7 @@
             }
         }
     }
-    .social-media-holder {
-        padding-left: 20px;
-        .social-media {
-            display: inline-block;
-            text-align: center;
-            margin-top: 20px;
-            padding-bottom: 40px;
-            a {
-                text-decoration: none;
-                &:hover {
-                    text-decoration: none;
-                }
-                float: left;
 
-                color: $black-gray;
-
-                border: 1px solid $black-gray;
-                height: 35px;
-                width: 35px;
-                border-radius: 50%;
-                margin: 10px;
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                &:hover {
-                    color: $main-color;
-                    border-color: $main-color;
-                }
-            }
-        }
-    }
 }
 
 /* ----- v CAN BE DELETED v ----- */
@@ -210,10 +196,86 @@ body.modal-open {
     }
 }
 
-
-// images zoom in products details 
-@media(max-width:650px) { 
+// images zoom in products details
+@media (max-width: 650px) {
     .zomm-image {
         cursor: unset !important;
+    }
+}
+
+// loader
+.preloader {
+    background-color: white;
+    // height: 100vh !important;
+    // width: 100% !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999 !important;
+
+    margin: 0 auto;
+    overflow: hidden;
+    opacity: .8
+}
+
+
+button {
+    @extend .no-focus;
+}
+
+// toaster designing
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+
+    position: fixed; /* Sit on top of the screen */
+    z-index: 999; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 0px; /* 30px from the bottom */
+
+    background-color: #ffffff;
+
+    padding: 10px 14px;
+    box-shadow: rgb(100 100 111 / 13%) 0px 7px 29px 0px !important;
+    
+
+    @extend .paragraph;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+.show-snackbar {
+    transition: .2s all ease;
+    visibility: visible !important; /* Show the snackbar */
+    bottom: 30px !important;
+}
+
+
+
+// errors page 
+
+.customers-error-page { 
+    padding: 70px 20px;
+    @extend .fluid-container;
+    margin: auto;
+    .mega-header { 
+        text-align: left;
+    }
+
+    .text { 
+        text-align: left;
+        max-width: unset !important;
+
+        a { 
+            text-decoration: underline;
+            color: $black-gray !important;
+        }
     }
 }

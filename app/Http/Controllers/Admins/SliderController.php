@@ -21,7 +21,7 @@ class SliderController extends Controller
     public function index()
     {
 
-        $sliders = Slider::orderBy("created_at", "DESC")->get();
+        $sliders = Slider::orderBy("created_at", "DESC")->select('id' , 'title' , 'link' , 'big_image' , 'small_image' , 'status')->get();
 
         $response = [
             'sliders' => $sliders,
@@ -48,7 +48,7 @@ class SliderController extends Controller
             // delete old big image
             
             $bigImageName = time() . ".webp" ;
-            Image::make($bigImage)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName, 80);
+            Image::make($bigImage)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName, 100);
             $slider->big_image = "/images/sliders/big/" . $bigImageName;
         }
 
@@ -61,7 +61,7 @@ class SliderController extends Controller
             // delete old small image
            
             $smallImageName = time() . ".webp" ;
-            Image::make($smallImage)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName, 50);
+            Image::make($smallImage)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName, 80);
             $slider->small_image = "/images/sliders/small/" . $smallImageName;
 
         }

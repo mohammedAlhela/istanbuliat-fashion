@@ -113,6 +113,15 @@ export default {
 
             return dynamicData;
         },
+
+
+        
+        showClearImage: (state) => (variationImage) =>    {
+      
+            return state.image.preview && variationImage.id == state.editedIndex
+    
+
+    },
     },
 
     mutations: {
@@ -148,7 +157,7 @@ export default {
                 state.editedItem = Object.assign({}, state.defaultItem);
                 state.image = Object.assign({}, state.defaultImage);
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         closeData: (state) => {
@@ -160,7 +169,7 @@ export default {
                 state.editedItem = Object.assign({}, state.defaultItem);
                 state.image = Object.assign({}, state.defaultImage);
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         editItem: (state, item) => {
@@ -200,6 +209,11 @@ export default {
 
             console.log(state.image);
         },
+
+           clearImage: (state) => {
+            state.image = Object.assign({}, state.defaultImage);
+        },
+
 
         // ---------- dialog data ---------------------------
     },

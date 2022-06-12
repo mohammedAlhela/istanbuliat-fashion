@@ -14,14 +14,13 @@
 
                         <div class="search ">
 
-
                             <form id="small_screen_main_search"
                                 onsubmit="return trigerMainSearch(event , 'smallShopSearchInput' )">
                                 <button type="submit"> <img class="search-image" src="/images/svg/magnify.svg"
                                         alt="no image " /> </button>
 
 
-                                <input type="text" id="smallShopSearchInput" class="form-control"
+                                <input required type="text" id="smallShopSearchInput" class="form-control"
                                     placeholder="Search our store " />
 
                             </form>
@@ -38,6 +37,35 @@
 
                 <div class="links-blocks-holder" id="modal_links_holder">
 
+
+                    <div class="link-block">
+                        <img src="/images/sliders/small/home.webp" alt="">
+                        <a class="link"
+                            href="/">
+                          Home
+                        </a>
+
+                        <div class="icon"> <a
+                                href="/"><i
+                                    class="fa fa-chevron-right"></i></a> </div>
+                        <div class="clearing"></div>
+                    </div>
+
+
+                    <div class="link-block">
+                        <img src="/images/categories/all-collections.webp" alt="">
+                        <a class="link"
+                            href="/shop">
+                         All collections
+                        </a>
+
+                        <div class="icon"> <a
+                                href="/shop"><i
+                                    class="fa fa-chevron-right"></i></a> </div>
+                        <div class="clearing"></div>
+                        </div>
+
+
                     @foreach ($categories as $key => $item)
                         <div class="link-block">
                             <img src="{{ $item->image }}" alt="">
@@ -51,23 +79,18 @@
                                         class="fa fa-chevron-right"></i></a> </div>
                             <div class="clearing"></div>
                         </div>
+
+
                     @endforeach
 
+                                            
+            <a href="/shop?offer=60" class="offer"> offers up to 60% </a>
+
                 </div>
 
 
 
-                <div class="social-media-holder">
-                    <div class="social-media">
-                        <a
-                            href="https://www.facebook.com/pages/category/Shopping---Retail/Istanbuliat-UAE-112297630516968/"><i
-                                class="fa fa-facebook-f facebook-bg"></i></a>
-                        <a href="https://twitter.com/hashtag/%C4%B0stanbulAt?src=hash"><i
-                                class="fa fa-twitter twitter-bg"></i></a>
-                        <a href="https://www.instagram.com/istanbul_fashion_by_umufatih/?hl=en"><i
-                                class="fa fa-instagram instagram-bg"></i></a>
-                    </div>
-                </div>
+
 
             </div>
         </div><!-- modal-content -->

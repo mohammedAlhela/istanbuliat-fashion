@@ -20,12 +20,13 @@ class DatabaseSeeder extends Seeder
         //  \App\Models\Product::factory(15)->create();
         //   \App\Models\Tag::factory(10)->create();
         //   \App\Models\Tag::factory(10)->create();
-          // \App\Models\Variation::factory(60)->create();
+        // \App\Models\Variation::factory(60)->create();
         //$this->call([ProductTagSeeder::class]);
         //   $this->call([CategoryProductDemoSeeder::class]);
         //   $this->call([ProductPriceSeeder::class]);
-        // $this->call([ProductOptionsSeeder::class]);
+        //$this->call([ProductOptionsSeeder::class]);
         // $this->call([ProductOfferSeeder::class]);
+       // $this->call([WishlistSeeder::class]);
 
     }
 }

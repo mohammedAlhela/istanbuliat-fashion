@@ -8,19 +8,20 @@
         >
 
           <v-card class="variations-dialog-container size-guides-section" flat>
+
                 <v-toolbar dark color="blue">
                     <v-btn icon @click="closeDialogAction()" class="no-focus">
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                     <v-toolbar-title>
-                        Manage product size guide (<span
-                            v-for="(size, index) in products[datatableIndex]
-                                .relatedSizes"
+                     manage Sizes : (<span
+                            v-for="(size, index) in  getUniqueSizes(products[datatableIndex]
+                                .sizes) "
                             :key="index"
                         >
                             {{ size.name }}
-                            <span v-if="products[datatableIndex]
-                                .relatedSizes.length - index != 1">
+                            <span v-if="getUniqueSizes(products[datatableIndex]
+                                .sizes).length - index != 1">
                                 ,</span
                             > </span
                         >)
@@ -31,6 +32,8 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
+                               v-show = "  products[datatableIndex].size_guides.length < getUniqueSizes(products[datatableIndex]
+                                .sizes).length  "
                                 color="success"
                                 class="no-focus elevation-1"
                                 fab
@@ -47,12 +50,12 @@
                     </v-tooltip>
                 </v-toolbar>
 
-               <v-card-text v-if="products[datatableIndex].sizeGuides.length" >
+               <v-card-text v-if="products[datatableIndex].size_guides.length" >
               
                     <v-card
                         class="variation-card "
                         v-for="(sizeGuide, index) in products[datatableIndex]
-                            .sizeGuides"
+                            .size_guides"
                         :key="index"
                     >
                         <v-card-text class = "p-0">
@@ -139,12 +142,13 @@
                     :deleteSnackbar="deleteSnackbar"
                     @closing="closeDeleteSnackbar()"
                     @deleteData="destroy()"
-                    :useDefault="!products[datatableIndex].sizeGuides.length"
+                    :useDefault="!products[datatableIndex].size_guides.length"
                     customParagraph="are you sure you want to delete the size guide ?"
                 ></delete-data-snackbar>
 
                 <size-guides-save-dialog
-                    :relatedSizes="products[datatableIndex].relatedSizes"
+                    :sizes="getUniqueSizes(products[datatableIndex]
+                                .sizes)"
                 >
                 </size-guides-save-dialog> 
 
@@ -155,7 +159,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations , mapGetters } from "vuex";
 import sizeGuidesSaveDialog from "./sizeGuidesSaveDialog.vue";
 export default {
     components: {
@@ -169,8 +173,16 @@ export default {
         ...mapState(
             "sizeGuides",
 
-            ["dialog", "deleteSnackbar", "sizes"]
+            ["dialog", "deleteSnackbar"]
         ),
+
+               ...mapGetters(
+            "sizeGuides",
+
+            ["getUniqueSizes"]
+        ),
+
+       
     },
 
     methods: {

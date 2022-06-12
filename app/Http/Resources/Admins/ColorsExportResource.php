@@ -35,9 +35,6 @@ class ColorsExportResource extends JsonResource
 
             'hex' => $this->hex,
 
-            'note' => count($this->variations) ? "this record has related data please dont delete it" : "",
-
-
         ];
 
     }

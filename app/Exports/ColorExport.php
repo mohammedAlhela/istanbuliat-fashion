@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 use App\Models\Color;
-// use App\Http\Resources\Admins\ColorsExportResource;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -14,17 +13,16 @@ class ColorExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
 
     public function collection()
     {
-        return Color::all();
-        // return collect(AdminsExportResource::collection(User::orderBy('created_at', 'DESC')->where('role' ,  '!=' , 0)->get()));
+
+
+        return olor::get();
+
     }
 
     public function headings(): array
     {
         return [
-            // 'id',
-            // 'name',
-            // 'hex-value',
-            // 'note',
+     
 
             'Addmission',
             'name',

@@ -9,9 +9,7 @@ use App\Http\Resources\Admins\AdminsResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-
 use Excel;
-
 
 
 class AdminController extends Controller
@@ -27,7 +25,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = collect(AdminsResource::collection(User::orderBy('role' ,"DESC" )->where('role', '!=', 0)->get()));
+        $admins = collect(AdminsResource::collection(User::orderBy('role' ,"DESC" )->select('id' , 'name' , 'email' , 'role' , 'status' , 'last_seen')->where('role', '!=', 0)->get()));
 
         $response = [
             'admins' => $admins,
@@ -84,12 +82,10 @@ class AdminController extends Controller
     }
 
 
-
     public function exportExcel()
     {
 
         return Excel::download(new AdminExport, 'admins.xlsx');
-
     }
 
 
@@ -109,6 +105,5 @@ class AdminController extends Controller
         return response($response, 201);
 
     }
-
 
 }

@@ -1,8 +1,6 @@
 .search-brand-user-wishlist-cart-section {
 
     .holder { 
-
-  
     @extend .fluid-container;
     display: flex;
     flex-wrap: wrap;
@@ -22,21 +20,19 @@
             position: relative;
             min-width: 276px;
 
-            @extend .link-left-to-right;
+       
+            top: -5px;
 
-            &:after {
-                top: 33px;
-                background: $black-gray;
-                height: 1px !important;
-            }
+          
+
 
             input {
-    
+                padding-bottom: 10px !important;
                 border: none;
-                // border-bottom: 1px solid $light-icon-color;
-
+                display: inline-block;
+                width: 93%;
+                border: 1px solid $hr-color;
                 border-radius: 0px !important;
-                padding-bottom: 18px !important;
 
                 @extend .no-focus;
 
@@ -48,9 +44,17 @@
                 @extend .paragraph;
             }
         }
+
+        i { 
+            position: relative;
+    left: 10px;
+    color: $black-gray !important;
+    cursor: pointer;
+        }
     }
 
     .brand {
+        
         flex: 0 0 20%;
         max-width: 20%;
 
@@ -78,9 +82,11 @@
 
 
     button {
+        @extend .no-focus;
         position: absolute;
-        top: -5px;
-        right: 20px;
+        right: 40px;
+        top: 5px;
+      
 
         .search-image {
             width: 16px;
@@ -101,7 +107,7 @@
   
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 1100px) {
         .search-holder {
             flex: 0 0 33.33%;
             max-width: 33.33%;
@@ -118,7 +124,7 @@
         }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1100px) {
         padding: 20px 10px !important;
 
         .search-holder {
@@ -148,7 +154,7 @@
     }
 }
 
-@media(max-width:768px) { 
+@media(max-width:1100px) { 
     box-shadow: rgb(100 100 111 / 13%) 0px 5px 10px 0px !important;
 }
 }

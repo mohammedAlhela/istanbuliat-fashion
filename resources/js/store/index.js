@@ -18,7 +18,7 @@ import sizeGuides from './moduels/admins/sizeGuides'
 
 // admins pagess
 
-
+import wishlists from './moduels/customers/wishlists'
 
 export default new Vuex.Store({
     modules: {
@@ -32,9 +32,9 @@ export default new Vuex.Store({
         variations,
         variationsImages,
         sizeGuides,
-        dashboard
+        dashboard , 
         // admins pagess
-
+        wishlists
   
     },
 

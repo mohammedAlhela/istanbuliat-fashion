@@ -35,7 +35,7 @@ class SizeGuideRequest extends FormRequest
             'bust' => [  'required'],
             'wist' => [  'required'],
             'hip' => [  'required'],
-            // 'length' => [  'length']
+
         ];
     }
 }

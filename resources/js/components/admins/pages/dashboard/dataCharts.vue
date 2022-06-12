@@ -46,6 +46,11 @@ export default {
         chart: {
           height: 350,
           type: 'area',
+              toolbar: {
+        show: false,
+
+        
+              }
         },
 
         title: {
@@ -84,6 +89,12 @@ export default {
         chart: {
           height: 350,
           type: 'bar',
+
+                    toolbar: {
+        show: false,
+
+        
+              }
         },
 
         title: {

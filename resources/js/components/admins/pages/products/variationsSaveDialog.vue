@@ -27,7 +27,7 @@
               <!-- send images form -->
               <v-col cols="12 mb-3">
                 <span class="image-paragraph">
-                Maximum allowed file size is 1000 KB. Recomended image
+                   Recomended image
                   dimensions are 600 width and 800 height
                 </span>
 
@@ -51,6 +51,13 @@
                       <span class="d-inline-block ml-2">
                         <span v-html="getImageParagraph"> </span>
                       </span>
+
+                      
+                                        <div class="clear-button" @click="clearImage()" v-if="showClearImage">
+                                            <v-btn icon color="#645e5e">
+                                                <v-icon>mdi-cached</v-icon>
+                                            </v-btn><span class="paragraph"> clear</span>
+                                        </div>
              
                   </div>
 
@@ -181,7 +188,7 @@ export default {
       'sizes',
     ]),
 
-    ...mapGetters('variations', ['formTitle', 'getImage', 'getImageParagraph']),
+    ...mapGetters('variations', ['formTitle', 'getImage', 'getImageParagraph'  ,   'showClearImage']),
   },
 
   methods: {
@@ -193,6 +200,7 @@ export default {
       'closeData',
       'setDialogValues',
       'imageSelected',
+         'clearImage'
     ]),
 
     saveData() {

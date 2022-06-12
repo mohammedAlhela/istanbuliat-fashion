@@ -34,15 +34,6 @@ class VariationRequest extends FormRequest
         $sizeId = app("request")->get("size_id");
         $productId = app("request")->get("product_id");
         
-        $imageError = null;
-        if (!$id) {
-            $imageError = "required";
-
-        }
-        else  {
-            $imageError = "nullable";
-
-        }
 
         return [
             'size_id' => ['required'],
@@ -52,7 +43,7 @@ class VariationRequest extends FormRequest
     
         
         ],
-            'image' => [   $imageError , 'image', "mimes:jpg,png,jpeg,gif,svg,webp" , 'max:1000'],
+            'image' => [   'nullable' , 'image', "mimes:jpg,png,jpeg,gif,svg,webp" ],
         ];
     }
 

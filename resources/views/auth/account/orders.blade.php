@@ -4,14 +4,15 @@
         <div class="account-section-container ">
             @include('auth.account.navigation')
             <div class="form-section">
-                <section class="mega-header text-left">
-                 orders
+                <section class="heading-authentication-navigation text-left">
+                 my orders
                 </section>
 
-                <p class="authentication-font">
-                    You dont have any orders yet
-                </p>
+         
 
+                <div class="authentication-font  designing-div mt-3">
+                    You dont have any orders yet
+                </div>
             </div>
         </div>
     </div>

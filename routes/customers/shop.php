@@ -4,3 +4,4 @@ use App\Http\Controllers\Customers\ShopController;
 
 Route::get("shop", [ShopController::class, "index"])->name('customers-shop');
 
+

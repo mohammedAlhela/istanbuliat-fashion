@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Exports\SizeExport;
 use App\Http\Controllers\Controller;
-use App\Imports\SizeImport;
-use App\Models\Product;
 use App\Models\Size;
-use DB;
 use Excel;
 use Illuminate\Http\Request;
 
@@ -46,7 +43,7 @@ class SizeController extends Controller
 
     public function index()
     {
-        $sizes = Size::orderBy('id', 'DESC')->get();
+        $sizes = Size::orderBy('id', 'DESC')->with('products')->get();
 
         $response = [
             'sizes' => $sizes,
@@ -81,18 +78,6 @@ class SizeController extends Controller
         return response($response, 201);
     }
 
-    // public function import(Request $request)
-    // {
-
-    //     $fields = $request->validate([
-    //         'file' => ['required'],
-
-    //     ]);
-
-    //     Excel::import(new SizeImport, request()->file("file"));
-    //     return redirect()->back()->with('message', 'data impoted successfully');
-
-    // }
 
     public function export(Request $request)
     {

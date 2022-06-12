@@ -15,21 +15,18 @@ class AdminExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
 
     public function collection()
     {
-        return collect(AdminsExportResource::collection(User::orderBy('created_at', 'DESC')->where('role' ,  '!=' , 0)->get()));
+        return collect(AdminsExportResource::collection(User::orderBy('created_at', 'DESC')->select('id' , 'name' , 'email' , 'role' , 'status' , 'last_seen')->where('role' ,  '!=' , 0)->get()));
     }
 
     public function headings(): array
     {
         return [
-            'Addmission',
+            'addmission',
             'name',
-            'Email',
-            'Role',
-            'Status',
+            'email',
+            'role',
+            'status',
             'last_seen',
-            'created_at',
-            'updated_at',
-
         ];
     }
 

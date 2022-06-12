@@ -27,6 +27,12 @@ Vue.component(
         'admins-dashboard',
         require('./pages/admins/dashboard/dashboard.vue').default
     )
+
+
+    Vue.component(
+        'customers-wishlists',
+        require('./pages/customers/wishlists/wishlists.vue').default
+    )
     // admins pages ++++++++++
 
 // admins include components ++++++++

@@ -104,7 +104,7 @@
                 </v-row>
 
                 <v-row v-else>
-                    <v-col cols="12 header"> No items added yet </v-col>
+                    <v-col cols="12"> No items added yet </v-col>
                 </v-row>
             </v-card-text>
         </v-card>

@@ -1,51 +1,54 @@
 .deals-section {
-    margin-top: -20px !important;
+
     @extend .seperator-section-container;
+
+    padding-top: 0px !important;
 
     a {
         text-decoration: none !important;
     }
 
-    .deals-owl-carousel {
-        margin-top: 20px;
-        .owl-dots {
-            display: none;
-        }
-        .owl-nav {
-            margin-top: 0px !important;
-            button {
-                position: absolute;
-                top: calc(50% - 55px);
-                background: white;
-                padding: 8px 6px 10px !important;
-                border-radius: 0% !important;
-                opacity: 0.8;
-                transition: 0.2s all ease;
-                margin: 0px !important;
 
-                i {
-                    color: $black-gray !important;
-                    font-size: 12px !important;
-                }
-                &:nth-child(1) {
-                    left: 0px;
-                }
+    .items-holder { 
+        margin-top: 25px;
+        @extend .flex-father;
 
-                &:nth-child(2) {
-                    right: 0px;
-                }
-                &:hover {
-                    opacity: 1;
-                }
+        .product-block { 
+            flex:  0   0  calc(25%  - 20px);
+         
+
+            margin-right: 20px;
+            margin-bottom: 40px;
+
+            img { 
+                width: 100%;
             }
 
-            svg {
-                width: 8px !important;
-            }
+            
+    @media(max-width:991px) { 
+        
+   
+            flex:  0   0  calc(33.33%  - 20px);
+         
+      
+    }
+
+    @media(max-width:767px) { 
+        
+   
+        flex:  0   0  calc(50%  - 10px);
+        margin-right: 10px;
+     
+  
+}
+
+
         }
     }
-    .text {
-        margin-top: 10px;
-        margin-bottom: 5px;
+
+    .mega-header { 
+        padding-left: 10px ;
+        text-align: left;
     }
+
 }

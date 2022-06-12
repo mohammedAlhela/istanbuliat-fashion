@@ -1,7 +1,7 @@
 .categories-section {
     @extend .seperator-section-container;
-    a { 
-        &:hover { 
+    a {
+        &:hover {
             text-decoration: none !important;
         }
     }
@@ -10,19 +10,15 @@
         cursor: pointer;
         position: relative;
 
-  
-        .category-name { 
+        .category-name {
             margin: 15px 0px;
             text-align: center;
-            img { 
+            img {
                 width: 20px;
-    display: inline-block;
-    margin-left: 10px;
-    margin-top: -3px;
+                display: inline-block;
+                margin-left: 10px;
+                margin-top: -3px;
             }
-
-
-            
         }
 
         .content-holder {
@@ -33,19 +29,17 @@
                 text-align: center;
                 margin-top: 150px;
                 span {
-                    @extend   .white-bordered-bottom-button;
+                    @extend .white-bordered-bottom-button;
                 }
             }
 
             .name {
-              @extend .white-header;
+                @extend .white-header;
             }
         }
-   
     }
 
     @media (max-width: 768px) {
-
         .content-holder {
             margin-top: 38% !important;
 
@@ -65,7 +59,6 @@
     }
 
     .categories-owl-carousel {
-        
         margin-top: 20px;
         .owl-dots {
             display: none;
@@ -74,6 +67,7 @@
             margin-top: 0px !important;
             display: block !important;
             button {
+                @extend .no-focus;
                 position: absolute;
                 top: calc(50% - 55px);
                 background: white;
@@ -105,8 +99,12 @@
         }
     }
 
-    .text { 
-        margin-top : 10px;
+    .text {
+        margin-top: 10px;
         margin-bottom: 5px;
+    }
+    .mega-header { 
+        padding-left: 10px;
+        text-align: left;
     }
 }

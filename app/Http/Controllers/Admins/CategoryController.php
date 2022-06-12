@@ -8,6 +8,7 @@ use App\Http\Resources\Admins\CategoriesResource;
 use App\Models\Category;
 use App\Exports\CategoryExport;
 use Image;
+use Excel;
 
 class CategoryController extends Controller
 {
@@ -25,7 +26,6 @@ class CategoryController extends Controller
 
         $category->name = $request->name;
 
-        $category->description = $request->description;
     }
 
     public function uploadImage($category, $id)
@@ -40,7 +40,7 @@ class CategoryController extends Controller
             // delete old image
         
             $imageName = time() . ".webp" ;
-            Image::make($image)->fit(80, 30)->save(public_path("/images/categories/") . $imageName, 50);
+            Image::make($image)->fit(800, 1200)->save(public_path("/images/categories/") . $imageName, 80);
             $category->image = "/images/categories/" . $imageName;
         }
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = collect(CategoriesResource::collection(Category::orderBy("created_at", "DESC")->with('products')->get()));
+        $categories = collect(CategoriesResource::collection(Category::select('id' , 'name' , 'status'  , 'image' , 'description' )->orderBy("created_at", "DESC")->with('products')->get()));
 
         $response = [
             'categories' => $categories,

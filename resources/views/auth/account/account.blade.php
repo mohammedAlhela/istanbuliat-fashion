@@ -6,7 +6,7 @@
             @include('auth.account.navigation')
             <div class="form-section">
 
-                <section class="mega-header text-left">
+                <section class="heading-authentication-navigation text-left">
                     Account Informations
                 </section>
 

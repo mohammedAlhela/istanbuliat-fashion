@@ -39,12 +39,7 @@ class AdminRequest extends FormRequest
 
         return [
             'password' => [$passwordError,
-                Password::min(8)
-                    ->mixedCase()
-                    ->letters()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
+           
             ],
 
             'email' => ["unique:users,email," . $id, 'required', 'min:5', 'email', 'max:50',

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
 class Color extends Model
 {
@@ -12,11 +12,9 @@ class Color extends Model
 
     protected $guarded = [];
 
-    protected $appends = [
-        'products',
-    ];
 
     protected $fillable = ['id', 'name', 'hex'];
+
     public $timestamps = false;
 
     public function variations()
@@ -24,17 +22,14 @@ class Color extends Model
         return $this->hasMany(Variation::class, 'color_id', 'id');
     }
 
-    public function getProductsAttribute()
+    
+    public function products()
     {
+         return $this->belongsToMany(Product::class, 'variations', 'color_id', 'product_id')->select(array('name' , 'color_id'))->whereRaw('products.status = 1');
 
-        $productsIds = DB::table('variations')->where('color_id', $this->id)->pluck('product_id')->all();
-        $uniqueProductsIds = array();
-        foreach ($productsIds as $productId) {
-            if (!in_array($productId, $uniqueProductsIds)) {
-                array_push($uniqueProductsIds, $productId);
-            }
-        }
-        return DB::table('products')->whereIn('id', $uniqueProductsIds)->get();
+        
+
+       
 
     }
 

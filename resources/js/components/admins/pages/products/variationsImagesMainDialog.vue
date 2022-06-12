@@ -1,6 +1,6 @@
 <template>
   <div v-if="variationEditedIndex > -1">
-    <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
+    <v-dialog v-model="dialog"  fullscreen transition="dialog-bottom-transition">
       <v-card class="variations-dialog-container" flat>
         <v-toolbar dark color="blue">
           <v-btn icon @click="closeDialogAction()" class="no-focus">
@@ -27,7 +27,7 @@
 
           <div class="paragraph p-5 pb-0">
 
-            Maximum allowed file size is 1000 KB. Recomended image
+          Recomended image
             dimensions are 600 width and 800 height</div>
           <v-card class="variation-card variation-image-card"
             v-for="(variationImage, index) in variations[datatableIndex].images" :key="index">
@@ -48,7 +48,7 @@
                         <img class="image" :src="getRecordImage(variationImage)" />
                       </div>
 
-                      <div class="upload-container">
+                      <div class="upload-container pt-5">
 
                         <label :for="getRecordId(variationImage)" class="custom-file-upload">
                           <v-icon class="icon"> mdi-pencil </v-icon>
@@ -58,6 +58,13 @@
                         <span class="d-inline-block ml-2">
                           <span v-html="getRecordImageParagraph(variationImage)"> </span>
                         </span>
+
+                        
+                                        <div class="clear-button" @click="clearImage()" v-if="showClearImage(variationImage)">
+                                            <v-btn icon color="#645e5e">
+                                                <v-icon>mdi-cached</v-icon>
+                                            </v-btn><span class="paragraph"> clear</span>
+                                        </div>
 
                       </div>
 
@@ -71,7 +78,7 @@
                   </div>
 
                   <!-- actions button  -->
-                  <v-col cols="12" class="buttons-holder text-right">
+                  <v-col cols="12" class="buttons-holder text-left">
                     <v-btn v-if="editedIndex == variationImage.id"
                       :loading="buttonLoading && variationImage.id === editedIndex" small type="submit" color="primary"
                       class="ma-2 white--text">
@@ -120,7 +127,7 @@ export default {
       ['dialog', 'deleteSnackbar', 'buttonLoading', 'editedIndex']
     ),
 
-    ...mapGetters('variationsImages', ['getImage', 'getRecordImage', 'getImageParagraph', 'getRecordImageParagraph']),
+    ...mapGetters('variationsImages', ['getImage', 'getRecordImage', 'getImageParagraph', 'getRecordImageParagraph' ,   'showClearImage']),
   },
 
   methods: {
@@ -135,7 +142,8 @@ export default {
       'showDeleteSnackbar',
       'closeDeleteSnackbar',
       'imageSelected',
-      'initializeAdd'
+      'initializeAdd',
+         'clearImage'
 
     ]),
 

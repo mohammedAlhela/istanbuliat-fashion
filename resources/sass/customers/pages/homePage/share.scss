@@ -1,13 +1,17 @@
 .share-section {
     margin-top: -30px;
-    @extend .side-section-container;
+  
 
     .images-holder {
         margin-top: 20px;
-        @extend .flex-father;
+        
+        flex-wrap: unset !important;
 
         .image-block {
-            flex: 0 0 33.33%;
+    
+           display: inline-block;
+           width: 16.66%;
+           float: left;
             cursor: pointer;
             position: relative;
             &::before {
@@ -44,7 +48,7 @@
             top: calc(50% - 11px);
 
             i {
-                color: white;
+                color: $hr-color;
                 font-size: 25px;
                 opacity: 0;
                 transition: 0.3s all ease;
@@ -62,9 +66,6 @@
     }
 }
 
-// .lg-outer.lg-grab img.lg-object {
-//     max-width: 550px ;
-// }
 
 
 
@@ -99,15 +100,6 @@
         width: 500px !important;
  
     }
-
-
-
-// @media (max-width: 650px)  {
-//     .lg-outer.lg-grab img.lg-object {
-//          width: 340px !important;
-        
-//     }
-// }
 
 
 

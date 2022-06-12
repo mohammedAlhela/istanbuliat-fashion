@@ -22,7 +22,7 @@ export default {
     ...mapState(
       'dashboard',
 
-      ['products', 'subscribers', 'admins' , 'showContent' , 'customers']
+      ['products', 'subscribes', 'admins' , 'showContent' , 'customers']
     ),
 
   },

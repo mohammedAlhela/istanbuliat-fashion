@@ -1,4 +1,4 @@
-@import 'animate.css';
+
 // slider div animation
 .fade-in {
     animation: fadeIn 3s;
@@ -81,26 +81,17 @@
     }
 }
 
-.link-left-to-right {
-    &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        transform: scaleX(0);
-        border-radius: 5px;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background: $main-color;
-        transform-origin: bottom right;
-        transition: transform 0.4s ease-out;
-        color: $main-color !important;
-        text-decoration: none !important;
-    }
-    &:hover {
-        &::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-    }
+
+
+
+
+.link-left-to-right { position:relative }
+.link-left-to-right:after {
+  display:block;
+  content: '';
+  border-bottom: solid 3px #019fb6;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
 }
+
+.link-left-to-right:hover:after { transform: scaleX(1); }

@@ -11,9 +11,7 @@
       </v-tooltip>
 
 
-    </div>
-    <div class="col-12 col-md-6 right-header-section">
-      <v-tooltip top>
+<span class = "ml-2">          <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="no-focus add-button" color="success" fab v-bind="attrs" v-on="on" x-small dark
             @click="$emit('openSaveDialog')">
@@ -22,8 +20,11 @@
         </template>
         <span> Add new slider </span>
       </v-tooltip>
+</span>
+ 
 
     </div>
+
 
 
   </div>

@@ -13,22 +13,11 @@ export default {
                     value: "image",
                 },
 
-
-                
-           
-
                 {
                     text: " Name",
                     align: "start",
                     sortable: true,
                     value: "name",
-                },
-
-                {
-                    text: "Description",
-                    align: "start",
-                    sortable: true,
-                    value: "description",
                 },
 
                 {
@@ -64,13 +53,11 @@ export default {
                 id: "",
                 name: "",
                 type: "",
-                description: "",
             },
             defaultItem: {
                 id: "",
                 name: "",
                 type: "",
-                description: "",
             },
             image: {
                 file: "",
@@ -84,10 +71,6 @@ export default {
                 preview: "",
             },
 
-
-
-
-    
             // ---------- dialog data
         };
     },
@@ -98,7 +81,6 @@ export default {
                 ? "Add new category"
                 : "Update category data";
         },
-
 
         getImage: (state) => {
             return (
@@ -117,7 +99,6 @@ export default {
                 return `<span class = 'paragraph'> no image selected </span> `;
             }
         },
-
 
         filteredCategories: (state, getters) => {
             var categoriesFork = state.categories;
@@ -139,15 +120,18 @@ export default {
             return categoriesFork;
         },
 
-
-
         filterData: (state) => (item) => {
             return (
                 item.name.toLowerCase().includes(state.search.toLowerCase()) ||
-
-                item.status.toLowerCase().includes(state.search.toLowerCase()) 
-
+                item.status.toLowerCase().includes(state.search.toLowerCase())
             );
+        },
+
+        showClearImage: (state) =>   {
+      
+                return state.image.preview
+        
+  
         },
 
     },
@@ -156,9 +140,10 @@ export default {
         // ---------- main
         assignApiData: (state, categories) => {
             state.categories = categories;
+
             setTimeout(() => {
                 state.showContent = true;
-            }, 500);
+            }, 200);
         },
         // ---------- main
 
@@ -202,8 +187,6 @@ export default {
         setDialogValues: (state, dataObject) => {
             if (dataObject.variableType === "name") {
                 state.editedItem.name = dataObject.e;
-            } else if (dataObject.variableType === "description") {
-                state.editedItem.description = dataObject.e;
             }
         },
 
@@ -211,13 +194,12 @@ export default {
             state.dialog = false;
             state.buttonLoading = false;
             state.errors = {};
- 
-        
+
             setTimeout(() => {
                 state.editedItem = Object.assign({}, state.defaultItem);
                 state.image = Object.assign({}, state.defaultImage);
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         editItem: (state, item) => {
@@ -226,7 +208,7 @@ export default {
 
             setTimeout(() => {
                 state.dialog = true;
-            }, 500);
+            }, 100);
         },
 
         intializeSave: (state) => {
@@ -256,7 +238,11 @@ export default {
         setSearchValue: (state, e) => {
             state.search = e;
 
-            console.log(state.search)
+            console.log(state.search);
+        },
+
+        clearImage: (state) => {
+            state.image = Object.assign({}, state.defaultImage);
         },
 
         // ---------- dialog data ---------------------------
@@ -300,10 +286,6 @@ export default {
             categoryData.append("image", state.image.file);
             categoryData.append("name", state.editedItem.name);
 
-            categoryData.append(
-                "description",
-                state.editedItem.description ? state.editedItem.description : ""
-            );
             categoryData.append("id", state.editedItem.id);
 
             if (state.editedIndex === -1) {
@@ -337,9 +319,7 @@ export default {
             }
         },
 
-
-
-        async updateStatus({  dispatch }, item) {
+        async updateStatus({ dispatch }, item) {
             const Data = await axios
                 .get(`/category/updateStatus/${item.id}`)
                 .catch((error) => {
@@ -349,6 +329,5 @@ export default {
             const DATAFETCHED = await dispatch("fetch");
             toasts.methods.fireSuccessToast("Status updated successfully");
         },
-
     },
 };

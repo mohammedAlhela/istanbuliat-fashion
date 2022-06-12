@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\VariationRequest;
-use App\Models\Color;
 use App\Models\Product;
-use App\Models\Size;
 use App\Models\Variation;
 use App\Models\VariationImage;
 use DB;
@@ -27,15 +25,6 @@ class VariationController extends Controller
     public function updateProduct($product_id)
     {
         $product = Product::find($product_id);
-        // update the product options
-        $colorsIdsArray = Variation::where('product_id', $product_id)->pluck('color_id')->all();
-        $sizesIdsArray = Variation::where('product_id', $product_id)->pluck('size_id')->all();
-        $colorsNamesArray = Color::whereIn('id', $colorsIdsArray)->pluck('name')->all();
-        $sizesNamesArray = Size::whereIn('id', $sizesIdsArray)->pluck('name')->all();
-        $colorsString = join(",", $colorsNamesArray);
-        $sizesString = join(",", $sizesNamesArray);
-        $product->sizes = $sizesString;
-        $product->colors = $colorsString;
 
         // update qty
         $qty = 0;
@@ -64,25 +53,26 @@ class VariationController extends Controller
     public function deleteImages($id)
     {
 
-        $images = VariationImage::where('variation_id', $id)->get();
+        $variationImages = VariationImage::where('variation_id', $id)->get();
 
-        foreach ($images as $item) {
+        foreach ($variationImages as $variationImage) {
+            if ($variationImage->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $variationImage->image)) {
 
-            if ($item->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $item->image)) {
-
-                $imageFileDeleted = unlink(substr($item->image, 1));
+                $imageFileDeleted = unlink(substr($variationImage->image, 1));
 
                 if ($imageFileDeleted) {
 
-                    $item->delete();
+                    $variationImage->delete();
 
                 }
 
             } else {
 
-                $item->delete();
+                $variationImage->delete();
             }
+
         }
+
 
     }
 
@@ -91,24 +81,22 @@ class VariationController extends Controller
 
         $productVariation = Variation::find($id);
 
-        if ($productVariation->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $productVariation->image)) {
+        if (  $productVariation->image && $productVariation->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $productVariation->image)) {
 
             $imageFileDeleted = unlink(substr($productVariation->image, 1));
 
             if ($imageFileDeleted) {
 
                 $productVariation->delete();
-                VariationImage::where('variation_id', $id)->delete();
-
             }
 
         } else {
 
             $productVariation->delete();
-            VariationImage::where('variation_id', $id)->delete();
+            
         }
 
-        $this->updateProduct($productVariation->product_id);
+         $this->updateProduct($productVariation->product_id);
         $this->deleteImages($id);
 
         return 'product variation deleted successfully';
@@ -121,12 +109,15 @@ class VariationController extends Controller
         // fetch product
         $product = Product::find($request->product_id);
         // fetch product
-
-        $image = request()->file('image');
         $imageSrc = null;
-        $imageName = time() . ".webp";
-        $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName, 50);
-        $imageSrc = '/images/products/variations/' . $imageName;
+        $image = request()->file('image');
+        if($image) { 
+   
+            $imageName = time() . ".webp";
+            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName, 80);
+            $imageSrc = '/images/products/variations/' . $imageName;
+        }
+
 
         DB::table('variations')->insert([
             'sku' => $product->sku . $request->color_id . $request->size_id,
@@ -160,7 +151,7 @@ class VariationController extends Controller
         if ($image) {
 
             $imageName = time() . ".webp";
-            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName, 50);
+            $saveImage = Image::make($image)->fit(600, 800)->save(public_path('/images/products/variations/') . $imageName, 80);
             $imageSrc = '/images/products/variations/' . $imageName;
 
             $productVariation = DB::table('variations')->where('id', $id)->get()->first();
@@ -192,6 +183,33 @@ class VariationController extends Controller
         ];
 
         return response($response, 201);
+
+    }
+
+    public function deleteImage($id)
+    {
+
+        $productVariation = Variation::find($id);
+
+        if  ( $productVariation->image &&  $productVariation->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $productVariation->image)) {
+
+            $imageFileDeleted = unlink(substr($productVariation->image, 1));
+
+            if ($imageFileDeleted) {
+
+                $productVariation->image = Null;
+              
+
+            }
+
+        } else {
+
+            $productVariation->image = Null;
+        }
+
+         $productVariation->save();
+
+        return 'product variation deleted successfully';
 
     }
 

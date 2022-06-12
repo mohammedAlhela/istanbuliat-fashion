@@ -1,5 +1,8 @@
 <div class = "upbar-section">
   <div class="holder">
-    <a href="/shop?offer=60">  offers up to 60%   </a>  <img src="/images/svg/chevron-right.svg" alt="">  
+  
+    
+    <span class = "paragraph"> Free Shipping On Orders Over 150 AED </span>
+
   </div>
 </div>

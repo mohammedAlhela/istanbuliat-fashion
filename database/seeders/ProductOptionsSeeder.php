@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use App\Models\Variation;
-use App\Models\Color;
-use App\Models\Size;
 use Illuminate\Database\Seeder;
 
 class ProductOptionsSeeder extends Seeder
@@ -19,12 +16,13 @@ class ProductOptionsSeeder extends Seeder
     public function run()
     {
 
-    
-        $variations = Variation::all();
-        foreach ($variations as $variation) {
-            $variation->image = '/images/products/variations/variation.webp';
-            $variation->save();
+
+        $products = Product::all();
+        foreach ($products as $product) {
+            $product->wash_care = '';
+            $product->save();
         }
+
 
     }
 }

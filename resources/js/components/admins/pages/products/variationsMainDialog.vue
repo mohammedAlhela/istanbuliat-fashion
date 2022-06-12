@@ -24,12 +24,22 @@
         <v-card-text v-if="products[datatableIndex].variations.length">
           <v-card class="variation-card" v-for="(variation, index) in products[datatableIndex].variations" :key="index">
             <v-card-text>
-              <img class="image" :src="variation.image" alt="" />
+              <img class="image" :src="variation.image || '/images/products/variations/variation.webp'" />
+
+
+              <v-chip small class="ma-2 mt-4" label dark color="warning" @click="deleteImage(variation.id)"
+                v-if="variation.image">
+                Delete Image
+              </v-chip>
+
+
+
+
 
               <div class="informations-holder">
-  
+{{variation.id  }}
                 <div class="header">
-                       {{ variation.id }}
+
                   Color :
                   <span class="paragraph">
                     {{ variation.color.name }}
@@ -80,18 +90,55 @@
 
                 <hr />
 
-                <div class="text-right">
-                  <v-icon class="icon" @click="showDeleteSnackbar(variation)">
-                    mdi-delete
-                  </v-icon>
+                <div class="text-right row pt-0 pb-2">
 
-                  <v-icon class="icon" @click="editItem(variation)">
-                    mdi-pencil
-                  </v-icon>
 
-                  <v-icon class="icon ml-1" @click="manageImages(variation)">
-                    mdi-folder-multiple-image
-                  </v-icon>
+
+                  <div class="text-left col-6">
+
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+
+                        <v-chip @click="manageImages(variation)"  label color="#e0e0e0" v-bind="attrs" v-on="on">
+                          <v-icon class="icon" > mdi-folder-multiple-image </v-icon>
+                          <span class="paragraph d-inline-block mx-2"> {{ variation.images.length }} images</span>
+
+                        </v-chip>
+
+                      </template>
+                      <span> Manage Variation Additional Images </span>
+                    </v-tooltip>
+                  </div>
+
+
+
+                  <div class="col-6">
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon class="icon mr-2" @click="editItem(variation)" v-bind="attrs" v-on="on">
+                          mdi-pencil
+                        </v-icon>
+                      </template>
+                      <span> Update Variation Data </span>
+                    </v-tooltip>
+
+
+
+
+
+
+
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon class="icon" @click="showDeleteSnackbar(variation)" v-bind="attrs" v-on="on">
+                          mdi-delete
+                        </v-icon>
+                      </template>
+                      <span> Delete the variation </span>
+                    </v-tooltip>
+
+                  </div>
+
                 </div>
               </div>
 
@@ -112,12 +159,10 @@
         <variations-save-dialog>
         </variations-save-dialog>
 
-       <variations-images-main-dialog 
-       :datatableIndex="variationsDatatableIndex"
-          :variations="products[datatableIndex].variations" :variationEditedIndex="$store.state.variations.editedIndex"
-          >
+        <variations-images-main-dialog :datatableIndex="variationsDatatableIndex"
+          :variations="products[datatableIndex].variations" :variationEditedIndex="variationEditedIndex">
 
-        </variations-images-main-dialog> 
+        </variations-images-main-dialog>
 
         <div class="clearing"></div>
       </v-card>
@@ -142,7 +187,7 @@ export default {
     ...mapState(
       'variations',
 
-      ['dialog', 'deleteSnackbar']
+      ['dialog', 'deleteSnackbar' , 'variationEditedIndex']
     ),
 
     ...mapGetters(
@@ -150,13 +195,11 @@ export default {
 
       {
         variationsDatatableIndex: 'datatableIndex',
+      
+        
 
 
       }
-
-
-
-
     ),
 
   },
@@ -166,7 +209,7 @@ export default {
       destroy: 'delete',
       manageImages: 'manageImages',
       closeDialogAction: 'closeDialogAction',
-      
+      deleteImage: 'deleteImage',
 
     }),
 
@@ -175,7 +218,7 @@ export default {
       'editItem',
       'showDeleteSnackbar',
       'closeDeleteSnackbar',
-   
+
     ]),
   },
 }

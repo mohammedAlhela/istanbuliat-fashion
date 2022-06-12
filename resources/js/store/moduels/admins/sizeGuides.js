@@ -62,6 +62,25 @@ export default {
                 ? "Add new Size Guide"
                 : "Update Size Guide";
         },
+
+        getUniqueSizes: (state) => (sizes) => {
+            let uniqueSizes = [];
+            let sizeGuideIndexInUniqueArray = -1;
+
+            sizes.forEach((size) => {
+                sizeGuideIndexInUniqueArray = uniqueSizes.findIndex(function (
+                    item
+                ) {
+                    return item.id == size.id;
+                });
+
+                if (sizeGuideIndexInUniqueArray == -1) {
+                    uniqueSizes.push(size);
+                }
+            });
+
+            return uniqueSizes;
+        },
     },
 
     mutations: {
@@ -94,7 +113,7 @@ export default {
             state.editedItem = Object.assign({}, state.defaultItem);
             setTimeout(() => {
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         editItem: (state, item) => {

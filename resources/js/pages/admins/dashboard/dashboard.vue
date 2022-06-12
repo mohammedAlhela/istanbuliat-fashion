@@ -11,7 +11,7 @@
             >
                 <informations-cards :products = "products" :customers = "customers"  :admins = "admins"></informations-cards>
                 <data-charts></data-charts>
-                <orders-and-subscribers :subscribers = "subscribers"></orders-and-subscribers>
+                <orders-and-subscribers :subscribes = "subscribes"></orders-and-subscribers>
             </div>
         </v-main>
     </v-app>

@@ -139,6 +139,16 @@ export default {
             }
         },
 
+        showClearImage: (state) => (key) =>  {
+            if(key == 'big') { 
+                return state.bigImage.preview
+            }else { 
+                return state.smallImage.preview
+            }
+  
+        },
+
+
     },
 
     mutations: {
@@ -150,9 +160,11 @@ export default {
 
         assignApiData: (state, sliders) => {
             state.sliders = sliders;
-            setTimeout(() => {
-                state.showContent = true;
-            }, 500);
+         setTimeout (()=> { 
+            state.showContent = true;
+         }, 200)
+           
+     
         },
 
         updateSliderStatus: (state, objectData) => {
@@ -201,7 +213,7 @@ export default {
                 state.bigImage = Object.assign({}, state.defaultBigImage);
                 state.smallImage = Object.assign({}, state.defaultSmallImage);
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         editItem: (state, item) => {
@@ -244,6 +256,17 @@ export default {
             reader.onload = (element) => {
                 state.smallImage.preview = element.target.result;
             };
+        },
+
+
+        clearImage: (state, key) =>  {
+            if(key == 'big') { 
+                state.bigImage = Object.assign({}, state.defaultBigImage);
+              
+            }else { 
+                state.smallImage = Object.assign({}, state.defaultSmallImage);
+            }
+  
         },
 
         // ---------- dialog data ---------------------------

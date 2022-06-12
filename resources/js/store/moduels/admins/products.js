@@ -35,24 +35,10 @@ export default {
                 },
 
                 {
-                    text: "Trend",
-                    align: "start",
-                    sortable: true,
-                    value: "trend",
-                },
-
-                {
                     text: "Status",
                     align: "start",
                     sortable: true,
                     value: "status",
-                },
-
-                {
-                    text: "Featured",
-                    align: "start",
-                    sortable: true,
-                    value: "featured",
                 },
 
                 { text: "Actions", value: "actions", sortable: false },
@@ -72,8 +58,6 @@ export default {
             singleDelete: true,
             deleteSnackbar: false,
             deleteIndex: -1,
-            blockDeleteSnackbar: false,
-            blockDeleteReport: ``,
             // ---------- delete
 
             // ---------- dialog data
@@ -82,13 +66,14 @@ export default {
             dialog: false,
             editedIndex: -1,
             editedItem: {
-                tagsNamesArray: [], // push new tags to api
-                sizesNamesArray: [], // push new sizes to api
-                colorsNamesArray: [], // push new colors to api
                 id: "",
+
                 selling_price: "",
+
                 discount_price: "",
+
                 sku: "",
+                
                 category: {
                     id: "",
                     name: "",
@@ -96,34 +81,44 @@ export default {
 
                 name: "",
 
-                short_description: "",
-
                 long_description: "",
+
                 wash_care: "",
+
                 contents: [],
+
+                tagsNamesArray : [] , 
+                colors : [] , 
+                sizes : [] , 
             },
             defaultItem: {
-                tagsNamesArray: [], // push new tags to api
-                sizesNamesArray: [], // push new sizes to api
-                colorsNamesArray: [], // push new colors to api
 
                 id: "",
+
                 selling_price: "",
+
                 discount_price: "",
+
                 sku: "",
+
                 category: {
                     id: "",
                     name: "",
                 },
                 name: "",
+
                 selling_price: "",
+
                 discount_price: "",
 
-                short_description: "",
-
                 long_description: "",
-                wash_care : "",
+
+                wash_care: "",
+
                 contents: [],
+                tagsNamesArray : [] ,
+                colors : [] , 
+                sizes : [] , 
             },
 
             image: {
@@ -142,24 +137,12 @@ export default {
             // ---------- filter data
 
             status: "",
-            featured: "",
-            trend: "",
+
             statusIsFiltered: "",
-            featuredIsFiltered: "",
-            trendIsFiltered: "",
             name: "",
             price: "",
             minPrice: "",
             maxPrice: "",
-            tag: {
-                id: "",
-                name: "",
-            },
-            defaultTag: {
-                id: "",
-                name: "",
-            },
-
             category: {
                 id: "",
                 name: "",
@@ -197,8 +180,6 @@ export default {
         getImageParagraph: (state) => {
             if (state.errors.hasOwnProperty("image")) {
                 return `<span class = 'error-paragraph'>  ${state.errors.image[0]}  </span> `;
-            } else if (state.editedItem.imageName) {
-                return `<span class = 'paragraph'>  ${state.editedItem.imageName}  </span> `;
             } else if (state.image.name) {
                 return `<span class = 'paragraph'>  ${state.image.name}  </span> `;
             } else {
@@ -215,6 +196,37 @@ export default {
             return 0;
         },
 
+        getColorsNamesString: (state) => {
+
+            if(state.editedItem.colors.length) { 
+                let namesArray = [];
+                state.editedItem.colors.forEach((color) => {
+                    namesArray.push(color.name);
+                });
+    
+                return namesArray.length ?  namesArray.join() : '';
+            }
+
+            else { 
+              return ''
+            }
+        
+        },
+
+        getSizesNamesString: (state) => {
+            
+            if(state.editedItem.colors.length) { 
+            let namesArray = [];
+            state.editedItem.sizes.forEach((size) => {
+                namesArray.push(size.name);
+            });
+
+            return namesArray.length ?  namesArray.join() : '';}
+            else { 
+                return ''
+            }
+        },
+
         // -------------- filter
 
         filteredProducts: (state, getters) => {
@@ -224,16 +236,8 @@ export default {
                 conditions.push(getters.filterName);
             }
 
-            if (state.minPrice  || state.maxPrice) {
+            if (state.minPrice || state.maxPrice) {
                 conditions.push(getters.filterPrice);
-            }
-
-            if (state.featuredIsFiltered) {
-                conditions.push(getters.filterFeatured);
-            }
-
-            if (state.trendIsFiltered) {
-                conditions.push(getters.filterTrend);
             }
 
             if (state.statusIsFiltered) {
@@ -242,10 +246,6 @@ export default {
 
             if (state.category.id) {
                 conditions.push(getters.filterCategory);
-            }
-
-            if (state.tag.name) {
-                conditions.push(getters.filterTag);
             }
 
             if (conditions.length > 0) {
@@ -265,20 +265,6 @@ export default {
                 .includes(state.category.id);
         },
 
-        filterTag: (state) => (item) => {
-            return item.tagsNamesString
-                .toLowerCase()
-                .includes(state.tag.name.toLowerCase());
-        },
-
-        filterFeatured: (state) => (item) => {
-            return item.featured == state.featured;
-        },
-
-        filterTrend: (state) => (item) => {
-            return item.trend == state.trend;
-        },
-
         filterStatus: (state) => (item) => {
             return item.status == state.status;
         },
@@ -291,53 +277,23 @@ export default {
         },
 
         filterPrice: (state) => (item) => {
-            if (state.minPrice && state.maxPrice) { 
-                return item.price>= state.minPrice && item.price <= state.maxPrice;
+            if (state.minPrice && state.maxPrice) {
+                return (
+                    item.price >= state.minPrice && item.price <= state.maxPrice
+                );
+            } else if (!state.minPrice && state.maxPrice) {
+                return item.price <= state.maxPrice;
+            } else if (state.minPrice && !state.maxPrice) {
+                return item.price >= state.minPrice;
             }
-
-            else if (!state.minPrice && state.maxPrice) { 
-                return  item.price <= state.maxPrice;
-            }
-
-            else if (state.minPrice && !state.maxPrice) { 
-                return item.price>= state.minPrice ;
-            }
-           
         },
 
-        getColorsIdsFromArray: (state) => {
-            let idsArray = [];
-            state.editedItem.colorsNamesArray.forEach((color) => {
-                idsArray.push(color.id);
-            });
+        showClearImage: (state) =>   {
+      
+            return state.image.preview
+    
 
-            return idsArray;
-        },
-
-        getSizesIdsFromArray: (state) => {
-            let idsArray = [];
-            state.editedItem.sizesNamesArray.forEach((size) => {
-                idsArray.push(size.id);
-            });
-            return idsArray;
-        },
-
-        getColorsNamesFromArray: (state) => {
-            let namesArray = [];
-            state.editedItem.colorsNamesArray.forEach((color) => {
-                namesArray.push(color.name);
-            });
-            return namesArray;
-        },
-
-        getSizesNamesFromArray: (state) => {
-            let namesArray = [];
-            state.editedItem.sizesNamesArray.forEach((size) => {
-                namesArray.push(size.name);
-            });
-
-            return namesArray;
-        },
+    },
 
         // --------------- filter
     },
@@ -348,40 +304,30 @@ export default {
             state.categories = response.categories;
             state.colors = response.colors;
             state.sizes = response.sizes;
-            state.tags = response.tags;
-            state.categories = state.categories.filter((item) => {
-                return item.status;
-            });
         },
 
         assignProducts: (state, response) => {
             state.products = response.products;
 
-            state.products.forEach(product => {
-                product.variations.forEach ((variation)=> { 
-                    variation.images.forEach((image)=> { 
-                        image.preview = { 
-                            name : '',
-                            preview : '',
-                            file : ''
-                          }
-                    })
-                })
+            state.products.forEach((product) => {
+                product.variations.forEach((variation) => {
+                    variation.images.forEach((image) => {
+                        image.preview = {
+                            name: "",
+                            preview: "",
+                            file: "",
+                        };
+                    });
+                });
+            });
 
-
-
-
-              });
-        
-
-
-
-            (state.tagsRecords = response.tags),
-                setTimeout(() => {
-                    state.showContent = true;
-                }, 500);
-
-        
+            state.tagsRecords = response.tags
+               
+            setTimeout (()=> { 
+                state.showContent = true;
+             }, 200)
+     
+               
         },
         // ---------- main
 
@@ -394,19 +340,6 @@ export default {
             state.deleteIndex = item.id;
             state.deleteSnackbar = true;
         },
-
-        showBlockDeleteSnackbar: (state) => {
-            state.blockDeleteSnackbar = true;
-        },
-
-        fillBlockDeleteSnackbar: (state) => {
-            state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this products because it has related variations data </p>`;
-        },
-
-        closeBlockDeleteSnackbar: (state) => {
-            state.blockDeleteSnackbar = false;
-        },
-
         // ---------- delete
 
         // ---------- dialog data --------------------------------
@@ -416,20 +349,11 @@ export default {
                 state.editedItem.name = dataObject.e;
             } else if (dataObject.variableType == "longDescription") {
                 state.editedItem.long_description = dataObject.e;
-            } else if (dataObject.variableType == "shortDescription") {
-                state.editedItem.short_description = dataObject.e;
             } else if (dataObject.variableType == "category") {
                 state.editedItem.category = dataObject.e;
-            } else if (dataObject.variableType == "tagsNamesArray") {
-                state.editedItem.tagsNamesArray = dataObject.e;
             } else if (dataObject.variableType == "contents") {
                 state.editedItem.contents = dataObject.e;
-            }
-             else if (dataObject.variableType == "colorsNamesArray") {
-                state.editedItem.colorsNamesArray = dataObject.e;
-            } else if (dataObject.variableType == "sizesNamesArray") {
-                state.editedItem.sizesNamesArray = dataObject.e;
-            } else if (dataObject.variableType == "selling_price") {
+            }   else if (dataObject.variableType == "selling_price") {
                 state.editedItem.selling_price = dataObject.e;
             } else if (dataObject.variableType == "discount_price") {
                 state.editedItem.discount_price = dataObject.e;
@@ -437,23 +361,25 @@ export default {
                 state.editedItem.sku = dataObject.e;
             } else if (dataObject.variableType == "wash_care") {
                 state.editedItem.wash_care = dataObject.e;
+            }else if (dataObject.variableType == "tagsNamesArray") {
+                state.editedItem.tagsNamesArray = dataObject.e;
+            }else if (dataObject.variableType == "colorsNamesString") {
+                state.editedItem.colors = dataObject.e;
+            }else if (dataObject.variableType == "sizesNamesString") {
+                state.editedItem.sizes = dataObject.e;
             }
 
-
-
-
+            
         },
 
         setFilterValues: (state, dataObject) => {
             if (dataObject.variableType == "name") {
                 state.name = dataObject.e;
             } else if (dataObject.variableType == "category") {
-                 state.category = Object.assign({}, dataObject.e);
-        
+                state.category = Object.assign({}, dataObject.e);
             } else if (dataObject.variableType == "minPrice") {
                 state.minPrice = dataObject.e;
-            }
-            else if (dataObject.variableType == "maxPrice") {
+            } else if (dataObject.variableType == "maxPrice") {
                 state.maxPrice = dataObject.e;
             }
         },
@@ -471,20 +397,6 @@ export default {
             state.category = Object.assign({}, item.category);
         },
 
-        addActiveTag: (state, item) => {
-            state.tag = Object.assign({}, item);
-        },
-
-        filterFeatured: (state, item) => {
-            state.featured = item.featured;
-            state.featuredIsFiltered = "filtered";
-        },
-
-        filterTrend: (state, item) => {
-            state.trend = item.trend;
-            state.trendIsFiltered = "filtered";
-        },
-
         filterStatus: (state, item) => {
             state.status = item.status;
             state.statusIsFiltered = "filtered";
@@ -494,34 +406,20 @@ export default {
             (state.status = ""), (state.statusIsFiltered = "");
         },
 
-        closeFeaturedFilter: (state) => {
-            state.featured = "";
-            state.featuredIsFiltered = "";
-        },
-
-        closeTrendFilter: (state) => {
-            state.trend = "";
-            state.trendIsFiltered = "";
-        },
-
         resetCategoryFilter: (state) => {
             state.category = Object.assign({}, state.defaultCategory);
-        },
-
-        resetTagFilter: (state) => {
-            state.tag = Object.assign({}, state.defaultTag);
         },
 
         closeData: (state) => {
             state.dialog = false;
             state.buttonLoading = false;
             state.errors = {};
- 
+
             setTimeout(() => {
                 state.editedItem = Object.assign({}, state.defaultItem);
                 state.image = Object.assign({}, state.defaultImage);
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         editItem: (state, item) => {
@@ -554,26 +452,19 @@ export default {
             };
         },
 
+        clearImage: (state) => {
+            state.image = Object.assign({}, state.defaultImage);
+        },
+
         // ---------- dialog data ---------------------------
     },
 
     actions: {
         async fetchOptions({ commit }) {
-            const Colors = await axios.get("/colors");
-            const Sizes = await axios.get("/sizes");
 
-            const Categories = await axios.get("/categories");
+            const DATA = await axios.get("/products/options");
 
-            let DATA = {
-                colors: Colors.data.colors,
-                sizes: Sizes.data.sizes,
-
-                categories: Categories.data.categories,
-            };
-
-            console.log(DATA);
-
-            commit("assignOptions", DATA);
+            commit("assignOptions", DATA.data);
         },
 
         async fetchProducts({ state, commit }) {
@@ -581,7 +472,6 @@ export default {
                 toasts.methods.fireErrorToast();
             });
             if (DATA.data) {
-                console.log(DATA.data.products);
                 commit("assignProducts", DATA.data);
             }
         },
@@ -595,11 +485,7 @@ export default {
         },
 
         async delete({ state, dispatch, commit }) {
-            if (state.variations.length) {
-                commit("fillBlockDeleteSnackbar");
-                commit("closeDeleteSnackbar");
-                commit("showBlockDeleteSnackbar");
-            } else {
+     
                 commit("closeDeleteSnackbar");
                 const Data = await axios
                     .delete(`/product/${state.deleteIndex}`)
@@ -613,11 +499,11 @@ export default {
                         "Record deleted successfully"
                     );
                 }
-            }
+          
         },
 
         async save({ state, commit, getters, dispatch }) {
-            commit('intializeSave')
+            commit("intializeSave");
             let productData = new FormData();
             productData.append("category_id", state.editedItem.category.id);
             productData.append("image", state.image.file);
@@ -635,32 +521,26 @@ export default {
                 state.editedItem.long_description
             );
             productData.append(
-                "tagsNamesArray",
-                state.editedItem.tagsNamesArray
+                "tagsNamesString",
+                state.editedItem.tagsNamesArray.length ?    state.editedItem.tagsNamesArray : ''
+            );
+            productData.append(
+                "colorsNamesString",
+                getters.getColorsNamesString
+            );
+            productData.append(
+                "sizesNamesString",
+                getters.getSizesNamesString
             );
 
-            productData.append(
-                "contents",
-                state.editedItem.contents
-            );
-            productData.append(
-                "wash_care",
-                state.editedItem.wash_care
-            );
-            productData.append(
-                "colorsNamesArray",
-                getters.getColorsNamesFromArray
-            );
-            productData.append(
-                "sizesNamesArray",
-                getters.getSizesNamesFromArray
-            );
+            productData.append("contents", state.editedItem.contents);
+            productData.append("wash_care", state.editedItem.wash_care);
 
-            productData.append(
-                "short_description",
-                state.editedItem.short_description
-            );
             productData.append("id", state.editedItem.id);
+
+            console.log(  state.editedItem.tagsNamesArray.length )
+
+        
 
             if (state.editedIndex == -1) {
                 const Data = await axios
@@ -693,21 +573,9 @@ export default {
             }
         },
 
-        async updateStatusOrFeaturedOrTrend({ dispatch }, item) {
-            let data = new FormData();
-
-            if (item.updateFeatured) {
-                data.append("updateFeatured", "update");
-            }
-            if (item.updateStatus) {
-                data.append("updateStatus", "update");
-            }
-            if (item.updateTrend) {
-                data.append("updateTrend", "update");
-            }
-
+        async updateStatus({ dispatch }, id) {
             const Data = await axios
-                .post(`/product/statusOrFeaturedUpdate/${item.id}`, data)
+                .get(`/product/updateStatus/${id}`)
                 .catch((error) => {
                     toasts.methods.fireErrorToast();
                 });
@@ -725,9 +593,6 @@ export default {
         manageSizeGuides({ state, commit }, item) {
             commit("sizeGuides/manageSizeGuides", item, { root: true });
             state.editedIndex = item.id;
-
         },
-        
-
     },
 };

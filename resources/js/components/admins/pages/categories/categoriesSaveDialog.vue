@@ -17,7 +17,7 @@
                         <v-row>
                             <v-col cols="12 mt-5">
                                 <span class="image-paragraph">
-                                    Maximum allowed file size is 1000 KB.
+
                                     Recomended image dimensions are 800 width
                                     and 1200 height
                                 </span>
@@ -28,20 +28,27 @@
                                     </div>
 
                                     <div class="upload-container">
-                                    
-                                            <label for="big-image-upload" class="custom-file-upload">
-                                                <v-icon class="icon">
-                                                    mdi-pencil
-                                                </v-icon>
-                                            </label>
-                                            <input class="d-none" id="big-image-upload" name="big_image" type="file"
-                                                @change="imageSelected" />
 
-                                            <span class="d-inline-block ml-2">
-                                                <span v-html="getImageParagraph">
-                                                </span>
+                                        <label for="big-image-upload" class="custom-file-upload">
+                                            <v-icon class="icon">
+                                                mdi-pencil
+                                            </v-icon>
+                                        </label>
+                                        <input class="d-none" id="big-image-upload" name="big_image" type="file"
+                                            @change="imageSelected" />
+
+                                        <span class="d-inline-block ml-2">
+                                            <span v-html="getImageParagraph">
                                             </span>
-                                        
+                                        </span>
+
+
+                                        <div class="clear-button" @click="clearImage()" v-if="showClearImage">
+                                            <v-btn icon color="#645e5e">
+                                                <v-icon>mdi-cached</v-icon>
+                                            </v-btn><span class="paragraph"> clear</span>
+                                        </div>
+
                                     </div>
                                     <div class="clearing"></div>
                                 </div>
@@ -96,6 +103,7 @@ export default {
             "formTitle",
             "getImageParagraph",
             "getImage",
+            'showClearImage'
         ]),
     },
 
@@ -108,6 +116,7 @@ export default {
             "closeData",
             "setDialogValues",
             "imageSelected",
+            'clearImage'
         ]),
 
         saveData() {

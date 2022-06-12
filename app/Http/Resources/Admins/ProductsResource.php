@@ -2,10 +2,6 @@
 
 namespace App\Http\Resources\Admins;
 
-use App\Models\Color;
-use App\Models\Size;
-use App\Models\Tag;
-use DB;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductsResource extends JsonResource
@@ -28,48 +24,6 @@ class ProductsResource extends JsonResource
     public function toArray($request)
     {
 
-        // generste colors and sizes records
-        $productcolorsIds = DB::table('variations')->where('product_id', $this->id)->pluck('color_id')->all();
-        $productSizesIds = DB::table('variations')->where('product_id', $this->id)->pluck('size_id')->all();
-
-        $relatedColors = DB::table('colors')->whereIn('id', $productcolorsIds)->get();
-        $relatedSizes = DB::table('sizes')->whereIn('id', $productSizesIds)->get();
-        // generste colors and sizes records
-
-        //generate tags array and string from the relation tags
-        $tagsNamesArray = array();
-        $tagsNamesString = '';
-
-        if (count($this->tags)) {
-            $productTagsIds = DB::table('product_tag')->where('product_id', $this->id)->pluck('tag_id')->all();
-            $tagsNamesArray = Tag::whereIn('id', $productTagsIds)->pluck('name')->all();
-            $tagsNamesString = join(",", $tagsNamesArray);
-        }
-       // generate tags array and string from the relation tags
-
-        // generate colors array and string from the relation colors
-        $colorsNamesArray = array();
-        $colorsNamesString = '';
-
-        if (count( $relatedColors)) {
-            $productcolorsIds = DB::table('variations')->where('product_id', $this->id)->pluck('color_id')->all();
-            $colorsNamesArray = Color::whereIn('id', $productcolorsIds)->pluck('name')->all();
-            $colorsNamesString = join(",", $colorsNamesArray);
-        }
-        // generate colors array and string from the relation colors
-
-        // generate sizes array and string from the relation sizes
-        $sizesNamesArray = array();
-        $sizesNamesString = '';
-        if (count($relatedSizes)) {
-            $productsizesIds = DB::table('variations')->where('product_id', $this->id)->pluck('size_id')->all();
-            $sizesNamesArray = Size::whereIn('id', $productsizesIds)->pluck('name')->all();
-            $sizesNamesString = join(",", $sizesNamesArray);
-        }
-        // generate sizes array and string from the relation sizes
-
-
-
         return [
 
             'id' => $this->id,
@@ -78,70 +32,42 @@ class ProductsResource extends JsonResource
 
             'image' => $this->image,
 
-            'relatedColors' => $relatedColors,
-
-            'relatedSizes' => $relatedSizes,
-
             'selling_price' => $this->selling_price,
 
             'discount_price' => $this->discount_price,
 
             'price' => $this->price,
 
-            'exact_price' => $this->exact_price,
-
-            'variations' => $this->variations,
-
-            'sizeGuides' => $this->sizeGuides,
-
-            'tags' => $this->tags,
-
-            'tagsNamesString' => $tagsNamesString, // search
-
-            'tagsNamesArray' => $tagsNamesArray, // push new tags
-
-            'colorsNamesString' => $colorsNamesString, // search
-
-            'colorsNamesArray' => $colorsNamesArray, // push new colors
-
-            'sizesNamesString' => $sizesNamesString, // search
-
-            'sizesNamesArray' => $sizesNamesArray, // push new sizes
-
-            'slug' => $this->slug,
-            'sku' => $this->sku,
-
             'category_id' => $this->category_id,
 
-            'category' => $this->category,
+            'slug' => $this->slug,
 
-            'short_description' => $this->short_description,
+            'sku' => $this->sku,
 
             'long_description' => $this->long_description,
 
             'status' => $this->status,
 
-            'featured' => $this->featured,
+            'wash_care' => $this->wash_care,
 
-            'trend' => $this->trend,
 
-            'created_at' => $this->created_at,
+            // relations
+            
+            'category' => $this->category,
 
-            'updated_at' => $this->updated_at,
+            'variations' => $this->variations,
 
-            'stock_orders' => $this->stock_ordered,
+            'tags' => $this->tags,
 
-            'stock_qty' =>$this->stock_qty,
+            'sizeGuides' => $this->sizeGuides,
 
             'colors' => $this->colors,
 
             'sizes' => $this->sizes,
 
-            'wash_care' => $this->wash_care,
-            
-            'contents' =>  explode(",", $this->contents) ,
+            // relations
 
-        ];   
+        ];
 
     }
 }

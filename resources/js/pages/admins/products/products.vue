@@ -24,13 +24,10 @@
                     @closing="closeDeleteSnackbar()"
                     @deleteData="destroy()"
                     :useDefault="!products.length"
-                    customParagraph="are you sure you want to delete the product ? deleting the product will remove all the related data"
+                    customParagraph="are you sure you want to delete the product ? deleting the product will remove all the related data including images and size guide data and variations"
                 ></delete-data-snackbar>
 
-                
-                <delete-data-snackbar :deleteSnackbar="blockDeleteSnackbar" @closing="closeBlockDeleteSnackbar()"
-                    :useDefault="!products.length" :customParagraph="blockDeleteReport" type="blockDelete">
-                </delete-data-snackbar>
+          
 
                 <products-save-dialog> </products-save-dialog>
                 <variations-main-dialog

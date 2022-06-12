@@ -1,8 +1,7 @@
 <div class="deals-section ">
-    <div class="mega-header"> Hot deals</div>
+    <div class="mega-header"> Hot deals </div>
 
-    <div class="text">Shop our stylish trending collections with offers up to 50% off do not waste the chance</div>
-    <div class="  deals-owl-carousel owl-carousel owl-theme" >
+    <div class="items-holder" >
         @foreach ($deals as $key => $product)
             <a href="/product/{{ $product->slug }}" class="product-block">
                 <div class="image-container"> <img src="{{ $product->image }}" alt="no image">

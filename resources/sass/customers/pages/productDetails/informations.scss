@@ -59,9 +59,6 @@
 
                         border-radius: 50%;
                     }
-                    // &:hover {
-                    //     @extend .active;
-                    // }
                  
                 }
 
@@ -69,9 +66,6 @@
                     opacity: 0.6;
                
                     cursor: text !important;
-                    // &:hover {
-                    //     border: 1px solid white;
-                    // }
                     .strock {
                         height: 1px;
                         background-color: #e9e9ed;
@@ -87,12 +81,8 @@
                     }
                 }
                 .active {
-                    border: 1px solid $red;
+                    border: 1px solid $black-gray;
                 }
-
-                // .holder:nth-of-type(1) {
-                //     @extend .disabled;
-                // }
             }
 
          
@@ -115,32 +105,23 @@
 
                     margin-right: 5px;
                     margin-top: 5px;
-                    border: 1px solid gray;
+                    border: 1px solid #bfbdbd;
 
                     .size-block {
                         padding: 4px 8px;
                         font-size: 13px;
                     }
-                    // &:hover {
-                    //     @extend .active;
-                    // }
+              
                 }
 
-                // .holder:nth-of-type(1) {
-                //     @extend .disabled;
-                // }
+       
             }
 
             .disabled {
                 opacity: 0.6;
            
                 cursor: text !important;
-                // &:hover {
-                //     border-color: $black-gray !important;
-                //     .size-block { 
-                //         color: $black-gray !important;
-                //     }
-                // }
+        
                 .strock {
                     height: 1px;
                     background-color: $black-gray;
@@ -154,10 +135,8 @@
             }
             .active {
               
-                    border-color: $red !important;
-                    .size-block { 
-                        color: $red !important;
-                    }
+                    border-color: $black-gray !important;
+            
                  
           
                

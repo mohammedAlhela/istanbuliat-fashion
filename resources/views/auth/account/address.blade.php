@@ -5,18 +5,12 @@
         <div class="account-section-container ">
             @include('auth.account.navigation')
             <div class="form-section">
-
-
-                  <section class="mega-header text-left">
+                  <section class="heading-authentication-navigation text-left">
                     Address Informations
                 </section>
 
 
-
-          
-
-
-                <form method="POST" action="{{ route('address-update') }}" class="auth-form">
+                 <form method="POST" action="{{ route('address-update') }}" class="auth-form">
                     @if ($errors->any())   <div class="my-errors">
                         <ul>
 
@@ -30,7 +24,7 @@
 
                     @csrf
 
-                    <div class="row mt-2">
+                    <div class="row mt-3">
                         <div class="col-6 py-0">
                             <div class="authentication-font">
                                 First name
@@ -85,7 +79,10 @@
                         <button class="update-profile-button " type="submit"> Save</button>
                     </div>
 
-                </form>
+                </form> 
+
+
+
             </div>
         </div>
     </div>

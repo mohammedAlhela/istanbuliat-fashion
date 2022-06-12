@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="filteredCategories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1300"
+  <v-data-table :headers="headers" :items="filteredCategories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1000"
     class="datatable">
 
 
@@ -21,15 +21,8 @@
       </td>
     </template>
 
-    <template v-slot:item.description="{ item }">
-      <td class="p-2">
-        <div class="description">
-          {{ item.description }}
-        </div>
-      </td>
-    </template>
 
-            <template v-slot:item.status="{ item }">
+    <template v-slot:item.status="{ item }">
       <td>
       <v-chip small :color="item.status == 'active' ? 'success' : 'error'"> {{ item.status }} </v-chip>
       </td>

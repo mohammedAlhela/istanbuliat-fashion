@@ -14,12 +14,12 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->select( 'id' ,  'name' );
     }
 
     public function variations()
     {
-        return $this->hasMany(Variation::class, 'product_id', 'id')->with(['color', 'size' ,  'product' , 'images']);
+        return $this->hasMany(Variation::class, 'product_id', 'id')->with(['color', 'size' , 'images'])->select('id' , 'product_id' , 'color_id' , 'size_id' , 'sku' , 'selling_price' , 'discount_price' , 'stock_qty' , 'status' , 'image'  );
     }
 
     public function tags()
@@ -28,28 +28,31 @@ class Product extends Model
 
     }
 
+    
     public function colors()
     {
-        return $this->belongsToMany(Color::class, 'variations', 'product_id', 'color_id');
+        return $this->belongsToMany(Color::class, 'variations', 'product_id', 'color_id')->select(array( 'colors.id' ,  'name' , 'product_id'));
 
     }
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, 'variations', 'product_id', 'size_id');
+        return $this->belongsToMany(Size::class, 'variations', 'product_id', 'size_id')->select(array( 'sizes.id' ,  'name' , 'product_id'));
 
     }
 
-    public function wishlist()
-    {
-        return $this->belongsToMany(User::class, 'wishlist', 'product_id', 'user_id');
-    }
 
-
-    
     public function sizeGuides()
     {
         return $this->hasMany(SizeGuide::class, 'product_id', 'id')->with('size');
     }
+
+
+    public function wishlists()
+    {
+        return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id');
+    }
+
+
 
 }

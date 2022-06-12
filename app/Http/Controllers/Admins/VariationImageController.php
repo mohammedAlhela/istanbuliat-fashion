@@ -38,7 +38,7 @@ class VariationImageController extends Controller
             // delete old image
      
             $imageName = time() . ".webp" ;
-            Image::make($image)->fit(600, 800)->save(public_path("/images/products/variations/") . $imageName , 50);
+            Image::make($image)->fit(600, 800)->save(public_path("/images/products/variations/") . $imageName , 80);
             $variationImage->image = "/images/products/variations/" . $imageName;
         }
 

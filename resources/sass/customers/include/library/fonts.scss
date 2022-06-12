@@ -19,7 +19,10 @@
     font-weight: 500;
     cursor: pointer;
     text-transform: lowercase;
+    font-family: "Lato", sans-serif;
 }
+
+
 
 .small-link {
     @extend .link;
@@ -35,16 +38,26 @@
 
 .mega-header {
     color: $black-gray;
+
+
     text-align: center;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-family: "Lato", sans-serif;
+
+
+
 }
 
 .header {
     text-transform: lowercase;
     @extend .mega-header;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
+    
+   
 }
 
 .shop-report-filter-header {
@@ -65,7 +78,7 @@
     text-align: left;
     @extend .header;
     font-size: 16px;
-    font-weight: 500;
+ 
 }
 
 .text {
@@ -164,6 +177,23 @@
     font-weight: 400 !important;
 }
 
+
+.authentication-navigation-link {
+    @extend .authentication-font;
+    text-transform: capitalize ;
+    font-size: 17px !important;
+}
+
+.heading-authentication-navigation { 
+    // @extend .authentication-navigation-link;
+    // font-weight: 500 !important;
+    // text-transform: capitalize !important;
+   
+    // padding-left: 0px !important;
+
+    @extend .mega-header;
+}
+
 // homepage fonts
 @media (max-width: 992px) {
 }
@@ -187,7 +217,7 @@
     }
 
     .mega-header {
-        font-size: 16px;
+        font-size: 17px;
      
     }
 

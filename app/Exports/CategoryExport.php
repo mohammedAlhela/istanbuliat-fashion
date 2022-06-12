@@ -15,7 +15,7 @@ class CategoryExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 
     public function collection()
     {
-        return collect(AdminsExportResource::collection(User::orderBy('created_at', 'DESC')->where('role' ,  '!=' , 0)->get()));
+        return collect(CategoriesExportResource::collection(Category::with('products')->get()));
     }
 
     public function headings(): array
@@ -23,11 +23,8 @@ class CategoryExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         return [
             'Addmission',
             'name',
-            'Email',
-            'Description',
             'Status',
-            'created_at',
-            'updated_at',
+            'Products number',
 
         ];
     }

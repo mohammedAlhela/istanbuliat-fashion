@@ -3,13 +3,7 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Subscribe;
-
-
-
+use DB;
 
 class DashboardController extends Controller
 {
@@ -18,26 +12,25 @@ class DashboardController extends Controller
     {
 
         $this->middleware([
-            'admin']);
+             'cors']);
 
     }
 
     public function getData()
     {
-        $admins = User::where('role', '!=', 0)->get();
-        $customers = User::where('role', 0)->get();
-        $products = Product::all();
-        $subscribers = Subscribe::all();
+        $admins = DB::table('users')->where('role', '!=', 0)->select('name')->get();
+        $customers = DB::table('users')->where('role', 0)->select('name')->get();
+        $products = DB::table('products')->select('name')->get();
+        $subscribes = DB::table('subscribes')->select('email')->get();
 
         $response = [
             'admins' => $admins,
             'products' => $products,
             'customers' => $customers,
-            'subscribers' => $subscribers
+            'subscribes' => $subscribes,
         ];
 
         return response($response, 201);
     }
-
 
 }

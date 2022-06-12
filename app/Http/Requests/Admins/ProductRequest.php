@@ -27,7 +27,6 @@ class ProductRequest extends FormRequest
         $id = app("request")->get("id");
 
         $imageError = null;
-        $nameError = null;
         $colorsError = null;
         $sizesError = null;
 
@@ -44,20 +43,13 @@ class ProductRequest extends FormRequest
         }
 
         return [
-
-            "tagsNamesArray" => ["required"],
-            "sku" => ["required"],
-            "colorsNamesArray" => [$colorsError],
-            "sizesNamesArray" => [$sizesError],
+            "category_id" => ["required"],
+            "sku" => ["required" ,"unique:products,sku," . $id],
+            "colorsNamesString" => [$colorsError],
+            "sizesNamesString" => [$sizesError],
             "selling_price" => ["required"],
-            "contents" => ["required"],
-            "wash_care" => ["required"],
-
-
-            "name" => ["unique:products,name," . $id, "required", "string", "min:5", "max:50"],
-            "short_description" => ["required", "string", "min:10", "max:300"],
-            "long_description" => ["required", "string", "min:50", "max:1000"],
-            "image" => [$imageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" , "max:1000"],
+            "name" => ["unique:products,name," . $id, "required", "string", "min:5", "max:100"],
+            "image" => [$imageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" ],
             
         ];
 
@@ -67,9 +59,8 @@ class ProductRequest extends FormRequest
     {
         return [
             'category_id.required' => 'The category field is required.',
-            'tagsNamesArray.requires' => 'The tags field is required.',
-            'colorsNamesArray.requires' => 'The colors field is required.',
-            'sizesNamesArray.requires' => 'The sizes field is required.',
+            'colorsNamesString.requires' => 'The colors field is required.',
+            'sizesNamesString.requires' => 'The sizes field is required.',
         ];
     }
 

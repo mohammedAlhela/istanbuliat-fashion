@@ -16,7 +16,10 @@
                         <p class="bread-crumb">
                             <a href="/admins/dashboard">Home </a>
                             <span v-if="handleBreadCrumb()">
-                                / <a href="#"  @click.prevent = "reloadPage()"> {{ getUrlParagraph() }}  </a>
+                                /
+                                <a href="#" @click.prevent="reloadPage()">
+                                    {{ getUrlParagraph() }}
+                                </a>
                             </span>
                         </p>
 
@@ -27,7 +30,8 @@
                                     href="#"
                                     id="navbarDropdown"
                                     role="button"
-                                    data-bs-toggle="dropdown"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
                                     aria-expanded="false"
                                 >
                                     <v-icon> mdi-account </v-icon>
@@ -35,7 +39,7 @@
                                 </a>
                                 <ul
                                     class="dropdown-menu"
-                                    aria-labelledby="navbarDropdown"
+                                    aria-labelledby="dropdown-menu"
                                     id="account-menu"
                                 >
                                     <li>
@@ -62,14 +66,11 @@
                             </li>
                         </ul>
                     </div>
+
+
                     <button
-                        class="navbar-toggler no-focus float-right"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
+                      
+                       class="navbar-toggler no-focus float-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                     >
                         <span class="navbar-toggler-icon no-focus"></span>
                     </button>
@@ -153,12 +154,15 @@
                             <ul class="small-screen-menu">
                                 <li class="nav-item dropdown">
                                     <a
-                                        class="nav-link dropdown-toggle paragraph"
-                                        href="#"
-                                        id="navbarDropdown"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
+                                 
+
+                                           class="nav-link dropdown-toggle paragraph"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
                                     >
                                         <v-icon> mdi-account </v-icon>
                                         {{ $user.name }}
@@ -168,23 +172,22 @@
                                         aria-labelledby="navbarDropdown"
                                         id="account-menu"
                                     >
-                                        <li>
-                                            <a
-                                                class="dropdown-item"
-                                                href="/user/profile"
-                                                >Account</a
-                                            >
-                                        </li>
-                                        <form
-                                            id="small_screen_logout_form"
+                          
+                                       <form
+                                            id="big_screen_logout_form"
                                             method="post"
                                             action="/logout"
                                         >
+                                            <input
+                                                type="hidden"
+                                                name="_token"
+                                                :value="csrf"
+                                            />
                                             <a
                                                 href="javascript:{}"
                                                 a
                                                 class="dropdown-item"
-                                                onclick="document.getElementById('small_screen_logout_form').submit();"
+                                                onclick="document.getElementById('big_screen_logout_form').submit();"
                                                 >Logout</a
                                             >
                                         </form>
@@ -202,6 +205,10 @@
             </div>
         </div>
     </nav>
+
+
+
+
 </template>
 
 <script>
@@ -257,17 +264,17 @@ export default {
         },
 
         reloadPage() {
-         location.reload();
+            location.reload();
         },
 
-        getUrlParagraph ()  {
+        getUrlParagraph() {
             let name = this.$route.name;
-            let paragraph = ""
-            let index = name.indexOf('-')
-            paragraph = name.substring(index + 1)
+            let paragraph = "";
+            let index = name.indexOf("-");
+            paragraph = name.substring(index + 1);
 
-            return paragraph.charAt(0).toUpperCase() + paragraph.slice(1)
-        }
+            return paragraph.charAt(0).toUpperCase() + paragraph.slice(1);
+        },
     },
 };
 </script>

@@ -121,25 +121,6 @@
                 </span>
             </template>
 
-            <template v-slot:header.trend="{ header }">
-                {{ header.text }}
-
-                <span v-if="trendIsFiltered">
-                    <v-btn class="no-focus" icon @click="closeTrendFilter()">
-                        <v-icon>mdi-cached</v-icon>
-                    </v-btn>
-                </span>
-            </template>
-
-            <template v-slot:header.featured="{ header }">
-                {{ header.text }}
-
-                <span v-if="featuredIsFiltered">
-                    <v-btn class="no-focus" icon @click="closeFeaturedFilter()">
-                        <v-icon>mdi-cached</v-icon>
-                    </v-btn>
-                </span>
-            </template>
 
             <template v-slot:item.image="{ item }">
                 <td class="p-2 pl-5">
@@ -150,15 +131,18 @@
 
             <template v-slot:item.name="{ item }">
                 <td class="p-2">
-                    <span class="sku" style="font-size: 12px; color: darkgrey">
+                     <span class="sku" style="font-size: 12px; color: darkgrey">
                         {{ item.sku }}
                     </span>
                     <br />
                     {{ item.name }} <br />
 
+                
+
                     <span class="items-snackbar-span mt-1">
                         {{ item.variations.length }} Variations</span
-                    >
+                    > 
+              
                 </td>
             </template>
 
@@ -190,61 +174,6 @@
                 </td>
             </template>
 
-            <template v-slot:item.trend="{ item }">
-                <td class="p-2">
-                    <span
-                        @click="filterTrend(item)"
-                        v-html="getTrendItem(item)"
-                    ></span>
-
-                    <v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="
-                                        localUpdateStatusOrFeaturedOrTrend(
-                                            item,
-                                            'updateTrend'
-                                        )
-                                    "
-                                    class="ml-2 icon"
-                                >
-                                    mdi-swap-horizontal-bold
-                                </v-icon>
-                            </span>
-                        </template>
-                        <span> Change Trend Status </span>
-                    </v-tooltip>
-                </td>
-            </template>
-
-            <template v-slot:item.featured="{ item }">
-                <td class="p-2">
-                    <span
-                        @click="filterFeatured(item)"
-                        v-html="getFeaturedItem(item)"
-                    ></span>
-
-                    <v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="
-                                        localUpdateStatusOrFeaturedOrTrend(
-                                            item,
-                                            'updateFeatured'
-                                        )
-                                    "
-                                    class="ml-2 icon"
-                                >
-                                    mdi-swap-horizontal-bold
-                                </v-icon>
-                            </span>
-                        </template>
-                        <span> Change Featured Status </span>
-                    </v-tooltip>
-                </td>
-            </template>
 
             <template v-slot:item.status="{ item }">
                 <td class="p-2">
@@ -258,9 +187,9 @@
                             <span v-bind="attrs" v-on="on">
                                 <v-icon
                                     @click="
-                                        localUpdateStatusOrFeaturedOrTrend(
-                                            item,
-                                            'updateStatus'
+                                        updateStatus(
+                                            item.id
+                                         
                                         )
                                     "
                                     class="ml-2 icon"
@@ -353,13 +282,9 @@ export default {
                 minPrice: "minPrice",
                 maxPrice: "maxPrice",
                 headers: "headers",
-                tag: "tag",
                 category: "category",
                 statusIsFiltered: "statusIsFiltered",
-                featuredIsFiltered: "featuredIsFiltered",
-                trendIsFiltered: "trendIsFiltered",
                 status: "status",
-                featured: "featured",
                 categories: "categories",
             }
         ),
@@ -372,21 +297,15 @@ export default {
             manageVariations: "manageVariations",
             manageSizeGuides: "manageSizeGuides",
 
-            updateStatusOrFeaturedOrTrend: "updateStatusOrFeaturedOrTrend",
+            updateStatus: "updateStatus",
         }),
 
         ...mapMutations("products", [
             "editItem",
             "showDeleteSnackbar",
-            // "addActiveCategory",
             "closeStatusFilter",
-            "closeFeaturedFilter",
-            "closeTrendFilter",
-
             "resetCategoryFilter",
-            "filterFeatured",
             "filterStatus",
-            "filterTrend",
             "setFilterValues",
             "resetNameFilter",
             "resetPriceFilter",
@@ -402,34 +321,7 @@ export default {
             this.setFilterValues(dataObject);
         },
 
-        localUpdateStatusOrFeaturedOrTrend(item, type) {
-            if (type === "updateFeatured") {
-                item.updateFeatured = true;
-                item.updateStatus = false;
-                item.updateTrend = false;
-            } else if (type == "updateStatus") {
-                item.updateStatus = true;
 
-                item.updateFeatured = false;
-
-                item.updateTrend = false;
-            } else {
-                item.updateTrend = true;
-
-                item.updateStatus = false;
-
-                item.updateFeatured = false;
-            }
-
-            this.updateStatusOrFeaturedOrTrend(item);
-        },
-
-        getFeaturedItem(item) {
-            let activeClass = "";
-            return item.featured
-                ? `<span class = 'hovered-paragraph ${activeClass}'> Featured </span>  `
-                : `<span class = 'hovered-paragraph'> Sale </span>  `;
-        },
 
         getStatusItem: (item) => {
             let activeClass = "";
@@ -437,14 +329,6 @@ export default {
             return item.status
                 ? `<span class = 'hovered-paragraph ${activeClass}'> Active </span>`
                 : `<span class = 'hovered-paragraph ${activeClass}'> Non Active </span>`;
-        },
-
-        getTrendItem: (item) => {
-            let activeClass = "";
-
-            return item.trend
-                ? `<span class = 'hovered-paragraph ${activeClass}'> Trend </span>`
-                : `<span class = 'hovered-paragraph ${activeClass}'> Non Trend </span>`;
         },
     },
 };

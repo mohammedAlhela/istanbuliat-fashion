@@ -25,8 +25,6 @@ export default {
             deleteSnackbar: "deleteSnackbar",
             colors: "colors",
             sizes: "sizes",
-            blockDeleteSnackbar: "blockDeleteSnackbar",
-            blockDeleteReport: "blockDeleteReport",
             tags: "tagsRecords",
             editedIndex: "editedIndex",
             categories: "categories",
@@ -41,6 +39,6 @@ export default {
             destroy: "delete",
         }),
 
-        ...mapMutations("products", ["openSaveDialog", "closeDeleteSnackbar"  ,  "closeBlockDeleteSnackbar",]),
+        ...mapMutations("products", ["openSaveDialog", "closeDeleteSnackbar" ,]),
     },
 };

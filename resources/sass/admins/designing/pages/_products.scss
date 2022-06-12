@@ -6,7 +6,7 @@
     margin: 50px 0px 50px 0px ;
     width: 96%;
     margin-left: 2%;
-    @media (max-width: 1150px) {
+    @media (max-width: 1000px) {
       width: 90%;
       margin-left: 5%;
       overflow: auto !important;
@@ -16,9 +16,9 @@
     .overflow-products-table {
 
 
-        @media (max-width: 1150px) {
+        @media (max-width: 1000px) {
 
-        min-width : 1150px !important;
+        min-width : 1000px !important;
 
 
           }

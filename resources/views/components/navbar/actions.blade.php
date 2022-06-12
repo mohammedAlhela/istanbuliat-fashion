@@ -16,12 +16,16 @@
                 </button>
 
 
-                <input type="text" id="shop_filter_big_screen_main_search_field" class="form-control" placeholder="Search our store" />
+                <input required type="text" id="shop_filter_big_screen_main_search_field" class="form-control" placeholder="Search our store" />
+
+
+                {{-- <i class = "fa fa-close"></i> --}}
 
             </form>
         </div>
 
     </div>
+
 
 
 
@@ -67,7 +71,7 @@
         <div class="cart">
 
 
-            <a href="/wishlist">
+            <a href="/wishlists">
                 <img class="heart-image" src=" /images/svg/heart.svg " alt="" />
 
             </a>

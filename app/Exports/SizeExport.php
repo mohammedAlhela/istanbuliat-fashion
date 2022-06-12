@@ -13,7 +13,7 @@ class SizeExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
 
     public function collection()
     {
-        return Size::all();
+        return Size::get();
     }
 
     public function headings(): array

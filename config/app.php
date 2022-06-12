@@ -164,9 +164,8 @@ return [
         'Intervention\Image\ImageServiceProvider',
         Darryldecode\Cart\CartServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
-        Jorenvh\Share\Providers\ShareServiceProvider::class,
-
+    
+        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -176,7 +175,6 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -237,12 +235,7 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class ,
-        'PdfReport' => Jimmyjs\ReportGenerator\Facades\PdfReportFacade::class,
-'ExcelReport' => Jimmyjs\ReportGenerator\Facades\ExcelReportFacade::class,
-'CSVReport' => Jimmyjs\ReportGenerator\Facades\CSVReportFacade::class,
-'Share' => Jorenvh\Share\ShareFacade::class,
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

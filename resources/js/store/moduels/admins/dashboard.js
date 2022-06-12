@@ -6,7 +6,7 @@ export default {
         return {
             products: [],
             admins : [],
-            subscribers : [],
+            subscribes : [],
             customers : [],
             showContent: false,
         };
@@ -19,10 +19,10 @@ export default {
             state.customers = dataObject.customers;
             
             state.admins = dataObject.admins;
-            state.subscribers = dataObject.subscribers;
-            setTimeout(() => {
+            state.subscribes = dataObject.subscribes;
+           
                 state.showContent = true;
-            }, 300);
+     ;
         },
     },
 

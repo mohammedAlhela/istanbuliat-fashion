@@ -1,15 +1,18 @@
 .links-section {
-    padding-bottom: 30px;
-    @extend .fluid-container;
-    display: flex;
-    flex-wrap: wrap;
-    flex: 1 1 auto;
+
+    @extend .side-section-container;
+ 
+
+padding: 50px 20px !important;
+
+
+@extend .flex-father;
     .header {
         margin-bottom: 10px;
     }
 .links-block {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     .links-holder {
         min-width: 151px;
          display: inline-block;

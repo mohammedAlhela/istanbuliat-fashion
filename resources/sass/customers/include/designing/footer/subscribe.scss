@@ -1,69 +1,103 @@
 .subscribe-section {
-    padding: 40px 20px;
 
-    .content-holder {
-        padding: 30px 0px;
-        border-top: 1px solid $hr-color;
-        border-bottom: 1px solid $hr-color;
-    }
-
-
-
-    .text {
-        max-width: 600px;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
-
-    .subscribe-form {
+ 
+    border-top: 1px solid $hr-color;
+    border-bottom: 1px solid $hr-color;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+    .holder { 
+        padding-left: 20px;
+        padding-right: 20px;
+        @extend .side-section-container;
         margin-top: 20px;
-        text-align: center;
+        .subscribe-form {
+            position: relative;
+            top: -15px;
+            padding-left: 30px;
+    
+            form {
 
-        form {
-            @extend .flex-father;
-            justify-content: center;
-
-            input {
-                flex: 0 0 276px;
-                max-width: 0 0 276px;
-
-                @extend .paragraph;
-                @extend .no-focus;
-
-                padding: 12px 8px !important;
-                border: 1px solid $hr-color ;
-                border-radius: 3px !important;
-
-                &:focus {
-                    border: 1px solid $hr-color ;
+                @extend .flex-father;
+                margin-top: 15px;
+    
+                input {
+                    flex: 0 0 100% !important;
+                    max-width: 0 0 100% !important;
+    
+                    @extend .paragraph;
+                    @extend .no-focus;
+    
+                    padding: 10px 8px !important;
+                    border: 1px solid $hr-color;
+                    border-radius: 3px !important;
+    
+                    &:focus {
+                        border: 1px solid $hr-color;
+                    }
+                }
+    
+                button {
+                    background: $main-color;
+                    position: absolute;
+                    right: 10px;
+                    padding: 13px 40px;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    letter-spacing: 1px;
+                    transition: .2s all ease;
+                    border: 1px solid $main-color;
+    
+                    &:hover {
+                        // color: white;
+                        background: white;
+                        border: 1px solid gray;
+                    }
                 }
             }
         }
-
-        i {
-            cursor: pointer;
-            position: relative;
-            left: -45px;
-
-            font-size: 20px !important;
-            color: black;
+    
+        .content-section {
+            .paragraph {
+                line-height: 25px;
+                margin-top: 10px;
+                max-width: 90%;
+            }
         }
-
-        .subscribe-button {
-            border: none !important;
-            background-color: transparent !important;
-            width: 0px !important;
-        }
+    
+      
     }
 
-    @media (max-width: 768px) {}
-
-    @media (max-width: 550px) {
-
+         
+    @media (max-width: 1191px) {
+          
         .subscribe-form {
-            margin-top: 20px !important;
+            margin-top: 30px;
+            padding-left: 0px !important;    
+            max-width: 90%;
+        }  
 
+        .content-section {
+       
+          
+        }
         }
 
-    }
+     
+    @media (max-width: 600px) {
+        .subscribe-form {
+      
+            max-width: 96%;
+        }  
+
+        .content-section {
+            .paragraph {
+             
+                max-width: 95%;
+            }
+          
+        }
+        }
+
+
+
 }

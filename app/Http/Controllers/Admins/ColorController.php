@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Exports\ColorExport;
 use App\Http\Controllers\Controller;
-// use App\Imports\ColorImport;
 use App\Models\Color;
-use App\Models\Product;
-use DB;
 use Excel;
 use Illuminate\Http\Request;
 
@@ -49,7 +46,7 @@ class ColorController extends Controller
     public function index()
     {
 
-        $colors = Color::orderBy('id', 'DESC')->get();
+        $colors = Color::orderBy('id', 'DESC')->with('products')->get();
 
         $response = [
             'colors' => $colors,
@@ -82,18 +79,6 @@ class ColorController extends Controller
         ];
         return response($response, 201);
     }
-
-    // public function import(Request $request)
-    // {
-
-    //     $fields = $request->validate([
-    //         "file" => ['required', "file", "mimes:xlsx"],
-
-    //     ]);
-
-    //     Excel::import(new ColorImport, request()->file("file"));
-
-    // }
 
     public function export(Request $request)
     {

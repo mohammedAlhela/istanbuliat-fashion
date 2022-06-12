@@ -1,9 +1,9 @@
  <!-- main heading -->
  <div class="heading-section" id="shop_filter_main_heading">
      <div class="header"> All collections </div>
-     <div class="text">
+     {{-- <div class="text">
          Shop all sections with stylish products
-     </div>
+     </div> --}}
  </div>
  <!-- main heading -->
 
@@ -44,6 +44,8 @@
 
                          <div class="menus-categories-filters-section" id="shop_filter_categories_menu_blocks_father">
 
+
+                         
                              @foreach ($categories as $key => $category)
                                  <div class="son-filter-block">
 
@@ -137,7 +139,7 @@
                                          </div>
 
                                          <span class="items">
-                                             ({{ count($size->products )}})
+                                             ({{ count( $size->productsLength) }})
                                          </span>
 
                                          <div class="clearing"></div>
@@ -181,7 +183,9 @@
                                      </div>
 
                                      <span class="items">
-                                         ({{ count($color->products ) }})
+                                         ({{  count( $color->productsLength)  }})
+
+                                       
                                      </span>
 
                                      <div class="clearing"></div>

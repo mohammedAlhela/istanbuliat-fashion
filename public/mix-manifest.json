@@ -5,5 +5,13 @@
     "/fonts/lg.svg": "/fonts/lg.svg",
     "/fonts/lg.ttf": "/fonts/lg.ttf",
     "/fonts/lg.woff": "/fonts/lg.woff",
-    "/fonts/lg.woff2": "/fonts/lg.woff2"
+    "/fonts/lg.woff2": "/fonts/lg.woff2",
+    "/fonts/vendor/@mdi/materialdesignicons-webfont.eot": "/fonts/vendor/@mdi/materialdesignicons-webfont.eot",
+    "/fonts/vendor/@mdi/materialdesignicons-webfont.ttf": "/fonts/vendor/@mdi/materialdesignicons-webfont.ttf",
+    "/fonts/vendor/@mdi/materialdesignicons-webfont.woff": "/fonts/vendor/@mdi/materialdesignicons-webfont.woff",
+    "/fonts/vendor/@mdi/materialdesignicons-webfont.woff2": "/fonts/vendor/@mdi/materialdesignicons-webfont.woff2",
+    "/fonts/vendor/lightgallery/lg.svg": "/fonts/vendor/lightgallery/lg.svg",
+    "/fonts/vendor/lightgallery/lg.ttf": "/fonts/vendor/lightgallery/lg.ttf",
+    "/fonts/vendor/lightgallery/lg.woff": "/fonts/vendor/lightgallery/lg.woff",
+    "/fonts/vendor/lightgallery/lg.woff2": "/fonts/vendor/lightgallery/lg.woff2"
 }

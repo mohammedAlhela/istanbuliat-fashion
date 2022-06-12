@@ -11,11 +11,7 @@ export default {
                     sortable: true,
                     value: "name",
                 },
-                {
-                    text: "Last Seen",
-                    value: "last_seen",
-                    sortable: true,
-                },
+   
 
                 {
                     text: " Email",
@@ -115,9 +111,8 @@ export default {
         // ---------- main
         assignApiData: (state, admins) => {
             state.admins = admins;
-            setTimeout(() => {
-                state.showContent = true;
-            }, 500);
+            state.showContent = true;
+         
         },
         setSearchValue: (state, e) => {
             state.search = e;
@@ -160,7 +155,7 @@ export default {
 
             setTimeout(() => {
                 state.editedIndex = -1;
-            }, 500);
+            }, 100);
         },
 
         editItem: (state, item) => {

@@ -10,7 +10,6 @@
                         {{ formTitle }}
                     </v-toolbar-title>
                 </v-toolbar>
-
                 <v-card-text class = "pt-5">
                     <v-form
                         class="form"
@@ -26,7 +25,7 @@
                                 <v-autocomplete
                                     required
                                     :rules="errors.size_name"
-                                    :items="relatedSizes"
+                                    :items="sizes"
                                     solo
                                     return
                                     return-object
@@ -134,7 +133,7 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
     name: "SizeGuidesSaveDialog",
-    props: ["relatedSizes"],
+    props: ["sizes"],
 
     computed: {
         ...mapState("sizeGuides", [
@@ -144,7 +143,6 @@ export default {
             "buttonLoading",
         ]),
 
-        ...mapState("sizeGuides", ["colors", "sizes"]),
 
         ...mapGetters("sizeGuides", ["formTitle"]),
     },

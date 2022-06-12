@@ -32,8 +32,6 @@ class AdminsExportResource extends JsonResource
             'role' => $this->role == 1 ? "manager" : "admin" ,
             'status' => $this->status == 1 ? "active" : "blocked" ,
             'last_seen' => $this->last_seen,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -93,20 +93,11 @@
                     Customer Service
                 </div>
             </div>
-            {{-- <div>
-                <div class="sub-link">
-                    Login/Register
-                </div>
-            </div>
-            <div>
-                <div class="sub-link">
-                    Account/Logout
-                </div>
-            </div> --}}
+  
 
             <div>
                 <div class="sub-link">
-                    Contact Us
+                   Folow Us
                 </div>
             </div>
 
