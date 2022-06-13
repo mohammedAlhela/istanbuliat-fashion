@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
 
         $this->middleware([
-             'cors']);
+             'cors' , 'admin']);
 
     }
 

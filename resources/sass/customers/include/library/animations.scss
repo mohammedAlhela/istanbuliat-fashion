@@ -89,9 +89,11 @@
 .link-left-to-right:after {
   display:block;
   content: '';
-  border-bottom: solid 3px #019fb6;  
+  border-bottom: solid 2px $main-color;  
   transform: scaleX(0);  
   transition: transform 250ms ease-in-out;
+  position: relative;
+  top: 20px;
 }
 
 .link-left-to-right:hover:after { transform: scaleX(1); }

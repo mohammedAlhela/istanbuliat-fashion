@@ -23,14 +23,8 @@
                 color: $gray-black !important;
                 text-decoration: none !important;
 
- 
-            
-         
-
                 @extend .link-left-to-right;
-                &:after {
-                    top: 36px;
-                }
+          
             }
         }
 

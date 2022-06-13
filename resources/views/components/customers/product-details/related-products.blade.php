@@ -1,3 +1,4 @@
+@if(count($relatedProducts ))
 <div class="deals-section">
     <div class="mega-header"> you may also like</div>
 
@@ -20,3 +21,10 @@
         @endforeach
     </div>
 </div>
+
+@else 
+
+<div class = "py-4">
+
+</div>
+@endif

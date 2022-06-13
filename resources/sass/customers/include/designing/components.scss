@@ -32,18 +32,12 @@
             position: relative;
             min-width: 246px;
 
-            @extend .link-left-to-right;
-
-            &:after {
-                top: 40px;
-                background: $black-gray;
-                height: 1px !important;
-            }
+  
 
             input {
                 padding-bottom: 10px !important;
                 border: none;
-                border-bottom: 1px solid $light-icon-color;
+                border-bottom: 1px solid #dfdfdf;
 
                 border-radius: 0px !important;
 
@@ -203,22 +197,6 @@ body.modal-open {
     }
 }
 
-// loader
-.preloader {
-    background-color: white;
-    // height: 100vh !important;
-    // width: 100% !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 999999 !important;
-
-    margin: 0 auto;
-    overflow: hidden;
-    opacity: .8
-}
 
 
 button {

@@ -65,6 +65,7 @@ class ProductDetailsController extends Controller
             
               foreach ($variations as $key=>$variation) { 
                      foreach ($variation->images as $imageKey=>$image)   { 
+                   
                         array_push($slidersImages , $image) ;
                      }   
 
@@ -77,16 +78,18 @@ class ProductDetailsController extends Controller
                      
    
 
-
-                     array_push($slidersImages , $baseVariation) ;
+                        if($baseVariation->image && $baseVariation->image != "/images/products/variations/variation.webp") { 
+                            array_push($slidersImages , $baseVariation) ;
+                        }
+            
                    
                    
               }
 
-                                
-      
-             
-             
+
+
+
+
             return view('customers.product-details')->with([
                 'product' => $product,
                 'colors' => $colors,
