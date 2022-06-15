@@ -1,13 +1,7 @@
 <template>
     <div class="overflow-products-table">
-        <v-data-table
-            :headers="headers"
-            :items="filteredProducts"
-            :items-per-page="10"
-            item-key="item.id"
-            mobile-breakpoint="10"
-            class="datatable"
-        >
+        <v-data-table :headers="headers" :items="filteredProducts" :items-per-page="10" item-key="item.id"
+            mobile-breakpoint="10" class="datatable">
             <template v-slot:header.name="{ header }">
                 {{ header.text }}
                 <v-menu offset-y :close-on-content-click="false">
@@ -19,21 +13,9 @@
                         </v-btn>
                     </template>
                     <div style="background-color: white; width: 280px">
-                        <v-text-field
-                            :value="name"
-                            @input="fillfilterValues('name', $event)"
-                            class="pa-4"
-                            type="text"
-                            label="Name"
-                        ></v-text-field>
-                        <v-btn
-                            @click="resetNameFilter()"
-                            small
-                            text
-                            color="primary"
-                            class="ml-2 mb-2"
-                            >Clean</v-btn
-                        >
+                        <v-text-field :value="name" @input="fillfilterValues('name', $event)" class="pa-4" type="text"
+                            label="Name"></v-text-field>
+                        <v-btn @click="resetNameFilter()" small text color="primary" class="ml-2 mb-2">Clean</v-btn>
                     </div>
                 </v-menu>
             </template>
@@ -49,30 +31,13 @@
                         </v-btn>
                     </template>
                     <div style="background-color: white; width: 280px">
-                        <v-text-field
-                            :value="minPrice"
-                            @input="fillfilterValues('minPrice', $event)"
-                            class="pa-4 pb-0"
-                            type="text"
-                            label="Min Price"
-                        ></v-text-field>
+                        <v-text-field :value="minPrice" @input="fillfilterValues('minPrice', $event)" class="pa-4 pb-0"
+                            type="text" label="Min Price"></v-text-field>
 
-                        <v-text-field
-                            :value="maxPrice"
-                            @input="fillfilterValues('maxPrice', $event)"
-                            class="pa-4 pt-0"
-                            type="text"
-                            label="Max Price"
-                        ></v-text-field>
+                        <v-text-field :value="maxPrice" @input="fillfilterValues('maxPrice', $event)" class="pa-4 pt-0"
+                            type="text" label="Max Price"></v-text-field>
 
-                        <v-btn
-                            @click="resetPriceFilter()"
-                            small
-                            text
-                            color="primary"
-                            class="ml-2 mb-2"
-                            >Clean</v-btn
-                        >
+                        <v-btn @click="resetPriceFilter()" small text color="primary" class="ml-2 mb-2">Clean</v-btn>
                     </div>
                 </v-menu>
             </template>
@@ -88,25 +53,11 @@
                         </v-btn>
                     </template>
                     <div style="background-color: white; width: 280px">
-                        <v-autocomplete
-                            :items="categories"
-                            item-text="name"
-                            item-value="id"
-                            return-object
-                            :value="category"
-                            @input="fillfilterValues('category', $event)"
-                            label="Category Name"
-                            class="pa-4"
-                        ></v-autocomplete>
+                        <v-autocomplete :items="categories" item-text="name" item-value="id" return-object
+                            :value="category" @input="fillfilterValues('category', $event)" label="Category Name"
+                            class="pa-4"></v-autocomplete>
 
-                        <v-btn
-                            @click="resetCategoryFilter()"
-                            small
-                            text
-                            color="primary"
-                            class="ml-2 mb-2"
-                            >Clean</v-btn
-                        >
+                        <v-btn @click="resetCategoryFilter()" small text color="primary" class="ml-2 mb-2">Clean</v-btn>
                     </div>
                 </v-menu>
             </template>
@@ -129,18 +80,43 @@
             </template>
 
             <template v-slot:item.name="{ item }">
-                <td class="p-2">
+                <td class="p-4">
                     <span class="sku" style="font-size: 12px; color: darkgrey">
-                        {{ item.sku }}
+                        sku : {{ item.sku }}
                     </span>
-                    <br />
-                    {{ item.name }} <br />
 
-                    {{ item.arabic_name }} <br />
+                    <div class="py-2 pb-0">
+                        {{ item.name }}
+                    </div>
 
-                    <span class="items-snackbar-span mt-1">
-                        {{ item.variations.length }} Variations</span
-                    >
+                    <div class="py-2">
+                        {{ item.arabic_name }}
+                    </div>
+
+                    <div class=" py-2">
+                        <span class="header">colors :</span>
+                        <v-chip v-for="(color, index) in item.colors" :key="index" class="ml-2 chip-font" small label 
+                            color="#ebebeb">
+
+                            <span class=""> {{ color.name }} </span>
+
+                        </v-chip>
+                    </div>
+
+
+                    <div class="pt-2 pb-2">
+
+                        <span class="header">sizes :</span>
+                        <v-chip v-for="(size, index) in item.sizes" :key="index" class="ml-2 chip-font" small label
+                            color="#ebebeb">
+
+                            <span class=""> {{ size.name }} </span>
+                        </v-chip>
+                    </div>
+
+
+
+
                 </td>
             </template>
 
@@ -156,27 +132,27 @@
                         </template>
                         <span> Product category </span>
                     </v-tooltip>
-                    <span v-if = " item.sub_category.name " >
-  =>
-                
-                  
-                    <v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                <span class="light-snackbar-span">
-                                    {{ item.sub_category.name }}
+                    <span v-if="item.sub_category.name">
+                        =>
+
+
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on, attrs }">
+                                <span v-bind="attrs" v-on="on">
+                                    <span class="light-snackbar-span">
+                                        {{ item.sub_category.name }}
+                                    </span>
                                 </span>
-                            </span>
-                        </template>
-                        <span> Product Sub category </span>
-                    </v-tooltip>    </span >
+                            </template>
+                            <span> Product Sub category </span>
+                        </v-tooltip>
+                    </span>
                 </td>
             </template>
 
             <template v-slot:item.price="{ item }">
                 <td>
-                    <span v-if="item.discount_price"
-                        >AED {{ item.selling_price }} =>
+                    <span v-if="item.discount_price">AED {{ item.selling_price }} =>
                         {{ item.price }}
                     </span>
                     <span v-else>AED {{ item.price }} </span>
@@ -185,23 +161,20 @@
 
             <template v-slot:item.status="{ item }">
                 <td class="p-2">
-                    <span
-                        @click="filterStatus(item)"
-                        v-html="getStatusItem(item)"
-                    ></span>
+                    <span @click="filterStatus(item)">
+                        <v-chip small :color="item.status ? 'success' : 'error'"> {{ item.status ? 'active' : 'draft' }}
+                        </v-chip>
+                    </span>
 
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="updateStatus(item.id)"
-                                    class="ml-2 icon"
-                                >
+                                <v-icon @click="updateStatus(item.id)" class="ml-2 icon">
                                     mdi-swap-horizontal-bold
                                 </v-icon>
                             </span>
                         </template>
-                        <span> Change Availability Status </span>
+                        <span> Change Status </span>
                     </v-tooltip>
                 </td>
             </template>
@@ -212,10 +185,7 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="editItem(item)"
-                                    class="mr-2 icon"
-                                >
+                                <v-icon @click="editItem(item)" class="mr-2 icon">
                                     mdi-pencil
                                 </v-icon>
                             </span>
@@ -226,10 +196,7 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="showDeleteSnackbar(item)"
-                                    class="mr-2 icon"
-                                >
+                                <v-icon @click="showDeleteSnackbar(item)" class="mr-2 icon">
                                     mdi-delete
                                 </v-icon>
                             </span>
@@ -240,10 +207,7 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="manageVariations(item)"
-                                    class="mr-2 icon variation-icon"
-                                >
+                                <v-icon @click="manageVariations(item)" class="mr-2 icon variation-icon">
                                     mdi-file-multiple
                                 </v-icon>
                             </span>
@@ -254,10 +218,7 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="manageProductColors(item)"
-                                    class="mr-2 icon variation-icon"
-                                >
+                                <v-icon @click="manageProductColors(item)" class="mr-2 icon variation-icon">
                                     mdi-image-multiple
                                 </v-icon>
                             </span>
@@ -268,10 +229,7 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon
-                                    @click="manageSizeGuides(item)"
-                                    class="mr-2 icon variation-icon"
-                                >
+                                <v-icon @click="manageSizeGuides(item)" class="mr-2 icon variation-icon">
                                     mdi-ruler-square-compass
                                 </v-icon>
                             </span>

@@ -1,6 +1,6 @@
 <template>
-  <div persistent  v-if="productColorEditIndex > -1">
-    <v-dialog v-model="dialog"  fullscreen transition="dialog-bottom-transition">
+  <div   v-if="productColorEditIndex > -1">
+    <v-dialog  persistent v-model="dialog"  fullscreen transition="dialog-bottom-transition">
       <v-card class="variations-dialog-container" flat>
         <v-toolbar dark color="blue">
           <v-btn icon @click="closeDialog()" class="no-focus">

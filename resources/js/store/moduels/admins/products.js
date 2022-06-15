@@ -14,7 +14,7 @@ export default {
                 },
 
                 {
-                    text: " Name",
+                    text: " Full Summary",
                     align: "start",
                     sortable: true,
                     value: "name",

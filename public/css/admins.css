@@ -98,6 +98,10 @@
     font-size: 22px;
   }
 }
+.chip-font {
+  color: rgb(152, 151, 151) !important;
+}
+
 .validation-icon {
   font-size: 15px !important;
   color: #e17878 !important;

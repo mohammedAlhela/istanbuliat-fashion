@@ -37,7 +37,7 @@
                     .size_guides" :key="index">
                         <v-card-text class="p-0">
                             <div class="informations-holder">
-                                <div class="header size-card-header ">
+                                <div class="header size-card-header">
                                     Size :
                                     <span class="paragraph">
                                         {{ sizeGuide.size.name }}
@@ -45,9 +45,6 @@
                                 </div>
 
                                 <div class="p-3 pt-0">
-
-
-
                                     <div class="header">
                                         bust :
                                         <span class="paragraph">

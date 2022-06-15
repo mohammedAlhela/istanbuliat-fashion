@@ -20,7 +20,7 @@
 
                     <v-card class="variation-card " v-for="(color, index) in getUniqueColors(products[datatableIndex]
                     .colors)" :key="index">
-                        <v-card-text class="p-0" style="background:white">
+                        <v-card-text class="p-0" >
                             <div class="informations-holder">
                                 <div class="header size-card-header ">
                                     Color :

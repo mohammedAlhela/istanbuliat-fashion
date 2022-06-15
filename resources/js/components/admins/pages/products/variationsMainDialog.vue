@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-dialog persistent  v-if="editedIndex > -1" v-model="dialog" fullscreen transition="dialog-bottom-transition">
-      <v-card class="variations-dialog-container" flat>
+    <v-dialog persistent v-if="editedIndex > -1" v-model="dialog" fullscreen transition="dialog-bottom-transition">
+      <v-card class="variations-dialog-container size-guides-section" flat>
         <v-toolbar dark color="blue">
           <v-btn icon @click="closeDialogAction()" class="no-focus">
             <v-icon>mdi-close</v-icon>
@@ -22,25 +22,30 @@
         </v-toolbar>
 
         <v-card-text v-if="products[datatableIndex].variations.length">
-          <v-card class="variation-card" v-for="(variation, index) in products[datatableIndex].variations" :key="index">
-            <v-card-text>
 
 
+
+          <v-card class="variation-card " v-for="(variation, index) in products[datatableIndex].variations"
+            :key="index">
+            <v-card-text class="p-0">
               <div class="informations-holder">
-                <div class="header">
-                  Color : 
-                  <span class="paragraph">
-                     {{ variation.color.name  }}
-                  </span>
+                <div class="header size-card-header">
+                  <div class="header">
+                    Color :
+                    <span class="paragraph">
+                      {{ variation.color.name }}
+                    </span>
+                  </div>
+
+                  <div class="header">
+                    Size :
+                    <span class="paragraph">
+                      {{ variation.size.name }}
+                    </span>
+                  </div>
                 </div>
 
-                <div class="header">
-                  Size :
-                  <span class="paragraph">
-                     {{ variation.size.name }} 
-                  </span>
-                </div>
-
+ <div class="p-3 pt-0">
                 <div class="header">
                   Selling price :
                   <span class="paragraph">
@@ -91,13 +96,21 @@
                   </v-tooltip>
 
 
-
+</div>
                 </div>
+
+
+
+
+
+
+
               </div>
 
               <div class="clearing"></div>
             </v-card-text>
           </v-card>
+
         </v-card-text>
         <v-card-text v-else class="mt-5">
           <span class="header"> No product variations added yet </span>

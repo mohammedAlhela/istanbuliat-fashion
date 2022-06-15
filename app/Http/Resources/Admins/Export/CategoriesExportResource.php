@@ -27,7 +27,7 @@ class CategoriesExportResource extends JsonResource
             'id' => (int) $this->id,
             'name' => $this->name,
             'arabic_name' => $this->arabic_name,
-            'status' => $this->status == 1 ? "active" : "blocked",
+            'status' => $this->status == 1 ? "active" : "draft",
             'products number' => count($this->products) > 0 ? count($this->products) : '0'  ,
             'sub categories number' => count($this->subCategories) > 0 ? count($this->subCategories) : '0'  ,
 

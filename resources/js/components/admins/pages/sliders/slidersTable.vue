@@ -23,10 +23,10 @@
     <template v-slot:item.status="{ item }">
       <td>
         <v-chip v-if="item.status == 1" small class="" color="success">
-          Active
+          active
         </v-chip>
 
-        <v-chip v-else small class="" color="error"> Not Active </v-chip>
+        <v-chip v-else small class="" color="error"> draft </v-chip>
       </td>
     </template>
 
