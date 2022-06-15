@@ -84,7 +84,7 @@
                             <v-icon> mdi-plus </v-icon>
                         </v-btn>
                     </template>
-                    <span> Add new product </span>
+                    <span> Add new record </span>
                 </v-tooltip>
             </span>
         </div>

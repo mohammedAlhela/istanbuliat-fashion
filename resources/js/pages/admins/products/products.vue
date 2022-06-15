@@ -30,18 +30,27 @@
           
 
                 <products-save-dialog> </products-save-dialog>
-                <variations-main-dialog
+              <variations-main-dialog
                     :editedIndex="editedIndex"
                     :products="products"
                     :datatableIndex="datatableIndex"
-                ></variations-main-dialog>
+                ></variations-main-dialog> 
 
 
                  <size-guides-main-dialog
                     :editedIndex="editedIndex"
                     :products="products"
                     :datatableIndex="datatableIndex"
-                ></size-guides-main-dialog> 
+                ></size-guides-main-dialog>  
+
+                
+<product-colors-main-dialog    :editedIndex="editedIndex"
+                    :products="products"
+                    :datatableIndex="datatableIndex">
+
+</product-colors-main-dialog>
+
+
             </div>
         </v-main>
     </v-app>

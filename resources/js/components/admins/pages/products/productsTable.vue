@@ -121,7 +121,6 @@
                 </span>
             </template>
 
-
             <template v-slot:item.image="{ item }">
                 <td class="p-2 pl-5">
                     <img :src="item.image" alt="no image" class="image" />
@@ -131,18 +130,17 @@
 
             <template v-slot:item.name="{ item }">
                 <td class="p-2">
-                     <span class="sku" style="font-size: 12px; color: darkgrey">
+                    <span class="sku" style="font-size: 12px; color: darkgrey">
                         {{ item.sku }}
                     </span>
                     <br />
                     {{ item.name }} <br />
 
-                
+                    {{ item.arabic_name }} <br />
 
                     <span class="items-snackbar-span mt-1">
                         {{ item.variations.length }} Variations</span
-                    > 
-              
+                    >
                 </td>
             </template>
 
@@ -151,16 +149,27 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <span
-                                    class="light-snackbar-span"
-                                    @click="addActiveCategory(item)"
-                                >
+                                <span class="light-snackbar-span">
                                     {{ item.category.name }}
                                 </span>
                             </span>
                         </template>
                         <span> Product category </span>
                     </v-tooltip>
+                    <span v-if = " item.sub_category.name " >
+  =>
+                
+                  
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                <span class="light-snackbar-span">
+                                    {{ item.sub_category.name }}
+                                </span>
+                            </span>
+                        </template>
+                        <span> Product Sub category </span>
+                    </v-tooltip>    </span >
                 </td>
             </template>
 
@@ -174,7 +183,6 @@
                 </td>
             </template>
 
-
             <template v-slot:item.status="{ item }">
                 <td class="p-2">
                     <span
@@ -186,12 +194,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
                                 <v-icon
-                                    @click="
-                                        updateStatus(
-                                            item.id
-                                         
-                                        )
-                                    "
+                                    @click="updateStatus(item.id)"
                                     class="ml-2 icon"
                                 >
                                     mdi-swap-horizontal-bold
@@ -252,6 +255,20 @@
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
                                 <v-icon
+                                    @click="manageProductColors(item)"
+                                    class="mr-2 icon variation-icon"
+                                >
+                                    mdi-image-multiple
+                                </v-icon>
+                            </span>
+                        </template>
+                        <span> Manage product images </span>
+                    </v-tooltip>
+
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                <v-icon
                                     @click="manageSizeGuides(item)"
                                     class="mr-2 icon variation-icon"
                                 >
@@ -296,7 +313,7 @@ export default {
         ...mapActions("products", {
             manageVariations: "manageVariations",
             manageSizeGuides: "manageSizeGuides",
-
+            manageProductColors: "manageProductColors",
             updateStatus: "updateStatus",
         }),
 
@@ -320,8 +337,6 @@ export default {
             };
             this.setFilterValues(dataObject);
         },
-
-
 
         getStatusItem: (item) => {
             let activeClass = "";

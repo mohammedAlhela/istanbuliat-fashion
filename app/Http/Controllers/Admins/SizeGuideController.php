@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admins;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\SizeGuideRequest;
-use App\Models\Variation;
 use App\Models\SizeGuide;
 use Illuminate\Http\Request;
 
@@ -31,8 +30,6 @@ class SizeGuideController extends Controller
     {
         $sizeGuide->product_id = $request->product_id;
         $sizeGuide->size_id = $request->size_id;
-        $sizeGuide->product_name = $request->product_name;
-        $sizeGuide->size_name = $request->size_name;
         $sizeGuide->shoulder = $request->shoulder;
         $sizeGuide->bust = $request->bust;
         $sizeGuide->wist = $request->wist;

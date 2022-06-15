@@ -7,10 +7,9 @@ Welcome to istanbuliat fashion store
 
 @section('content')
 <div class="home-section">
- @include('components.customers.home.sliders')
-    @include('components.customers.home.categories')
-    @include('components.customers.home.deals')
-    @include('components.customers.home.best-selling')
+ <h1>
+     Home Page
+ </h1>
 </div> 
 
 @endsection 

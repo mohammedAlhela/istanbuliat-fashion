@@ -1,13 +1,15 @@
 
-import { mapState, mapActions, mapMutations  , mapGetters} from 'vuex'
+import { mapState, mapActions, mapGetters ,  mapMutations } from 'vuex'
 import categoriesTable from '../../../components/admins/pages/categories/categoriesTable.vue'
 import categoriesHeader from '../../../components/admins/pages/categories/categoriesHeader.vue'
 import categoriesSaveDialog from '../../../components/admins/pages/categories/categoriesSaveDialog.vue'
+import SubCategoriesMainDialog from '../../../components/admins/pages/categories/SubCategoriesMainDialog.vue'
 export default {
   components: {
     categoriesTable,
     categoriesHeader,
     categoriesSaveDialog,
+    SubCategoriesMainDialog
   },
   name: 'AdminsCategories',
 
@@ -22,10 +24,15 @@ export default {
     ...mapState(
       'categories',
 
-      ['headers', 'categories', 'deleteSnackbar', 'showContent' , "blockDeleteSnackbar" , "blockDeleteReport" , "search"]
+      ['headers', 'categories', 'deleteSnackbar', 'showContent' , "blockDeleteSnackbar" , "blockDeleteReport"  , 'categories' , 'subCategoriesEditIndex']
     ),
 
-    ...mapGetters("categories", ["filteredCategories"]),
+
+    ...mapGetters(
+      'categories',
+
+      ['datatableIndex']
+    ),
 
   },
 
@@ -34,6 +41,8 @@ export default {
       fetch: 'fetch',
       destroy: 'delete',
       updateStatus: 'updateStatus',
+      manageSubCategories: 'manageSubCategories',
+      
 
     }),
 
@@ -43,11 +52,9 @@ export default {
       'showDeleteSnackbar',
       "closeBlockDeleteSnackbar",
       'closeDeleteSnackbar',
-      "setSearchValue",
     ]),
 
     dataIsFetched () {
-        console.log("data fetched");
         this.$store.commit("closeLoader");
      }
 

@@ -1,24 +1,23 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
-
-import router from '../router/index'
+Vue.use(Vuex);
 // admins pagess
-import admins from './moduels/admins/users'
-import dashboard from './moduels/admins/dashboard'
-import sliders from './moduels/admins/sliders'
-import categories from './moduels/admins/categories'
-import colors from './moduels/admins/colors'
-import sizes from './moduels/admins/sizes'
-import products from './moduels/admins/products'
-import variations from './moduels/admins/variations'
-import variationsImages from './moduels/admins/variationsImages'
-import sizeGuides from './moduels/admins/sizeGuides'
+import admins from "./moduels/admins/users";
+import dashboard from "./moduels/admins/dashboard";
+import sliders from "./moduels/admins/sliders";
+import categories from "./moduels/admins/categories";
+import subCategories from "./moduels/admins/subCategories";
+import colors from "./moduels/admins/colors";
+import sizes from "./moduels/admins/sizes";
+import tags from "./moduels/admins/tags";
+import products from "./moduels/admins/products";
+import variations from "./moduels/admins/variations";
+import productColorImages from "./moduels/admins/productColorImages";
+import sizeGuides from "./moduels/admins/sizeGuides";
+import productColors from "./moduels/admins/productColors";
 
 // admins pagess
-
-import wishlists from './moduels/customers/wishlists'
 
 export default new Vuex.Store({
     modules: {
@@ -30,31 +29,28 @@ export default new Vuex.Store({
         sizes,
         products,
         variations,
-        variationsImages,
+        productColorImages,
         sizeGuides,
-        dashboard , 
+        dashboard,
+        subCategories,
+        tags,
+        productColors,
         // admins pagess
-        wishlists
-  
     },
 
-    state () {
+    state() {
         return {
-            loading: true
-        }
+            loading: true,
+        };
     },
 
     mutations: {
-        redirect: (state, url) => {
-            router.push({ name: url })
+        closeLoader: (state) => {
+            state.loading = false;
         },
 
-        closeLoader: state => {
-            state.loading = false
+        openLoader: (state) => {
+            state.loading = true;
         },
-
-        openLoader: state => {
-            state.loading = true
-        }
-    }
-})
+    },
+});

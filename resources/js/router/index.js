@@ -15,7 +15,6 @@ import adminsProducts from "../pages/admins/products/products.vue";
 Vue.use(VueRouter);
 const routes = [
   
-
     {
         path: "/admins/dashboard",
         name: "admins-dashboard",
@@ -51,7 +50,6 @@ const routes = [
         name: "admins-products",
         component: adminsProducts,
     },
-    // admins routes
 ];
 
 const router = new VueRouter({

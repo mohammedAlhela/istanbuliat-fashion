@@ -19,7 +19,7 @@
                                 <span class="image-paragraph">
 
                                     Recomended image dimensions are 800 width
-                                    and 1200 height
+                                    and 1200 height  <v-icon class = "validation-icon"> mdi-star</v-icon>
                                 </span>
 
                                 <div class="upload-image-container">
@@ -56,22 +56,25 @@
 
                             <v-col cols="12" class="py-0 pt-3">
                                 <div class="input-header">
-                                    <span> Name </span>
+                                    <span> Name </span>  <v-icon class = "validation-icon"> mdi-star</v-icon>
                                 </div>
 
                                 <v-text-field required :rules="errors.name" solo dense :value="editedItem.name"
                                     @input="fillDialogValues('name', $event)"></v-text-field>
                             </v-col>
 
-                            <v-col cols="12" class="py-0 ">
+                            
+                            <v-col cols="12" class="py-0 pt-3">
                                 <div class="input-header">
-                                    <span> Description </span>
+                                    <span> Arabic name </span>  <v-icon class = "validation-icon"> mdi-star</v-icon>
                                 </div>
-                                <v-textarea required :rules="errors.description" solo dense
-                                    :value="editedItem.description" @input="
-                                        fillDialogValues('description', $event)
-                                    "></v-textarea>
+
+                                <v-text-field required :rules="errors.arabic_name" solo dense :value="editedItem.arabic_name"
+                                    @input="fillDialogValues('arabic_name', $event)"></v-text-field>
                             </v-col>
+
+                            
+
 
                             <!-- actions button  -->
                             <v-col cols="12" class="buttons-holder">

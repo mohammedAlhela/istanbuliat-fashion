@@ -19,22 +19,22 @@
             <v-row>
               <v-col cols="12" class="py-0">
                 <div class="input-header">
-                  <span>Name </span>
+                  <span>Username </span>  <v-icon class = "validation-icon"> mdi-star</v-icon>
                 </div>
 
                 <v-text-field
                   required
-                  :rules="errors.name"
+                  :rules="errors.username"
                   solo
                   dense
-                  :value="editedItem.name"
-                  @input="fillDialogValues('name', $event)"
+                  :value="editedItem.username"
+                  @input="fillDialogValues('username', $event)"
                 ></v-text-field>
               </v-col>
 
               <v-col cols="12" class="py-0">
                 <div class="input-header">
-                  <span>Eamil Address </span>
+                  <span>Eamil Address </span><v-icon class = "validation-icon"> mdi-star</v-icon>
                 </div>
                 <v-text-field
                   required

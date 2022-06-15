@@ -9,32 +9,35 @@
 .main-header, .dashboard-container .dashboard-cards .dashboard-card-number {
   font-size: 22px;
   font-weight: normal;
-  color: #645e5e !important;
+  color: #756b6b !important;
   text-transform: lowercase;
 }
 
 .header, .dashboard-container .dashboard-cards .dashboard-paragraph, .form .input-header span {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #645e5e !important;
+  color: #756b6b !important;
 }
 
 .form-control::-moz-placeholder {
   font-size: 15px;
   font-weight: 500;
-  color: #645e5e !important;
+  color: #756b6b !important;
+  line-height: 25px;
 }
 
 .form-control:-ms-input-placeholder {
   font-size: 15px;
   font-weight: 500;
-  color: #645e5e !important;
+  color: #756b6b !important;
+  line-height: 25px;
 }
 
 .paragraph, .import-data-button, .form-control::placeholder, .error-paragraph, .image-paragraph, .hovered-paragraph, .white-paragraph {
   font-size: 15px;
   font-weight: 500;
-  color: #645e5e !important;
+  color: #756b6b !important;
+  line-height: 25px;
 }
 
 .block-delete-header {
@@ -97,12 +100,14 @@
 }
 .validation-icon {
   font-size: 15px !important;
-  color: #e34444 !important;
+  color: #e17878 !important;
+  position: relative;
+  top: -2px;
 }
 
 .icon, .white-icon {
   font-size: 20px !important;
-  color: #645e5e !important;
+  color: #756b6b !important;
 }
 
 .white-icon {
@@ -114,7 +119,7 @@
 }
 
 .front-end-icon {
-  color: #645e5e !important;
+  color: #756b6b !important;
   font-size: 30px !important;
   cursor: pointer;
 }
@@ -147,7 +152,7 @@
 .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled),
 .theme--light.v-select .v-select__selection--comma,
 .v-list-item .v-list-item__subtitle {
-  color: #645e5e !important;
+  color: #756b6b !important;
   letter-spacing: 1px;
 }
 
@@ -157,14 +162,14 @@
   font-size: 0.875rem;
   height: 48px;
   font-weight: 500;
-  color: #645e5e;
+  color: #756b6b;
 }
 
 .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tbody > tr > th,
 .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > thead > tr > th,
 .v-application--is-ltr .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
   font-size: 14px !important;
-  color: #645e5e !important;
+  color: #756b6b !important;
 }
 
 .theme--light.v-navigation-drawer {
@@ -182,7 +187,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: #645e5e;
+  -webkit-text-fill-color: #756b6b;
 }
 
 .v-expansion-panel::before {
@@ -204,7 +209,7 @@ input:-webkit-autofill:active {
 
 .swal2-popup .swal2-title {
   line-height: inherit !important;
-  color: #645e5e !important;
+  color: #756b6b !important;
 }
 
 .v-overlay {
@@ -342,6 +347,22 @@ textarea:focus {
   padding: 0px 12px 2px !important;
 }
 
+.big-slider-image-container {
+  max-width: 1000px;
+  width: 90%;
+}
+.big-slider-image-container .image, .big-slider-image-container .datatable .slider-image, .datatable .big-slider-image-container .slider-image {
+  width: 100%;
+}
+
+.small-slider-image-container {
+  max-width: 500px;
+  width: 90%;
+}
+.small-slider-image-container .image, .small-slider-image-container .datatable .slider-image, .datatable .small-slider-image-container .slider-image {
+  width: 100%;
+}
+
 .admins-pages-container, .categories-container, .sliders-container, .admins-container {
   padding: 10px 20px 50px;
   margin: 50px 0px 50px 0px;
@@ -380,7 +401,7 @@ textarea:focus {
   cursor: pointer;
   background-color: white;
   border: 1px solid rgb(236, 232, 232);
-  color: #645e5e;
+  color: #756b6b;
 }
 .light-snackbar-span:hover {
   background-color: rgb(202, 162, 60);
@@ -819,10 +840,10 @@ body {
   padding: 50px 0px;
 }
 .error-page-container a {
-  color: #645e5e !important;
+  color: #756b6b !important;
 }
 .error-page-container a:hover {
-  color: #645e5e !important;
+  color: #756b6b !important;
 }
 .error-page-container .text {
   margin-top: 10px;

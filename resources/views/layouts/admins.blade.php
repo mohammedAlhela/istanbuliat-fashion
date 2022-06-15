@@ -43,7 +43,7 @@
     integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous">
 </script>
     <script type="text/javascript">
-        window.User = {!! json_encode(optional(auth()->user())->only('id', 'email', 'name' , 'role')) !!}
+        window.User = {!! json_encode(optional(auth()->user())->only('id', 'email', 'username' , 'role')) !!}
     </script>
     <!-- scripts -->
 </body>

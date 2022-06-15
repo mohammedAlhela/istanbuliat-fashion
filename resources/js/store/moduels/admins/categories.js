@@ -21,6 +21,13 @@ export default {
                 },
 
                 {
+                    text: " Arabic name",
+                    align: "start",
+                    sortable: true,
+                    value: "arabic_name",
+                },
+
+                {
                     text: " Status",
                     align: "start",
                     sortable: true,
@@ -31,8 +38,8 @@ export default {
             ],
             categories: [],
             products: [],
+            sub_categories : [],
             showContent: false,
-            search: "",
             // ---------- main
 
             // ---------- delete
@@ -48,15 +55,16 @@ export default {
             errors: {},
             dialog: false,
             editedIndex: -1,
-            activeCategoryIndex: -1,
+            subCategoriesEditIndex: -1,
             editedItem: {
                 id: "",
                 name: "",
+                arabic_name: "",
                 type: "",
             },
             defaultItem: {
                 id: "",
-                name: "",
+                arabic_name: "",
                 type: "",
             },
             image: {
@@ -77,9 +85,9 @@ export default {
 
     getters: {
         formTitle: (state) => {
-            return state.editedIndex === -1
-                ? "Add new category"
-                : "Update category data";
+            return state.editedIndex == -1
+                ? "Add new record"
+                : "Update record";
         },
 
         getImage: (state) => {
@@ -100,38 +108,20 @@ export default {
             }
         },
 
-        filteredCategories: (state, getters) => {
-            var categoriesFork = state.categories;
-
-            let conditions = [];
-
-            if (state.search) {
-                conditions.push(getters.filterData);
-            }
-
-            if (conditions.length > 0) {
-                return categoriesFork.filter((category) => {
-                    return conditions.every((condition) => {
-                        return condition(category);
-                    });
-                });
-            }
-
-            return categoriesFork;
-        },
-
-        filterData: (state) => (item) => {
-            return (
-                item.name.toLowerCase().includes(state.search.toLowerCase()) ||
-                item.status.toLowerCase().includes(state.search.toLowerCase())
-            );
-        },
 
         showClearImage: (state) =>   {
       
                 return state.image.preview
         
-  
+        },
+
+        datatableIndex: (state) => {
+            if (state.subCategoriesEditIndex > -1) {
+                return state.categories.findIndex(function (category) {
+                    return category.id == state.subCategoriesEditIndex;
+                });
+            }
+            return 0;
         },
 
     },
@@ -153,6 +143,7 @@ export default {
         },
         showDeleteSnackbar: (state, item) => {
             state.products = item.products;
+            state.sub_categories = item.sub_categories;
             state.deleteIndex = item.id;
             state.deleteSnackbar = true;
         },
@@ -162,31 +153,50 @@ export default {
         },
 
         fillBlockDeleteSnackbar: (state) => {
-            state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this category because you used it in the below products </p>`;
-            state.products.forEach((element) => {
-                state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
-            });
+            if(state.products.length && !state.sub_categories.length) { 
+                state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this category because you used it in the below products </p>`;
+                state.products.forEach((element) => {
+                    state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
+                });
+            }
+
+            if (state.sub_categories.length && !state.products.length){ 
+                state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this category because you used it in the below sub categories </p>`;
+                state.sub_categories.forEach((element) => {
+                    state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
+                });
+            }
+
+            
+            if (state.sub_categories.length && state.products.length){ 
+                state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this category because you used it in the below sub categories </p>`;
+                state.sub_categories.forEach((element) => {
+                    state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
+                });
+
+                state.blockDeleteReport += `<p class = "block-delete-header"> and the below products </p>`;
+                state.products.forEach((element) => {
+                    state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
+                });
+            }
+       
         },
 
         closeBlockDeleteSnackbar: (state) => {
             state.blockDeleteSnackbar = false;
         },
 
-        removeDeletedCategory: (state) => {
-            state.categories = state.categories.filter((category) => {
-                return category.id != state.deleteIndex;
-            });
 
-            state.deleteIndex = -1;
-            toasts.methods.fireSuccessToast("Record deleted successfully");
-        },
+  
         // ---------- delete
 
         // ---------- dialog data --------------------------------
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "name") {
+            if (dataObject.variableType == "name") {
                 state.editedItem.name = dataObject.e;
+            }else { 
+                state.editedItem.arabic_name = dataObject.e; 
             }
         },
 
@@ -235,12 +245,6 @@ export default {
             };
         },
 
-        setSearchValue: (state, e) => {
-            state.search = e;
-
-            console.log(state.search);
-        },
-
         clearImage: (state) => {
             state.image = Object.assign({}, state.defaultImage);
         },
@@ -250,7 +254,7 @@ export default {
 
     actions: {
         async fetch({ state, commit }) {
-            const Data = await axios.get("/categories").catch((error) => {
+            const Data = await axios.get("/categories/getData").catch((error) => {
                 toasts.methods.fireErrorToast();
             });
 
@@ -259,7 +263,7 @@ export default {
         },
 
         async delete({ state, dispatch, commit }) {
-            if (state.products.length) {
+            if (state.products.length || state.sub_categories.length) {
                 commit("fillBlockDeleteSnackbar");
                 commit("closeDeleteSnackbar");
                 commit("showBlockDeleteSnackbar");
@@ -285,10 +289,10 @@ export default {
             let categoryData = new FormData();
             categoryData.append("image", state.image.file);
             categoryData.append("name", state.editedItem.name);
-
+            categoryData.append("arabic_name", state.editedItem.arabic_name);
             categoryData.append("id", state.editedItem.id);
 
-            if (state.editedIndex === -1) {
+            if (state.editedIndex == -1) {
                 const Data = await axios
                     .post(`/category/store`, categoryData)
                     .catch((error) => {
@@ -328,6 +332,14 @@ export default {
 
             const DATAFETCHED = await dispatch("fetch");
             toasts.methods.fireSuccessToast("Status updated successfully");
+        },
+
+
+        
+
+        manageSubCategories({ state, commit }, item) {
+            commit("subCategories/manageSubCategories", item, { root: true });
+            state.subCategoriesEditIndex = item.id;
         },
     },
 };

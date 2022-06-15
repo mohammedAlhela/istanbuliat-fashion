@@ -1,25 +1,43 @@
 <template>
-    <v-data-table :headers="headers" :items="filteredAdmins" :items-per-page="15" item-key="item.id"
-        mobile-breakpoint="1000" class="datatable">
-        <template v-slot:item.name="{ item }">
+    <v-data-table
+        :headers="headers"
+        :items="admins"
+        :items-per-page="15"
+        item-key="item.id"
+        mobile-breakpoint="1000"
+        class="datatable"
+    >
+        <template v-slot:item.username="{ item }">
             <td class="p-3">
-                {{ item.name }}
+                {{ item.username }}
 
-                <div class = "mt-1 paragraph">
-                 {{ item.last_seen }}
+                <div class="mt-1 paragraph">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                {{ item.last_seen }}
+                            </span>
+                        </template>
+                        <span> Last Seen </span>
+                    </v-tooltip>
                 </div>
                 <div class="mt-2 primary-font">
-                    <v-chip small :color="item.role == 'manager' ? 'primary' : 'warning'"> {{ item.role }} </v-chip>
+                    <v-chip
+                        small
+                        :color="item.role == 2 ? 'primary' : 'warning'"
+                    >
+                        {{ item.role == 2 ? "manager" : "admin" }}
+                    </v-chip>
                 </div>
-
             </td>
         </template>
         <template v-slot:item.status="{ item }">
             <td>
-                <v-chip small :color="item.status == 'active' ? 'success' : 'error'"> {{ item.status }} </v-chip>
+                <v-chip small :color="item.status == 1 ? 'success' : 'error'">
+                    {{ item.status == 1 ? "active" : "not active" }}
+                </v-chip>
             </td>
         </template>
-
 
         <template v-slot:item.actions="{ item }">
             <!-- actions -->
@@ -28,61 +46,49 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                <v-icon @click="$emit('editItem', item)" class="mr-2 icon" :class="{
-                                    disabled: buttonIsDisabled(
-                                        item,
-                                        'update'
-                                    ),
-                                }">
+                                <v-icon
+                                    @click="$emit('editItem', item)"
+                                    class="mr-2 icon"
+                              
+                                >
                                     mdi-pencil
                                 </v-icon>
                             </span>
                         </template>
                         <span>
-                            {{
-                                    item.id != $user.id && item.role === "manager"
-                                        ? "no permissions to do this action"
-                                        : "Update record"
-                            }}
+                        Update record
                         </span>
                     </v-tooltip>
-                    <span v-if="item.role === 'admin'">
-                        <v-tooltip top>
-                            <template v-slot:activator="{ on, attrs }">
-                                <span v-bind="attrs" v-on="on">
-                                    <v-icon @click="$emit('updateStatus', item)" class="mr-2 icon">
-                                        mdi-swap-horizontal-bold
-                                    </v-icon>
-                                </span>
-                            </template>
-                            <span> Change status </span>
-                        </v-tooltip>
 
-
-                        <v-tooltip top>
-                            <template v-slot:activator="{ on, attrs }">
-                                <span v-bind="attrs" v-on="on">
-                                    <v-icon @click="$emit('showDeleteSnackbar', item)" class="mr-2 icon" :class="{
-                                        disabled: buttonIsDisabled(
-                                            item,
-                                            'delete'
-                                        ),
-                                    }">
-                                        mdi-delete
-                                    </v-icon>
-                                </span>
-                            </template>
-                            <span>
-
-                                "Delete record"
-
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                <v-icon
+                                    @click="$emit('updateStatus', item)"
+                                    class="mr-2 icon"
+                                >
+                                    mdi-swap-horizontal-bold
+                                </v-icon>
                             </span>
-                        </v-tooltip>
+                        </template>
+                        <span> Change record status </span>
+                    </v-tooltip>
 
-                    </span>
-
-
-
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                <v-icon
+                                v-if = "item.role != 2"
+                                    @click="$emit('showDeleteSnackbar', item)"
+                                    class="mr-2 icon"
+                                
+                                >
+                                    mdi-delete
+                                </v-icon>
+                            </span>
+                        </template>
+                        <span> Delete record </span>
+                    </v-tooltip>
                 </div>
 
                 <!-- actions -->
@@ -93,9 +99,9 @@
 
 <script>
 export default {
-    name: "UsersTable",
+    username: "UsersTable",
     props: {
-        filteredAdmins: {
+        admins: {
             required: true,
             type: Array,
         },
@@ -103,16 +109,6 @@ export default {
         headers: {
             required: true,
             type: Array,
-        },
-    },
-
-    methods: {
-        buttonIsDisabled(item, action) {
-            if (action === "update") {
-                return item.role === "manager" && item.id != this.$user.id;
-            } else {
-                return item.role === "manager";
-            }
         },
     },
 };

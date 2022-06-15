@@ -20,14 +20,13 @@
 
                 <span class="image-paragraph">
                   Recomended image
-                  dimensions are 600 width and 800 height
+                  dimensions are 600 width and 800 height <v-icon class = "validation-icon"> mdi-star</v-icon>
                 </span>
 
                 <div class="upload-image-container">
                   <div class="product-image-container">
                     <img :src="getImage" class="image" />
                   </div>
-
                   <div class="upload-container">
 
                     <label for="productSaveDialogImage" class="custom-file-upload">
@@ -39,12 +38,12 @@
                       <span v-html="getImageParagraph"> </span>
                     </span>
 
-                    
-                                        <div class="clear-button" @click="clearImage()" v-if="showClearImage">
-                                            <v-btn icon color="#645e5e">
-                                                <v-icon>mdi-cached</v-icon>
-                                            </v-btn><span class="paragraph"> clear</span>
-                                        </div>
+
+                    <div class="clear-button" @click="clearImage()" v-if="showClearImage">
+                      <v-btn icon color="#645e5e">
+                        <v-icon>mdi-cached</v-icon>
+                      </v-btn><span class="paragraph"> clear</span>
+                    </div>
 
                   </div>
 
@@ -54,23 +53,33 @@
               <!-- send images form -->
 
               <v-col cols="12" md="6" class="py-0">
-                <div class="input-header"><span> Category </span></div>
+                <div class="input-header"><span> Category </span>  <v-icon class = "validation-icon"> mdi-star</v-icon> </div> 
                 <v-autocomplete required :rules="errors.category_id" :items="categories" item-text="name"
                   item-value="id" solo dense return-object :value="editedItem.category"
                   @input="fillDialogValues('category', $event)"></v-autocomplete>
               </v-col>
 
+                   <v-col cols="12" md="6" class="py-0">
+                <div class="input-header"><span> Sub Category </span></div>
+                <v-autocomplete  :items="getRelatedSubCategories" item-text="name"
+                  item-value="id" solo dense return-object :value="editedItem.sub_category"
+                  @input="fillDialogValues('subCategory', $event)"></v-autocomplete>
+              </v-col>
+
+  
               <v-col cols="12" md="6" class="py-0" v-if="!editedItem.id > 0">
-                <div class="input-header"><span> Colors </span></div>
-                <v-autocomplete required :rules="errors.colorsNamesString"  :items="colors" item-text="name" item-value="id" solo dense return-object
-                   @input="fillDialogValues('colorsNamesString', $event)" multiple>
+                <div class="input-header"><span> Colors </span> <v-icon class = "validation-icon"> mdi-star</v-icon></div>
+                <v-autocomplete required :rules="errors.colorsNamesString" :items="colors" item-text="name"
+                  item-value="id" solo dense return-object @input="fillDialogValues('colorsNamesString', $event)"
+                  multiple>
                 </v-autocomplete>
               </v-col>
 
               <v-col cols="12" md="6" class="py-0" v-if="!editedItem.id > 0">
-                <div class="input-header"><span> Sizes </span></div>
-                <v-autocomplete  required :rules="errors.sizesNamesString"  :items="sizes" item-text="name" item-value="id" solo dense return-object
-                   @input="fillDialogValues('sizesNamesString', $event)" multiple>
+                <div class="input-header"><span> Sizes </span> <v-icon class = "validation-icon"> mdi-star</v-icon></div>
+                <v-autocomplete required :rules="errors.sizesNamesString" :items="sizes" item-text="name"
+                  item-value="id" solo dense return-object @input="fillDialogValues('sizesNamesString', $event)"
+                  multiple>
                 </v-autocomplete>
               </v-col>
 
@@ -79,17 +88,25 @@
                 <v-combobox multiple :value="editedItem.tagsNamesArray"
                   @input="fillDialogValues('tagsNamesArray', $event)" solo dense append-icon chips deletable-chips>
                 </v-combobox>
-
               </v-col>
 
+      
+
               <v-col cols="12" md="6" class="py-0">
-                <div class="input-header"><span> Name </span></div>
+                <div class="input-header"><span> Name </span> <v-icon class = "validation-icon"> mdi-star</v-icon></div>
                 <v-text-field required :rules="errors.name" solo dense :value="editedItem.name"
                   @input="fillDialogValues('name', $event)"></v-text-field>
               </v-col>
 
+              
               <v-col cols="12" md="6" class="py-0">
-                <div class="input-header"><span> Selling Price </span></div>
+                <div class="input-header"><span> Arabic name </span> <v-icon class = "validation-icon"> mdi-star</v-icon></div>
+                <v-text-field required :rules="errors.arabic_name" solo dense :value="editedItem.arabic_name"
+                  @input="fillDialogValues('arabicName', $event)"></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="py-0">
+                <div class="input-header"><span> Selling Price </span> <v-icon class = "validation-icon"> mdi-star</v-icon></div>
                 <v-text-field required :rules="errors.selling_price" solo dense type="number"
                   prepend-inner-icon="mdi-currency-usd" :value="editedItem.selling_price"
                   @input="fillDialogValues('selling_price', $event)"></v-text-field>
@@ -98,12 +115,14 @@
               <v-col cols="12" md="6" class="py-0">
                 <div class="input-header"><span> Discount Price </span></div>
                 <v-text-field required :rules="errors.discount_price" solo dense type="number"
-                  prepend-inner-icon="mdi-currency-usd" :value="editedItem.discount_price"
+                  prepend-inner-icon="mdi-currency-usd" :value="editedItem.discount_price == 0 ? '' : editedItem.discount_price"
                   @input="fillDialogValues('discount_price', $event)"></v-text-field>
               </v-col>
 
+
+
               <v-col cols="12" md="6" class="py-0">
-                <div class="input-header"><span> SKU </span></div>
+                <div class="input-header"><span> SKU </span> <v-icon class = "validation-icon"> mdi-star</v-icon></div>
                 <v-text-field required :rules="errors.sku" solo dense type="text" :value="editedItem.sku"
                   @input="fillDialogValues('sku', $event)"></v-text-field>
               </v-col>
@@ -114,8 +133,15 @@
               <v-col cols="12" class="py-0">
                 <div class="input-header"><span> Description </span></div>
 
-                <v-textarea required :rules="errors.long_description" solo dense :value="editedItem.long_description"
-                  @input="fillDialogValues('longDescription', $event)"></v-textarea>
+                <v-textarea required :rules="errors.description" solo dense :value="editedItem.description"
+                  @input="fillDialogValues('description', $event)"></v-textarea>
+              </v-col>
+
+                <v-col cols="12" class="py-0">
+                <div class="input-header"><span>Arabic description </span></div>
+
+                <v-textarea required :rules="errors.arabic_description" solo dense :value="editedItem.arabic_description"
+                  @input="fillDialogValues('arabicDescription', $event)"></v-textarea>
               </v-col>
 
               <v-col cols="12" md="6" class="py-0">
@@ -161,8 +187,8 @@ export default {
       'buttonLoading',
       'colors',
       'sizes',
-
       'categories',
+        'subCategories',
     ]),
 
     ...mapGetters('products', [
@@ -171,7 +197,8 @@ export default {
       'getImageParagraph',
       'getSizesIdsFromArray',
       'getColorsIdsFromArray',
-         'showClearImage'
+      'showClearImage' ,
+      'getRelatedSubCategories'
     ]),
   },
 
@@ -184,7 +211,7 @@ export default {
       'closeData',
       'setDialogValues',
       'imageSelected',
-             'clearImage'
+      'clearImage'
     ]),
 
     saveData() {

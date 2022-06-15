@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\CategoryRequest;
-use App\Http\Resources\Admins\CategoriesResource;
 use App\Models\Category;
-use App\Exports\CategoryExport;
+use App\Exports\Admins\CategoryExport;
 use Image;
 use Excel;
 
@@ -23,9 +22,9 @@ class CategoryController extends Controller
 
     public function updateData($category, $request)
     {
-
         $category->name = $request->name;
-
+        $category->arabic_name = $request->arabic_name;
+        
     }
 
     public function uploadImage($category, $id)
@@ -40,7 +39,7 @@ class CategoryController extends Controller
             // delete old image
         
             $imageName = time() . ".webp" ;
-            Image::make($image)->fit(800, 1200)->save(public_path("/images/categories/") . $imageName, 80);
+            Image::make($image)->save(public_path("/images/categories/") . $imageName);
             $category->image = "/images/categories/" . $imageName;
         }
 
@@ -54,10 +53,18 @@ class CategoryController extends Controller
 
     }
 
+
     public function index()
     {
 
-        $categories = collect(CategoriesResource::collection(Category::select('id' , 'name' , 'status'  , 'image' , 'description' )->orderBy("created_at", "DESC")->with('products')->get()));
+        return view('admins.categories');
+
+    }
+
+    public function getData()
+    {
+
+        $categories = Category::orderBy("created_at", "DESC")->with(['products' , 'subCategories'])->get();
 
         $response = [
             'categories' => $categories,
@@ -125,7 +132,7 @@ class CategoryController extends Controller
         $category->save();
 
         $response = [
-            'category' => $category,
+        'category' => $category,
         ];
 
         return response($response, 201);

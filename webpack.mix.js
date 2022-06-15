@@ -14,7 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     ;
-mix.sass('resources/sass/customers/customers.scss', 'public/css')
+// mix.sass('resources/sass/customers/customers.scss', 'public/css')
 mix.sass('resources/sass/admins/admins.scss', 'public/css')
 
 

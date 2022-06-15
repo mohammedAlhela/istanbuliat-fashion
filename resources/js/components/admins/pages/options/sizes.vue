@@ -21,44 +21,7 @@
                             </v-chip>
                         </span>
 
-                        <!-- <v-chip class="p-2" small label color="#f0f8ff">
-                            <a href="" class="" @click.prevent="showImportForm()">
-                                <span class=""> Import Excel </span>
-                            </a>
-                        </v-chip> -->
-
-                        <v-expand-transition>
-                            <div v-if="importForm">
-                                <v-form class="form" @submit.prevent="importData()" enctype="multipart/form-data"
-                                    lazy-validation ref="importDataForm">
-                                    <div class="upload-file-container">
-                                        <div class="upload-container">
-                                            <v-form enctype="multipart/form-data" ref="big-image-form">
-                                                <label for="big-image-upload" class="custom-file-upload">
-                                                    <v-icon class="icon">
-                                                        mdi-pencil
-                                                    </v-icon>
-                                                </label>
-                                                <input class="d-none" id="big-image-upload" name="file" type="file"
-                                                    @change="fileSelected" />
-
-                                                <span class="d-inline-block ml-2">
-                                                    <span v-html="
-                                                        getFileParagraph
-                                                    ">
-                                                    </span>
-                                                </span>
-                                            </v-form>
-                                        </div>
-                                        <div class="clearing"></div>
-                                    </div>
-
-                                    <v-btn type="submit" color="primary" class="ma-2 white--text import-button">
-                                        Upload
-                                    </v-btn>
-                                </v-form>
-                            </div>
-                        </v-expand-transition>
+                    
                     </div>
 
                     <div class="col-4 text-right pr-5">
@@ -70,7 +33,7 @@
                                         <v-icon> mdi-plus </v-icon>
                                     </v-btn>
                                 </template>
-                                <span> Add new size </span>
+                                <span> Add new record </span>
                             </v-tooltip>
                         </span>
                     </div>
@@ -87,25 +50,27 @@
 
 
                                         <span class="header" v-bind="attrs" v-on="on">
-                                            {{ item.name }} ({{ item.products.length }})
+                                            {{ item.name }} ({{ getUniqueProducts(item.products).length }})
                                         </span>
 
                                     </template>
-                                    <span class="d-inline-block w-100 py-2" v-if="item.products.length">
+                                    <span class="d-inline-block w-100 py-2" v-if=" getUniqueProducts(item.products).length">
                                         <span class="tooltip-report-header"> This SIze Used In the Below Products
                                         </span>
 
-                                        <div class=" m-1" v-for="(product, key) in item.products" :key="key">
+                                        <div class=" m-1" v-for="(product, key) in getUniqueProducts(item.products)" :key="key">
                                             {{ product.name }}
                                         </div>
                                     </span>
 
-                                    
-                                            <span v-else>
-                                               No products using this size
-                                            </span>
+
+                                    <span v-else>
+                                        No products using this size
+                                    </span>
 
                                 </v-tooltip>
+
+                    
                             </v-card-title>
                             <v-card-actions class="justify-content-end p-3">
                                 <v-tooltip top>
@@ -179,7 +144,7 @@ export default {
         ...mapGetters(
             "sizes",
 
-            ["getFileParagraph"]
+            ["getFileParagraph" , "getUniqueProducts"]
         ),
     },
 

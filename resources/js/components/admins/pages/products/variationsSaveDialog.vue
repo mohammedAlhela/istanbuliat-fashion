@@ -17,58 +17,17 @@
 
         <v-card-text>
           <v-form
-            class="form"
+            class="form mt-5"
             @submit.prevent="saveData()"
             enctype="multipart/form-data"
             lazy-validation
             ref="variationSaveDiloag"
           >
             <v-row class="">
-              <!-- send images form -->
-              <v-col cols="12 mb-3">
-                <span class="image-paragraph">
-                   Recomended image
-                  dimensions are 600 width and 800 height
-                </span>
-
-                <div class="upload-image-container">
-                  <div class="variation-image-container">
-                    <img class="image" :src="getImage" />
-                  </div>
-
-                  <div class="upload-container">
-              
-                      <label for="variationSaveDiloagImage" class="custom-file-upload">
-                        <v-icon class="icon"> mdi-pencil </v-icon>
-                      </label>
-                      <input
-                        class="d-none"
-                        id="variationSaveDiloagImage"
-                        name="variation-image"
-                        type="file"
-                        @change="imageSelected"
-                      />
-                      <span class="d-inline-block ml-2">
-                        <span v-html="getImageParagraph"> </span>
-                      </span>
-
-                      
-                                        <div class="clear-button" @click="clearImage()" v-if="showClearImage">
-                                            <v-btn icon color="#645e5e">
-                                                <v-icon>mdi-cached</v-icon>
-                                            </v-btn><span class="paragraph"> clear</span>
-                                        </div>
-             
-                  </div>
-
-                  <div class="clearing"></div>
-                </div>
-              </v-col>
-              <!-- send images form -->
 
               <v-col cols="12" md="6" class="py-0">
                 <div class="input-header">
-                  <span class=""> Color </span>
+                  <span class=""> Color </span> <v-icon class = "validation-icon"> mdi-star</v-icon>
                 </div>
                 <v-autocomplete
                   required
@@ -86,7 +45,7 @@
 
               <v-col cols="12" md="6" class="py-0">
                 <div class="input-header">
-                  <span class=""> Size </span>
+                  <span class=""> Size </span> <v-icon class = "validation-icon"> mdi-star</v-icon>
                 </div>
 
                 <v-autocomplete
@@ -178,7 +137,6 @@ export default {
       'saveDialog',
       'errors',
       'editedItem',
-      'image',
       'buttonLoading',
     ]),
 
@@ -188,7 +146,7 @@ export default {
       'sizes',
     ]),
 
-    ...mapGetters('variations', ['formTitle', 'getImage', 'getImageParagraph'  ,   'showClearImage']),
+    ...mapGetters('variations', ['formTitle']),
   },
 
   methods: {
@@ -199,8 +157,6 @@ export default {
     ...mapMutations('variations', [
       'closeData',
       'setDialogValues',
-      'imageSelected',
-         'clearImage'
     ]),
 
     saveData() {

@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\SubscribeController;
+
+use App\Http\Controllers\Auth\Custom\AccountController;
+
 use App\Http\Controllers\Customers\HomePageController;
 
 
@@ -16,51 +22,23 @@ use App\Http\Controllers\Customers\HomePageController;
 |
 */
 
-
-
-
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/account', [HomeController::class, 'account'])->name('account');
-Route::get('/orders', [HomeController::class, 'orders'])->name('orders');
-Route::get('/address', [HomeController::class, 'address'])->name('address');
-Route::post('/account/update', [HomeController::class, 'accountUpdate'])->name('account-update');
-Route::post('/address/update', [HomeController::class, 'addressUpdate'])->name('address-update');
+Route::get('/', [HomeController::class, 'index'])->name('show-home');
+
 Route::get('redirects', [HomeController::class, 'redirectAfterLogin'])->name('redirect-after-login');
-Route::post('/subscriber/add', [HomeController::class, 'addSubscriber'])->name('subscriber.add');
 
+Route::post('/subscriber/add', [SubscribeController::class, 'subscribe'])->name('add-subscriber');
 
-// admins routes +++++++++++++++++++++++++++++++++++++++++++++++++
-Route::group([
-    'prefix' => 'admins', 'middleware' => 'admin',
-], function () {
+Route::get('/account', [AccountController::class, 'account'])->name('show-account');
 
-    Route::get('dashboard', function () {
-        return view('admins.dashboard');
-    })->name('admins-dashboard');
+Route::get('/orders', [AccountController::class, 'orders'])->name('show-orders');
 
-    Route::get('users', function () {
-        return view('admins.admins');
-    })->name('admins-users')->middleware('manager');
+Route::get('/address', [AccountController::class, 'address'])->name('show-address');
 
-    Route::get('sliders', function () {
-        return view('admins.sliders');
-    })->name('admins-sliders');
+Route::post('/account/update', [AccountController::class, 'accountUpdate'])->name('account-update');
 
-    Route::get('categories', function () {
-        return view('admins.categories');
-    })->name('admins-categories');
+Route::post('/address/update', [AccountController::class, 'addressUpdate'])->name('address-update');
 
-    Route::get('options', function () {
-        return view('admins.options');
-    })->name('admins-options');
-
-    Route::get('products', function () {
-        return view('admins.products');
-    })->name('admins-products');
-
-});
-// admins routes +++++++++++++++++++++++++++++++++++++++++++++++++
 
 

@@ -27,8 +27,6 @@ export default {
                     id: "",
                     name: "",
                 },
-                product_name: "",
-                size_name: "",
                 shoulder: "",
                 bust: "",
                 wist: "",
@@ -43,8 +41,6 @@ export default {
 
                     name: "",
                 },
-                product_name: "",
-                size_name: "",
                 shoulder: "",
                 bust: "",
                 wist: "",
@@ -58,7 +54,7 @@ export default {
 
     getters: {
         formTitle: (state) => {
-            return state.editedIndex === -1
+            return state.editedIndex == -1
                 ? "Add new Size Guide"
                 : "Update Size Guide";
         },
@@ -137,17 +133,17 @@ export default {
         },
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "size") {
+            if (dataObject.variableType == "size") {
                 state.editedItem.size = Object.assign({}, dataObject.e);
-            } else if (dataObject.variableType === "length") {
+            } else if (dataObject.variableType == "length") {
                 state.editedItem.length = dataObject.e;
-            } else if (dataObject.variableType === "hip") {
+            } else if (dataObject.variableType == "hip") {
                 state.editedItem.hip = dataObject.e;
-            } else if (dataObject.variableType === "wist") {
+            } else if (dataObject.variableType == "wist") {
                 state.editedItem.wist = dataObject.e;
-            } else if (dataObject.variableType === "bust") {
+            } else if (dataObject.variableType == "bust") {
                 state.editedItem.bust = dataObject.e;
-            } else if (dataObject.variableType === "shoulder") {
+            } else if (dataObject.variableType == "shoulder") {
                 state.editedItem.shoulder = dataObject.e;
             }
         },
@@ -184,9 +180,8 @@ export default {
 
             let sizeGuideData = new FormData();
             sizeGuideData.append("id", state.editedItem.id);
-            sizeGuideData.append("size_name", state.editedItem.size.name);
             sizeGuideData.append("size_id", state.editedItem.size.id);
-            sizeGuideData.append("product_name", state.activeProduct.name);
+            sizeGuideData.append("size_name", state.editedItem.size.name);
             sizeGuideData.append("product_id", state.activeProduct.id);
 
             sizeGuideData.append(
@@ -198,7 +193,7 @@ export default {
             sizeGuideData.append("hip", Math.round(state.editedItem.hip));
             sizeGuideData.append("length", Math.round(state.editedItem.length));
 
-            if (state.editedIndex === -1) {
+            if (state.editedIndex == -1) {
                 const Data = await axios
                     .post(`/sizeGuide/store`, sizeGuideData)
                     .catch((error) => {

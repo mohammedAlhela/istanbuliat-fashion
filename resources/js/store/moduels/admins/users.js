@@ -7,9 +7,9 @@ export default {
             // ---------- main
             headers: [
                 {
-                    text: "Name",
+                    text: "Username",
                     sortable: true,
-                    value: "name",
+                    value: "username",
                 },
    
 
@@ -27,7 +27,6 @@ export default {
 
                 { text: "Actions", value: "actions", sortable: false },
             ],
-            search: "",
             admins: [],
             showContent: false,
             // ---------- main
@@ -47,15 +46,13 @@ export default {
 
             editedItem: {
                 id: "",
-
-                name: "",
+                username: "",
                 email: "",
                 password: "",
             },
             defaultItem: {
                 id: "",
-
-                name: "",
+                username: "",
                 email: "",
                 password: "",
             },
@@ -65,45 +62,10 @@ export default {
     },
 
     getters: {
-        returnStateKeys: (state) => {
-            return Reflect.ownKeys(state);
-        },
-
         formTitle: (state) => {
-            return state.editedIndex === -1
-                ? "Add new admin"
-                : "Update admin data";
-        },
-
-        filteredAdmins: (state, getters) => {
-            var adminsFork = state.admins;
-
-            let conditions = [];
-
-            if (state.search) {
-                conditions.push(getters.filterData);
-            }
-
-            if (conditions.length > 0) {
-                return adminsFork.filter((admin) => {
-                    return conditions.every((condition) => {
-                        return condition(admin);
-                    });
-                });
-            }
-
-            return adminsFork;
-        },
-
-
-
-        datatableIndex: (state) => {
-            if (state.editedIndex > -1) {
-                return state.admins.findIndex(function (admin) {
-                    return admin.id == state.editedIndex;
-                });
-            }
-            return 0;
+            return state.editedIndex == -1
+                ? "Add new record"
+                : "Update record ";
         },
     },
 
@@ -113,9 +75,6 @@ export default {
             state.admins = admins;
             state.showContent = true;
          
-        },
-        setSearchValue: (state, e) => {
-            state.search = e;
         },
         // ---------- main
 
@@ -132,11 +91,11 @@ export default {
         // ---------- dialog data
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "name") {
-                state.editedItem.name = dataObject.e;
-            } else if (dataObject.variableType === "email") {
+            if (dataObject.variableType == "username") {
+                state.editedItem.username = dataObject.e;
+            } else if (dataObject.variableType == "email") {
                 state.editedItem.email = dataObject.e;
-            } else if (dataObject.variableType === "password") {
+            } else if (dataObject.variableType == "password") {
                 state.editedItem.password = dataObject.e;
             }
         },
@@ -183,7 +142,7 @@ export default {
 
     actions: {
         async fetch({ commit }) {
-            const Data = await axios.get("/admins").catch((error) => {
+            const Data = await axios.get("/admins/getData").catch((error) => {
                 toasts.methods.fireErrorToast();
             });
 
@@ -207,7 +166,7 @@ export default {
         async save({ state, commit, dispatch }) {
             commit("intializeSave");
 
-            if (state.editedIndex === -1) {
+            if (state.editedIndex == -1) {
                 const Data = await axios
                     .post(`/admin/store`, state.editedItem)
                     .catch((error) => {
@@ -221,6 +180,8 @@ export default {
                         "Record added successfully"
                     );
                 }
+
+               
             } else {
                 const Data = await axios
                     .post(

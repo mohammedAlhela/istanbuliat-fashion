@@ -11,12 +11,14 @@ class Category extends Model
 
     protected $guarded = [];
 
-
-
     public function products()
     {
-        return $this->hasMany(Product::class , 'category_id'  , 'id')->select('name' , 'category_id')->where('status' , 1);
+        return $this->hasMany(Product::class , 'category_id'  , 'id')->select('name' , 'category_id');
+    }
+
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategory::class , 'category_id'  , 'id')->with(['products' , 'category']);
     }
 
 }
-

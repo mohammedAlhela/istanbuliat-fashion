@@ -1,15 +1,29 @@
 <template>
-  <v-data-table :headers="headers" :items="filteredCategories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1000"
+  <v-data-table :headers="headers" :items="categories" :items-per-page="15" item-key="item.id" mobile-breakpoint="1000"
     class="datatable">
 
 
 
     <template v-slot:item.name="{ item }">
       <td class="p-2">
-        {{ item.name }} <br />
+        {{ item.name }}
+        <br />
 
-        <span class="items-snackbar-span mt-1">
-          {{ item.products.length }} Products</span>
+
+
+
+        <v-chip class=" mt-3" style="color : rgb(152, 151, 151)" small label color="#ebebeb">
+          {{ item.products.length }} Products
+        </v-chip>
+
+
+        <br />
+
+
+        <v-chip style="color : rgb(152, 151, 151)" class=" mt-3" small label color="#ebebeb">
+          {{ item.sub_categories.length }} Sub ategories
+        </v-chip>
+
 
 
       </td>
@@ -24,10 +38,10 @@
 
     <template v-slot:item.status="{ item }">
       <td>
-      <v-chip small :color="item.status == 'active' ? 'success' : 'error'"> {{ item.status }} </v-chip>
+        <v-chip small :color="item.status ? 'success' : 'error'"> {{ item.status ? 'active' : 'draft' }} </v-chip>
       </td>
     </template>
-    
+
 
     <template v-slot:item.actions="{ item }">
       <!-- actions -->
@@ -68,6 +82,17 @@
           <span> delete data </span>
         </v-tooltip>
 
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">
+              <v-icon @click="$emit('manageSubCategories', item)" class="mr-2 icon variation-icon">
+                mdi-file-multiple
+              </v-icon>
+            </span>
+          </template>
+          <span> Manage Sub Categories </span>
+        </v-tooltip>
+
 
         <!-- actions -->
       </td>
@@ -79,7 +104,7 @@
 export default {
   name: 'CategoriesTable',
   props: {
-    filteredCategories: {
+    categories: {
       required: true,
       type: Array,
     },

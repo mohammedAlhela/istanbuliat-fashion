@@ -38,60 +38,37 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
-
-            // admins routes section
-
-            Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/admins/dashboard.php'));
 
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admins/admins.php'));
 
-            Route::middleware('web')
+                Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admins/dashboard.php'));
+
+                
+                Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admins/sliders.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/admins/categories.php'));
-
-            Route::middleware('web')
+                Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admins/options.php'));
 
-            Route::middleware('web')
+                Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admins/categories.php'));
+
+                
+                Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admins/products.php'));
-            // admins routes section
-            // customers routes section
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/customers/home.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/customers/shop.php'));
-
-                Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/customers/productDetails.php'));
-
-                Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/customers/wishlists.php'));
-                
-            // customers routes section
+            
         });
     }
 

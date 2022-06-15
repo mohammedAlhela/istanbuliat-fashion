@@ -7,19 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
+    
     protected $guarded = [];
-
 
     use HasFactory;
 
     public function category()
     {
-        return $this->belongsTo(Category::class)->select( 'id' ,  'name' );
+        return $this->belongsTo(Category::class)->select('id', 'name');
+    }
+
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class)->select('id', 'name' , 'category_id');
     }
 
     public function variations()
     {
-        return $this->hasMany(Variation::class, 'product_id', 'id')->with(['color', 'size' , 'images'])->select('id' , 'product_id' , 'color_id' , 'size_id' , 'sku' , 'selling_price' , 'discount_price' , 'stock_qty' , 'status' , 'image'  );
+        return $this->hasMany(Variation::class, 'product_id', 'id')->with(['color', 'size' , 'product']);
     }
 
     public function tags()
@@ -28,31 +34,28 @@ class Product extends Model
 
     }
 
-    
     public function colors()
     {
-        return $this->belongsToMany(Color::class, 'variations', 'product_id', 'color_id')->select(array( 'colors.id' ,  'name' , 'product_id'));
+        return $this->belongsToMany(Color::class, 'variations', 'product_id', 'color_id')->select(array('colors.id', 'name', 'product_id'))->with('images');
 
     }
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, 'variations', 'product_id', 'size_id')->select(array( 'sizes.id' ,  'name' , 'product_id'));
+        return $this->belongsToMany(Size::class, 'variations', 'product_id', 'size_id')->select(array('sizes.id', 'name', 'product_id'));
 
     }
-
 
     public function sizeGuides()
     {
         return $this->hasMany(SizeGuide::class, 'product_id', 'id')->with('size');
     }
 
-
-    public function wishlists()
+    
+    public function images()
     {
-        return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id');
+        return $this->hasMany(ProductColorImage::class, 'product_id', 'id');
     }
-
 
 
 }

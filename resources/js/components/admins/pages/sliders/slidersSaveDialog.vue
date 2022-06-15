@@ -19,12 +19,12 @@
                                 <span class="image-paragraph"> (big screen image)
 
                                     Recomended image dimensions are 1920 width ,
-                                    and 845 height
+                                    and 845 height <v-icon class="validation-icon"> mdi-star</v-icon>
                                 </span>
 
                                 <div class="upload-image-container">
-                                    <div class="big-image-container">
-                                        <img :src="getBigImage" class="big-image slider-image" />
+                                    <div class="big-slider-image-container">
+                                        <img :src="getBigImage" class="image" />
                                     </div>
 
                                     <div class="upload-container">
@@ -45,7 +45,8 @@
                                         </span>
 
 
-                                        <div class="clear-button" @click = "clearImage('big')" v-if = "showClearImage('big')">
+                                        <div class="clear-button" @click="clearImage('big')"
+                                            v-if="showClearImage('big')">
                                             <v-btn icon color="#645e5e">
                                                 <v-icon>mdi-cached</v-icon>
                                             </v-btn><span class="paragraph"> clear</span>
@@ -63,12 +64,12 @@
                                 <span class="image-paragraph">(small screen image)
 
                                     Recomended image dimensions are 800 width
-                                    and 1200 height
+                                    and 1200 height <v-icon class="validation-icon"> mdi-star</v-icon>
                                 </span>
 
                                 <div class="upload-image-container">
-                                    <div class="small-image-container">
-                                        <img :src="getSmallImage" class="small-image slider-image" />
+                                    <div class="small-slider-image-container">
+                                        <img :src="getSmallImage" class="image" />
                                     </div>
 
                                     <div class="upload-container">
@@ -86,13 +87,14 @@
                                                 </span>
                                             </span>
 
-                                            
 
-                                        <div class="clear-button" @click = "clearImage('small')"  v-if = "showClearImage('small')">
-                                            <v-btn icon color="#645e5e">
-                                                <v-icon>mdi-cached</v-icon>
-                                            </v-btn><span class="paragraph"> clear</span>
-                                        </div>
+
+                                            <div class="clear-button" @click="clearImage('small')"
+                                                v-if="showClearImage('small')">
+                                                <v-btn icon color="#645e5e">
+                                                    <v-icon>mdi-cached</v-icon>
+                                                </v-btn><span class="paragraph"> clear</span>
+                                            </div>
                                         </v-form>
                                     </div>
                                     <div class="clearing"></div>
@@ -103,6 +105,7 @@
                             <v-col cols="12" class="py-0 pt-3">
                                 <div class="input-header">
                                     <span> Title </span>
+                                    <v-icon class="validation-icon"> mdi-star</v-icon>
                                 </div>
 
                                 <v-text-field required :rules="errors.title" solo dense :value="editedItem.title"
@@ -111,10 +114,12 @@
 
                             <v-col cols="12" class="py-0">
                                 <div class="input-header">
-                                    <span> Link </span>
+                                    <span> Arabic Title </span>
+                                    <v-icon class="validation-icon"> mdi-star</v-icon>
                                 </div>
-                                <v-text-field required :rules="errors.link" solo dense :value="editedItem.link"
-                                    @input="fillDialogValues('link', $event)"></v-text-field>
+                                <v-text-field required :rules="errors.arabic_title" solo dense
+                                    :value="editedItem.arabic_title" @input="fillDialogValues('arabicTitle', $event)">
+                                </v-text-field>
                             </v-col>
 
                             <!-- actions button  -->

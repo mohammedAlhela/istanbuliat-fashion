@@ -38,7 +38,7 @@ class CategoryRequest extends FormRequest
 
         return [
             "name" => [ "unique:categories,name," .$id, "required", "min:3", "string", "max:50"],
-
+            "arabic_name" => [ "unique:categories,arabic_name," .$id, "required", "min:3", "string", "max:50"],
             "image" => [ $imageError , "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
         ];
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Exports\ColorExport;
+use App\Exports\Admins\ColorExport;
 use App\Http\Controllers\Controller;
 use App\Models\Color;
+use App\Models\Tag;
 use Excel;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,11 @@ class ColorController extends Controller
         $this->middleware([
             'admin']);
 
+    }
+
+    public function index()
+    {
+        return view('admins.options');
     }
 
     public function updateData($color, $request)
@@ -43,7 +49,7 @@ class ColorController extends Controller
 
     }
 
-    public function index()
+    public function getData()
     {
 
         $colors = Color::orderBy('id', 'DESC')->with('products')->get();
@@ -68,6 +74,31 @@ class ColorController extends Controller
         $this->validateData($request, $id);
         $this->updateData($color, $request);
     }
+
+    public function updateTagName(Request $request, $id)
+    {
+        $tag = Tag::find($id);
+        $tag->arabic_name = $request->arabic_name;
+        $tag->save();
+    }
+
+
+    public function getTagsData()
+    {
+        $tags = Tag::all();
+
+        $response = [
+            'tags' => $tags,
+        ];
+
+        return response($response, 201);
+    }
+
+
+
+
+    
+
 
     public function delete($id)
     {

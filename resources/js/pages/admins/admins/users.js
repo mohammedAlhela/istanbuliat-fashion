@@ -1,4 +1,4 @@
-import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import usersTable from "../../../components/admins/pages/users/usersTable.vue";
 import usersHeader from "../../../components/admins/pages/users/usersHeader.vue";
 import usersSaveDialog from "../../../components/admins/pages/users/usersSaveDialog.vue";
@@ -24,10 +24,9 @@ export default {
         ...mapState(
             "admins",
 
-            ["headers", "admins", "search", "deleteSnackbar" , "showContent"]
+            ["headers", "admins", "deleteSnackbar" , "showContent"]
         ),
 
-        ...mapGetters("admins", ["filteredAdmins"]),
     },
 
     methods: {

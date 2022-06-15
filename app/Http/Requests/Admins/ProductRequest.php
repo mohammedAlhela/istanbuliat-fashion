@@ -31,7 +31,6 @@ class ProductRequest extends FormRequest
         $sizesError = null;
 
         if (!$id) {
-
             $imageError = "required";
             $sizesError = "required";
             $colorsError = "required";
@@ -49,6 +48,7 @@ class ProductRequest extends FormRequest
             "sizesNamesString" => [$sizesError],
             "selling_price" => ["required"],
             "name" => ["unique:products,name," . $id, "required", "string", "min:5", "max:100"],
+            "arabic_name" => ["unique:products,arabic_name," . $id, "required", "string", "min:5", "max:100"],
             "image" => [$imageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" ],
             
         ];

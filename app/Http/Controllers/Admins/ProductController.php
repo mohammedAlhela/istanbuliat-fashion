@@ -6,8 +6,7 @@ use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\ProductRequest;
 use App\Models\Product;
-use App\Models\Variation;
-use App\Models\VariationImage;
+use App\Models\ProductColorImage;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -23,31 +22,38 @@ class ProductController extends Controller
 
     }
 
+    public function index()
+    {
+        return view('admins.products');
+    }
+
     public function deleteSizeGuides($id)
     {
 
-        DB::table('product_tag')->where('product_id', $id)->delete();
+        DB::table('size_guides')->where('product_id', $id)->delete();
     }
 
-    public function deleteVariationImages($variationId)
+    public function deleteImages($id)
     {
 
-        $variationImages = VariationImage::where('variation_id', $variationId)->get();
+        $images = ProductColorImage::where('product_id', $id)->get();
 
-        foreach ($variationImages as $variationImage) {
-            if ($variationImage->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $variationImage->image)) {
+        foreach ($images as $image) {
 
-                $imageFileDeleted = unlink(substr($variationImage->image, 1));
+            if ($image->image != '/images/products/images/product.webp' && file_exists(public_path() . $image->image)) {
+
+                $imageFileDeleted = unlink(substr($image->image, 1));
 
                 if ($imageFileDeleted) {
 
-                    $variationImage->delete();
+                    $image->delete();
 
                 }
 
             } else {
 
-                $variationImage->delete();
+                $image->delete();
+
             }
 
         }
@@ -57,30 +63,7 @@ class ProductController extends Controller
     public function deleteVariations($id)
     {
 
-        $variations = Variation::where('product_id', $id)->get();
-
-        foreach ($variations as $productVariation) {
-
-            if ($productVariation->image && $productVariation->image != '/images/products/variations/variation.webp' && file_exists(public_path() . $productVariation->image)) {
-
-                $imageFileDeleted = unlink(substr($productVariation->image, 1));
-
-                if ($imageFileDeleted) {
-
-                    $productVariation->delete();
-
-                    $this->deleteVariationImages($productVariation->id);
-
-                }
-
-            } else {
-
-                $productVariation->delete();
-                $this->deleteVariationImages($productVariation->id);
-
-            }
-
-        }
+        DB::table('variations')->where('product_id', $id)->delete();
 
     }
 
@@ -115,17 +98,18 @@ class ProductController extends Controller
     public function updateData($product, $request, $id)
     {
         $product->category_id = $request->category_id;
+        $product->sub_category_id = $request->sub_category_id;
         $product->price = $request->discount_price ? $request->discount_price : $request->selling_price;
         $product->name = $request->name;
+        $product->arabic_name = $request->arabic_name;
         $product->selling_price = $request->selling_price;
         $product->discount_price = $request->discount_price;
-        $product->slug = str_replace(" ", "-", $request->name);
-        $product->long_description = $request->long_description ? $request->long_description : ""; // long description must be nulable in the table
+        $product->description = $request->description ? $request->description : ""; // long description must be nulable in the table
+        $product->arabic_description = $request->arabic_description ? $request->arabic_description : ""; // long description must be nulable in the table
         $product->offer = $product->discount_price ? (($product->selling_price - $product->discount_price) * 100) / $product->selling_price : null;
-        $product->sku = $request->sku;
+         $product->sku = $request->sku;
         $product->wash_care = $request->wash_care ? $request->wash_care : '';
         $product->contents = $request->contents;
-        $product->short_description = '';
     }
 
     public function addVariations($request, $product)
@@ -166,7 +150,7 @@ class ProductController extends Controller
             // delete old image
 
             $imageName = time() . ".webp";
-            Image::make($image)->fit(600, 800)->save(public_path("/images/products/") . $imageName, 80);
+            Image::make($image)->save(public_path("/images/products/") . $imageName);
             if ($product->image && file_exists(public_path() . $product->image) && $product->image != "/images/products/product.webp") {
                 unlink(substr($product->image, 1));
             }
@@ -186,6 +170,7 @@ class ProductController extends Controller
 
         $tagsIds = array();
         if ($request->tagsNamesString) {
+
             $originalTagsNames = DB::table('tags')->pluck('name')->all();
 
             $requestTagsNamesArray = $this->getArrayFromString($request->tagsNamesString);
@@ -194,6 +179,7 @@ class ProductController extends Controller
 
                     DB::table('tags')->insert([
                         'name' => $tagName,
+                        'arabic_name' => 'unsigned',
                     ]);
 
                 }
@@ -207,9 +193,9 @@ class ProductController extends Controller
         DB::table('tags')->whereNotIn('name', $existProductsTagsNames)->delete();
     }
 
-    public function index()
+    public function getProductsData()
     {
-        $products = Product::orderBy('created_at', 'DESC')->with(['category', 'variations', 'tags', 'colors', 'sizes', 'sizeGuides'])->get();
+        $products = Product::orderBy('created_at', 'DESC')->with(['category', 'subCategory', 'variations', 'tags', 'colors', 'sizes', 'sizeGuides'])->get();
 
         foreach ($products as $product) {
             $product->contents = $product->contents ? explode(",", $product->contents) : '';
@@ -225,16 +211,18 @@ class ProductController extends Controller
         return response($response, 201);
     }
 
-    public function getOptions()
+    public function getOptionsData()
     {
 
         $colors = DB::table('colors')->get();
         $sizes = DB::table('sizes')->get();
         $categories = DB::table('categories')->where('status', 1)->select('id', 'name')->get();
+        $subCategories = DB::table('sub_categories')->where('status', 1)->select('id', 'name', 'category_id')->get();
         $response = [
             'colors' => $colors,
             'sizes' => $sizes,
             'categories' => $categories,
+            'subCategories' => $subCategories,
         ];
 
         return response($response, 201);
@@ -289,21 +277,23 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if (file_exists(public_path() . $product->image) && $product->image != "/images/products/product.webp") {
-        $imageFileDeleted = unlink(substr($product->image, 1));
+            $imageFileDeleted = unlink(substr($product->image, 1));
 
-        if ($imageFileDeleted) {
+            if ($imageFileDeleted) {
+                $product->delete();
+                $this->deleteTags($id);
+                $this->deleteSizeGuides($id);
+                $this->deleteVariations($id);
+                $this->deleteImages($id);
+            }
+
+        } else {
             $product->delete();
             $this->deleteTags($id);
             $this->deleteSizeGuides($id);
             $this->deleteVariations($id);
+            $this->deleteImages($id);
         }
-
-        } else {
-        $product->delete();
-        $this->deleteTags($id);
-        $this->deleteSizeGuides($id);
-        $this->deleteVariations($id);
-         }
 
         $response = [
             'message' => "Record deleted",

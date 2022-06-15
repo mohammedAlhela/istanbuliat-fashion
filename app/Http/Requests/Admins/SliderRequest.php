@@ -43,8 +43,8 @@ class SliderRequest extends FormRequest
         }
 
         return [
-            "title" => ["required", "min:5", "string", "max:50"],
-            "link" => ["required"],
+            "title" => ["required", "min:5", "string", "max:50" ,"unique:sliders,title," . $id ],
+            "arabic_title" => ["required", "min:5", "string", "max:50" ,"unique:sliders,arabic_title," . $id ],
             "big_image" => [$bigImageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp"],
             "small_image" => [$smallImageError, "image", "mimes:jpg,png,jpeg,gif,svg,webp" ],
 

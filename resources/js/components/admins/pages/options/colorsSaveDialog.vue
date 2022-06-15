@@ -9,7 +9,7 @@
 
       <v-card-text>
         <v-form
-          class="form"
+            class="form mt-5"
           @submit.prevent="saveData()"
           enctype="multipart/form-data"
           lazy-validation
@@ -18,7 +18,7 @@
           <v-row>
             <v-col cols="12" class="py-0">
               <div class="input-header">
-                <span> Name </span>
+                <span> Name </span> <v-icon class = "validation-icon"> mdi-star</v-icon>
               </div>
               <v-text-field
                 required
@@ -29,6 +29,7 @@
                 @input="fillDialogValues('name', $event)"
               ></v-text-field>
             </v-col>
+
 
             <v-col cols="12" class="py-0">
               <div class="input-header">

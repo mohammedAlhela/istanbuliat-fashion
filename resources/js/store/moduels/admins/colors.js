@@ -32,6 +32,7 @@ export default {
             defaultItem: {
                 id: "",
                 name: "",
+
                 hex: "",
             },
             file: {
@@ -50,8 +51,28 @@ export default {
     getters: {
         formTitle: (state) => {
             return state.editedIndex === -1
-                ? "Add new color"
-                : "Update color record";
+                ? "Add new record"
+                : "Update record";
+        },
+
+        
+        getUniqueProducts: (state) => (products) => {
+            let uniqueProducts = [];
+            let productIndexInUniqueArray = -1;
+
+            products.forEach((product) => {
+                productIndexInUniqueArray = uniqueProducts.findIndex(function (
+                    item
+                ) {
+                    return item.id == product.id;
+                });
+
+                if (productIndexInUniqueArray == -1) {
+                    uniqueProducts.push(product);
+                }
+            });
+
+            return uniqueProducts;
         },
     },
 
@@ -81,30 +102,20 @@ export default {
             state.blockDeleteSnackbar = false;
         },
 
-        fillBlockDeleteSnackbar: (state) => {
+        fillBlockDeleteSnackbar: (state , data) => {
             state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this color because it have related data in the below products</p>`;
-            state.products.forEach((element) => {
+             data.forEach((element) => {
                 state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
             });
-        },
-
-        removeDeletedColor: (state) => {
-            state.colors = state.colors.filter((color) => {
-                return color.id != state.deleteIndex;
-            });
-
-            state.deleteIndex = -1;
-
-            toasts.methods.fireSuccessToast("Record deleted successfully");
         },
         // ---------- delete
 
         // ---------- dialog data
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "name") {
+            if (dataObject.variableType == "name") {
                 state.editedItem.name = dataObject.e;
-            } else {
+            }else {
                 state.editedItem.hex = dataObject.e;
             }
         },
@@ -154,16 +165,17 @@ export default {
 
     actions: {
         async fetch({ state, commit }) {
-            const Data = await axios.get("/colors").catch((error) => {
+            const Data = await axios.get("/colors/getData").catch((error) => {
                 toasts.methods.fireErrorToast();
             });
 
             commit("assignApiData", Data.data.colors);
         },
 
-        async delete({ state, dispatch, commit }) {
-            if (state.products.length) {
-                commit("fillBlockDeleteSnackbar");
+
+        async delete({ state, dispatch, commit , getters }) {
+            if  ( getters.getUniqueProducts(state.products).length) {
+                commit("fillBlockDeleteSnackbar" ,  getters.getUniqueProducts(state.products));
                 commit("closeDeleteSnackbar");
                 commit("showBlockDeleteSnackbar");
             } else {
@@ -179,12 +191,6 @@ export default {
                 toasts.methods.fireSuccessToast('Record deleted successfully')
               }
             }
-
-  
-
-
-
-
         },
 
         async save({ state, commit, dispatch }) {

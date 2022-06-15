@@ -32,6 +32,7 @@ class VariationRequest extends FormRequest
         $id = app("request")->get("id");
 
         $sizeId = app("request")->get("size_id");
+
         $productId = app("request")->get("product_id");
         
 
@@ -39,11 +40,9 @@ class VariationRequest extends FormRequest
             'size_id' => ['required'],
             'color_id' => ['required' , 
              new UniqueVariationRule($sizeId , $productId ,  $id)
-            
-    
         
         ],
-            'image' => [   'nullable' , 'image', "mimes:jpg,png,jpeg,gif,svg,webp" ],
+            
         ];
     }
 

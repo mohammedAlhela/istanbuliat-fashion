@@ -62,68 +62,19 @@ export default {
                 stock_qty: 0,
             },
 
-            image: {
-                file: "",
-                name: "",
-                preview: "",
-            },
-
-            defaultImage: {
-                file: "",
-                name: "",
-                preview: "",
-            },
-
             // ---------- dialog data
         };
     },
 
     getters: {
-        getImage: (state) => {
-            let dynamicData;
-            if (state.image.preview) {
-                dynamicData = state.image.preview;
-            } else if (state.editedItem.image != null) {
-                dynamicData = state.editedItem.image;
-            } else {
-                dynamicData = "/images/products/variations/variation.webp";
-            }
-
-            return dynamicData;
-        },
+     
 
         formTitle: (state) => {
-            return state.editedIndex === -1
-                ? "Add new product variation"
-                : "Update product variation data";
+            return state.editedIndex == -1
+                ? "Add new record"
+                : "Update record ";
         },
     
-        datatableIndex: (state, getters, rootState, rootGetters) => {
-            if (state.variationEditedIndex > -1) {
-                return     rootState.products.products[rootGetters['products/datatableIndex']].variations.findIndex(function (
-                    variation
-                ) {
-                    return variation.id == state.variationEditedIndex;
-                });
-            }
-            return 0;
-        },
-
-        getImageParagraph: (state) => {
-            if (state.errors.hasOwnProperty("image")) {
-                return `<span class = 'error-paragraph'>  ${state.errors.image[0]}  </span> `;
-            } else if (state.editedItem.imageName) {
-                return `<span class = 'paragraph'>  ${state.editedItem.imageName}  </span> `;
-            } else if (state.image.name) {
-                return `<span class = 'paragraph'>  ${state.image.name}  </span> `;
-            } else {
-                return `<span class = 'paragraph'> no image selected </span> `;
-            }
-        },
-
-        showClearImage: (state) => {
-            return state.image.preview;
-        },
     },
 
     mutations: {
@@ -145,28 +96,20 @@ export default {
             state.deleteSnackbar = true;
         },
 
-        removeDeletedVariation: (state, getters, rootState, rootGetters) => {
-            rootState.products.products[rootGetters['products/datatableIndex']].variationss =
-            rootState.products.products[rootGetters['products/datatableIndex']].variations.filter((variation) => {
-                    return variation.id != state.deleteIndex;
-                });
-            state.deleteIndex = -1;
-            toasts.methods.fireSuccessToast("Record deleted successfully");
-        },
         // ---------- delete
 
         // ---------- dialog data --------------------------------
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "color") {
+            if (dataObject.variableType == "color") {
                 state.editedItem.color = dataObject.e;
-            } else if (dataObject.variableType === "selling_price") {
+            } else if (dataObject.variableType == "selling_price") {
                 state.editedItem.selling_price = dataObject.e;
-            } else if (dataObject.variableType === "discount_price") {
+            } else if (dataObject.variableType == "discount_price") {
                 state.editedItem.discount_price = dataObject.e;
-            } else if (dataObject.variableType === "size") {
+            } else if (dataObject.variableType == "size") {
                 state.editedItem.size = dataObject.e;
-            } else if (dataObject.variableType === "stock_qty") {
+            } else if (dataObject.variableType == "stock_qty") {
                 state.editedItem.stock_qty = dataObject.e;
             }
         },
@@ -179,7 +122,6 @@ export default {
 
             setTimeout(() => {
                 state.editedItem = Object.assign({}, state.defaultItem);
-                state.image = Object.assign({}, state.defaultImage);
                 state.editedIndex = -1;
             }, 100);
         },
@@ -191,7 +133,6 @@ export default {
 
             setTimeout(() => {
                 state.editedItem = Object.assign({}, state.defaultItem);
-                state.image = Object.assign({}, state.defaultImage);
                 state.editedIndex = -1;
             }, 100);
         },
@@ -217,19 +158,6 @@ export default {
             state.buttonLoading = false;
         },
 
-        imageSelected: (state, element) => {
-            state.image.file = element.target.files[0];
-            state.image.name = element.target.files[0].name;
-            let reader = new FileReader();
-            reader.readAsDataURL(state.image.file);
-            reader.onload = (element) => {
-                state.image.preview = element.target.result;
-            };
-        },
-
-        clearImage: (state) => {
-            state.image = Object.assign({}, state.defaultImage);
-        },
 
         // ---------- dialog data ---------------------------
     },
@@ -258,24 +186,11 @@ export default {
             }
         },
 
-        deleteImage({ dispatch, commit }, id) {
-            axios
-                .delete(`/variation/image/${id}`)
-                .then((response) => {
-                    dispatch("products/fetch", null, { root: true });
 
-                    commit("closeData");
-                })
-                .catch((error) => {
-                    toasts.methods.fireErrorToast();
-                });
-        },
 
         async save({ state, commit, dispatch }) {
             commit("intializeSave");
-
             let variationData = new FormData();
-            variationData.append("image", state.image.file);
             variationData.append("product_id", state.activeProduct.id);
             variationData.append("color_id", state.editedItem.color.id);
             variationData.append("size_id", state.editedItem.size.id);
@@ -329,9 +244,5 @@ export default {
             }
         },
 
-        manageImages({ state, commit }, item) {
-            state.variationEditedIndex = item.id;
-            commit("variationsImages/manageImages", item, { root: true });
-        },
     },
 };

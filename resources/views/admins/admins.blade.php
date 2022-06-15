@@ -4,5 +4,5 @@
 istanbuliat.store admins manage
 @endsection
 @section('content')
-<admins-users></admins-users>
+ <admins-users></admins-users> 
 @endsection

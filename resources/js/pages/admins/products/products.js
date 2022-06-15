@@ -4,13 +4,17 @@ import productsHeader from "../../../components/admins/pages/products/productsHe
 import productsSaveDialog from "../../../components/admins/pages/products/productsSaveDialog.vue";
 import variationsMainDialog from "../../../components/admins/pages/products/variationsMainDialog.vue";
 import sizeGuidesMainDialog from "../../../components/admins/pages/products/sizeGuidesMainDialog";
+import productColorsMainDialog from "../../../components/admins/pages/products/productColorsMainDialog";
+
 export default {
     components: {
         productsTable,
         productsHeader,
         productsSaveDialog,
         variationsMainDialog,
-        sizeGuidesMainDialog
+        sizeGuidesMainDialog ,
+        productColorsMainDialog
+        
     },
     name: "Adminsproducts",
 

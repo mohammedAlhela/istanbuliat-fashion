@@ -20,7 +20,7 @@
                         <v-row class="">
                             <v-col cols="12" md="6" class="py-0">
                                 <div class="input-header">
-                                    <span class=""> Size </span>
+                                    <span class=""> Size </span>  <v-icon class = "validation-icon"> mdi-star</v-icon>
                                 </div>
                                 <v-autocomplete
                                     required

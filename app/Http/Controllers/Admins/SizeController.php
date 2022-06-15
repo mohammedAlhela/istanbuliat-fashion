@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Exports\SizeExport;
+use App\Exports\Admins\SizeExport;
 use App\Http\Controllers\Controller;
 use App\Models\Size;
 use Excel;
@@ -36,12 +36,11 @@ class SizeController extends Controller
 
         $fields = $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:sizes,name,' . $id],
-
         ]);
 
     }
 
-    public function index()
+    public function getData()
     {
         $sizes = Size::orderBy('id', 'DESC')->with('products')->get();
 

@@ -1,10 +1,10 @@
 <template>
   <div class="row">
-    <div class="col-12 col-md-6  left-header-section">
+    <div class=" col-6  ">
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <span v-bind="attrs" v-on="on" class="main-header">
-            {{ filteredCategories.length }} Categories
+            {{ categories.length }} Categories
           </span>
         </template>
         <span> Categories number </span>
@@ -17,11 +17,7 @@
       </v-chip>
     </div>
 
-    <div class="col-12 col-md-6 right-header-section">
-      <v-text-field class="search-input" solo dense :value="search" rounded append-icon="mdi-magnify" label="search"
-        @input="$emit('setSearchValue', $event)">
-      </v-text-field>
-
+    <div class=" col-6 text-right">
       <span class="ml-3">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
@@ -30,7 +26,7 @@
               <v-icon> mdi-plus </v-icon>
             </v-btn>
           </template>
-          <span> Add new Category </span>
+          <span> Add new record </span>
         </v-tooltip>
       </span>
 
@@ -44,16 +40,10 @@
 export default {
   name: 'CategorysHeader',
   props: {
-    filteredCategories: {
+    categories: {
       required: true,
       type: Array,
     },
-
-    search : { 
-      type : String ,
-      required : true 
-
-    }
   },
 }
 </script>

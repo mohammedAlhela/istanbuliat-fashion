@@ -18,10 +18,17 @@ class SliderController extends Controller
         ]);
     }
 
+
     public function index()
     {
+        return view('admins.sliders');
+    }
+      
 
-        $sliders = Slider::orderBy("created_at", "DESC")->select('id' , 'title' , 'link' , 'big_image' , 'small_image' , 'status')->get();
+    public function getData()
+    {
+
+        $sliders = Slider::orderBy("created_at", "DESC")->get();
 
         $response = [
             'sliders' => $sliders,
@@ -34,7 +41,8 @@ class SliderController extends Controller
     {
 
         $slider->title = $request->title;
-        $slider->link = $request->link;
+
+        $slider->arabic_title = $request->arabic_title;
     }
 
     public function uploadImages($slider, $id)
@@ -48,7 +56,7 @@ class SliderController extends Controller
             // delete old big image
             
             $bigImageName = time() . ".webp" ;
-            Image::make($bigImage)->fit(1920, 845)->save(public_path("/images/sliders/big/") . $bigImageName, 100);
+            Image::make($bigImage)->save(public_path("/images/sliders/big/") . $bigImageName);
             $slider->big_image = "/images/sliders/big/" . $bigImageName;
         }
 
@@ -61,7 +69,7 @@ class SliderController extends Controller
             // delete old small image
            
             $smallImageName = time() . ".webp" ;
-            Image::make($smallImage)->fit(800, 1200)->save(public_path("/images/sliders/small/") . $smallImageName, 80);
+            Image::make($smallImage)->save(public_path("/images/sliders/small/") . $smallImageName);
             $slider->small_image = "/images/sliders/small/" . $smallImageName;
 
         }

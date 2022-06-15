@@ -21,10 +21,10 @@ export default {
                 },
 
                 {
-                    text: "Link",
+                    text: "Arabic title",
                     align: "start",
                     sortable: true,
-                    value: "link",
+                    value: "arabic_title",
                 },
 
                 {
@@ -55,13 +55,13 @@ export default {
             editedItem: {
                 id: "",
                 title: "",
-                link: "",
+                arabic_title: "",
 
             },
             defaultItem: {
                 id: "",
                 title: "",
-                link: "",
+                arabic_title: "",
 
             },
 
@@ -97,7 +97,7 @@ export default {
 
     getters: {
         formTitle: (state) => {
-            return state.editedIndex === -1
+            return state.editedIndex == -1
                 ? "Add new slider"
                 : "Update slider data";
         },
@@ -194,10 +194,10 @@ export default {
         // ---------- dialog data --------------------------------
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "title") {
+            if (dataObject.variableType == "title") {
                 state.editedItem.title = dataObject.e;
-            } else if (dataObject.variableType === "link") {
-                state.editedItem.link = dataObject.e;
+            } else if (dataObject.variableType == "arabicTitle") {
+                state.editedItem.arabic_title = dataObject.e;
             }
         },
 
@@ -275,7 +275,7 @@ export default {
     actions: {
         async fetch({ commit }) {
             const Data = await axios
-                .get("/sliders")
+                .get("/sliders/getData")
                 .catch((error) => {
                     toasts.methods.fireErrorToast();
                 });
@@ -303,11 +303,11 @@ export default {
             sliderData.append("small_image", state.smallImage.file);
             sliderData.append("title", state.editedItem.title);
             sliderData.append(
-                "link",  state.editedItem.link
+                "arabic_title",  state.editedItem.arabic_title
 
             );
             sliderData.append("id", state.editedItem.id);
-            if (state.editedIndex === -1) {
+            if (state.editedIndex == -1) {
                 const Data = await axios
                     .post(`/slider/store`, sliderData)
                     .catch((error) => {

@@ -12,22 +12,29 @@ class DashboardController extends Controller
     {
 
         $this->middleware([
-             'cors' , 'admin']);
+             'admin']);
 
     }
 
+    public function index()
+    {
+
+    return view('admins.dashboard');
+    }
+
+
     public function getData()
     {
-        $admins = DB::table('users')->where('role', '!=', 0)->select('name')->get();
-        $customers = DB::table('users')->where('role', 0)->select('name')->get();
+        $admins = DB::table('users')->where('role', '!=', 0)->select('username')->get();
+        $customers = DB::table('users')->where('role', 0)->select('username')->get();
         $products = DB::table('products')->select('name')->get();
-        $subscribes = DB::table('subscribes')->select('email')->get();
+        $subscribers = DB::table('subscribers')->select('email')->get();
 
         $response = [
             'admins' => $admins,
             'products' => $products,
             'customers' => $customers,
-            'subscribes' => $subscribes,
+            'subscribers' => $subscribers,
         ];
 
         return response($response, 201);

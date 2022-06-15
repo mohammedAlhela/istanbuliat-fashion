@@ -6,7 +6,7 @@ export default {
         return {
             // ---------- main
             sizes: [],
-            products : [],
+            products: [],
             // ---------- main
 
             // ---------- delete
@@ -14,7 +14,7 @@ export default {
             deleteSnackbar: false,
             deleteIndex: -1,
             blockDeleteSnackbar: false,
-            blockDeleteReport : ``,
+            blockDeleteReport: ``,
             // ---------- delete
 
             // ---------- dialog data
@@ -32,26 +32,33 @@ export default {
                 id: "",
                 name: "",
             },
-
-            file: {
-                file: "",
-                name: "",
-            },
-
-            defaultFile: {
-                file: "",
-                name: "",
-            },
             // ---------- dialog data
         };
     },
 
     getters: {
         formTitle: (state) => {
-            return state.editedIndex === -1
-                ? "Add new size"
-                : "Update size record";
+            return state.editedIndex == -1 ? "Add new record" : "Update record";
         },
+
+        getUniqueProducts: (state) => (products) => {
+            let uniqueProducts = [];
+            let productIndexInUniqueArray = -1;
+
+            products.forEach((product) => {
+                productIndexInUniqueArray = uniqueProducts.findIndex(function (
+                    item
+                ) {
+                    return item.id == product.id;
+                });
+
+                if (productIndexInUniqueArray == -1) {
+                    uniqueProducts.push(product);
+                }
+            });
+
+            return uniqueProducts;
+        }
     },
 
     mutations: {
@@ -67,20 +74,17 @@ export default {
             state.deleteSnackbar = false;
         },
         showDeleteSnackbar: (state, item) => {
-            state.products = item.products
+            state.products = item.products;
             state.deleteIndex = item.id;
             state.deleteSnackbar = true;
-
-
         },
 
-        fillBlockDeleteSnackbar: (state) => {
+        fillBlockDeleteSnackbar: (state , data) => {
             state.blockDeleteReport = `<p class = "block-delete-header"> you cant delete this Size because it have related data in the below products</p>`;
-            state.products.forEach((element) => {
+            data.forEach((element) => {
                 state.blockDeleteReport += ` <p class = "block-delete-paragraph"> ${element.name}</p>   `;
             });
         },
-
 
         showBlockDeleteSnackbar: (state) => {
             state.blockDeleteSnackbar = true;
@@ -104,7 +108,7 @@ export default {
         // ---------- dialog data
 
         setDialogValues: (state, dataObject) => {
-            if (dataObject.variableType === "name") {
+            if (dataObject.variableType == "name") {
                 state.editedItem.name = dataObject.e;
             }
         },
@@ -154,33 +158,33 @@ export default {
 
     actions: {
         async fetch({ state, commit }) {
-            const Data = await axios.get("/sizes").catch((error) => {
+            const Data = await axios.get("/sizes/getData").catch((error) => {
                 toasts.methods.fireErrorToast();
             });
 
             commit("assignApiData", Data.data.sizes);
         },
 
-        async delete({ state, dispatch, commit }) {
-
+        async delete({ state, dispatch, commit , getters }) {
             if (state.products.length) {
-                commit("fillBlockDeleteSnackbar");
+                commit("fillBlockDeleteSnackbar" , getters.getUniqueProducts(state.products));
                 commit("closeDeleteSnackbar");
                 commit("showBlockDeleteSnackbar");
             } else {
                 const Data = await axios
-                .delete(`/size/${state.deleteIndex}`)
-                .catch((error) => {
-                    toasts.methods.fireErrorToast();
-                });
+                    .delete(`/size/${state.deleteIndex}`)
+                    .catch((error) => {
+                        toasts.methods.fireErrorToast();
+                    });
 
-            if (Data) {
-                commit("closeDeleteSnackbar");
-                const DATAFETCHED = await dispatch("fetch");
-                toasts.methods.fireSuccessToast("Record deleted successfully");
+                if (Data) {
+                    commit("closeDeleteSnackbar");
+                    const DATAFETCHED = await dispatch("fetch");
+                    toasts.methods.fireSuccessToast(
+                        "Record deleted successfully"
+                    );
+                }
             }
-            }
-      
         },
 
         async save({ state, commit, dispatch }) {
@@ -216,9 +220,9 @@ export default {
             }
         },
 
-        async importAction({ state ,   commit , dispatch }) {
+        async importAction({ state, commit, dispatch }) {
             const formData = new FormData();
-            formData.append('file' , state.file.file)
+            formData.append("file", state.file.file);
             const Data = await axios
                 .post(`/sizes/import`, formData)
                 .catch((error) => {
@@ -227,7 +231,7 @@ export default {
 
             if (Data) {
                 commit("closeFileData");
-                dispatch('fetch')
+                dispatch("fetch");
                 toasts.methods.fireSuccessToast("data imported successfully");
             }
         },

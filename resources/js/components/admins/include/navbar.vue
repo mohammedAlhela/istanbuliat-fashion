@@ -35,7 +35,7 @@
                                     aria-expanded="false"
                                 >
                                     <v-icon> mdi-account </v-icon>
-                                    {{ $user.name }}
+                                    {{ $user.username }}
                                 </a>
                                 <ul
                                     class="dropdown-menu"
@@ -165,7 +165,7 @@
                                     aria-expanded="false"
                                     >
                                         <v-icon> mdi-account </v-icon>
-                                        {{ $user.name }}
+                                        {{ $user.username }}
                                     </a>
                                     <ul
                                         class="dropdown-menu"
@@ -256,11 +256,11 @@ export default {
     }),
     methods: {
         linkIsActive(link) {
-            return this.$route.name === link;
+            return this.$route.name == link;
         },
 
         handleBreadCrumb() {
-            return this.$route.name === "admins-dashboard" ? false : true;
+            return this.$route.name == "admins-dashboard" ? false : true;
         },
 
         reloadPage() {

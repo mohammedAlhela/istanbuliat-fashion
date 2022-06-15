@@ -31,7 +31,7 @@
                                         <v-icon> mdi-plus </v-icon>
                                     </v-btn>
                                 </template>
-                                <span> Add new color </span>
+                                <span> Add new record </span>
                             </v-tooltip>
                         </span>
                     </div>
@@ -49,14 +49,14 @@
 
 
                                                 <span class="header" v-bind="attrs" v-on="on">
-                                                    {{ item.name }} ({{ item.products.length }})
+                                                    {{ item.name }} ({{ getUniqueProducts(item.products).length }})
                                                 </span>
 
                                             </template>
-                                            <span class="d-inline-block w-100 py-2" v-if="item.products.length">
+                                            <span class="d-inline-block w-100 py-2" v-if="getUniqueProducts(item.products).length">
                                             <span class = "tooltip-report-header"> This Color Used In the Below Products  </span>
                                     
-                                                <div class=" m-1" v-for="(product, key) in item.products" :key="key">
+                                                <div class=" m-1" v-for="(product, key) in getUniqueProducts(item.products)" :key="key">
 
                                                     {{ product.name }}
                                                 </div>
@@ -66,6 +66,7 @@
                                                No products using this color
                                             </span>
                                         </v-tooltip>
+                         
 
 
                                     </div>
@@ -148,7 +149,7 @@ export default {
         ...mapGetters(
             "sizes",
 
-            ["getFileParagraph"]
+            ["getFileParagraph" , "getUniqueProducts"]
         ),
     },
 

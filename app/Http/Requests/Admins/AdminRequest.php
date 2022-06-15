@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Admins;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class AdminRequest extends FormRequest
 {
@@ -27,7 +26,6 @@ class AdminRequest extends FormRequest
 
         $id = app("request")->get("id");
         $passwordError = null;
-        $emailError = null;
 
         if (!$id) {
 
@@ -38,15 +36,15 @@ class AdminRequest extends FormRequest
         }
 
         return [
-            'password' => [$passwordError,
-           
+
+            'username' => ['required', 'string', 'max:255'],
+
+            'password' => [$passwordError, 'string', 'min:8',
+
             ],
 
-            'email' => ["unique:users,email," . $id, 'required', 'min:5', 'email', 'max:50',
+            'email' => ["unique:users,email," . $id, 'required', 'string', 'email', 'max:255',
 
-            ],
-
-            'name' => ['required', 'min:5', 'max:50', 'string',
             ],
 
         ];

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product;
 
 class Color extends Model
 {
@@ -12,25 +11,21 @@ class Color extends Model
 
     protected $guarded = [];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'variations', 'color_id', 'product_id')->select(array('name', 'color_id'));
 
-    protected $fillable = ['id', 'name', 'hex'];
+    }
 
-    public $timestamps = false;
+    public function images()
+    {
+        return $this->hasMany(ProductColorImage::class, 'color_id', 'id');
+    }
 
     public function variations()
     {
         return $this->hasMany(Variation::class, 'color_id', 'id');
     }
 
-    
-    public function products()
-    {
-         return $this->belongsToMany(Product::class, 'variations', 'color_id', 'product_id')->select(array('name' , 'color_id'))->whereRaw('products.status = 1');
-
-        
-
-       
-
-    }
 
 }

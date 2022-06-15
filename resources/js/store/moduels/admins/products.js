@@ -51,6 +51,8 @@ export default {
 
             categories: [],
 
+            subCategories: [],
+
             tagsRecords: [],
             // ---------- main
 
@@ -73,26 +75,35 @@ export default {
                 discount_price: "",
 
                 sku: "",
-                
+
                 category: {
+                    id: "",
+                    name: "",
+                },
+
+                sub_category: {
                     id: "",
                     name: "",
                 },
 
                 name: "",
 
-                long_description: "",
+                arabic_name: "",
+
+                description: "",
+
+                arabic_description: "",
 
                 wash_care: "",
 
                 contents: [],
 
-                tagsNamesArray : [] , 
-                colors : [] , 
-                sizes : [] , 
+                 tagsNamesArray: [],
+
+                colors: [],
+                sizes: [],
             },
             defaultItem: {
-
                 id: "",
 
                 selling_price: "",
@@ -105,20 +116,30 @@ export default {
                     id: "",
                     name: "",
                 },
+
+                sub_category: {
+                    id: "",
+                    name: "",
+                },
                 name: "",
+
+                arabic_name: "",
 
                 selling_price: "",
 
                 discount_price: "",
 
-                long_description: "",
+                description: "",
+
+                arabic_description: "",
 
                 wash_care: "",
 
                 contents: [],
-                tagsNamesArray : [] ,
-                colors : [] , 
-                sizes : [] , 
+                 tagsNamesArray: [],
+
+                colors: [],
+                sizes: [],
             },
 
             image: {
@@ -197,33 +218,28 @@ export default {
         },
 
         getColorsNamesString: (state) => {
-
-            if(state.editedItem.colors.length) { 
+            if (state.editedItem.colors.length) {
                 let namesArray = [];
                 state.editedItem.colors.forEach((color) => {
                     namesArray.push(color.name);
                 });
-    
-                return namesArray.length ?  namesArray.join() : '';
-            }
 
-            else { 
-              return ''
+                return namesArray.length ? namesArray.join() : "";
+            } else {
+                return "";
             }
-        
         },
 
         getSizesNamesString: (state) => {
-            
-            if(state.editedItem.colors.length) { 
-            let namesArray = [];
-            state.editedItem.sizes.forEach((size) => {
-                namesArray.push(size.name);
-            });
+            if (state.editedItem.colors.length) {
+                let namesArray = [];
+                state.editedItem.sizes.forEach((size) => {
+                    namesArray.push(size.name);
+                });
 
-            return namesArray.length ?  namesArray.join() : '';}
-            else { 
-                return ''
+                return namesArray.length ? namesArray.join() : "";
+            } else {
+                return "";
             }
         },
 
@@ -288,12 +304,19 @@ export default {
             }
         },
 
-        showClearImage: (state) =>   {
-      
-            return state.image.preview
-    
+        showClearImage: (state) => {
+            return state.image.preview;
+        },
 
-    },
+        getRelatedSubCategories: (state) => {
+            if (state.editedItem.category.id) {
+                return state.subCategories.filter((item) => {
+                    return item.category_id == state.editedItem.category.id;
+                });
+            } else {
+                return state.subCategories;
+            }
+        },
 
         // --------------- filter
     },
@@ -302,6 +325,8 @@ export default {
         // ---------- main
         assignOptions: (state, response) => {
             state.categories = response.categories;
+            state.subCategories = response.subCategories;
+
             state.colors = response.colors;
             state.sizes = response.sizes;
         },
@@ -309,25 +334,13 @@ export default {
         assignProducts: (state, response) => {
             state.products = response.products;
 
-            state.products.forEach((product) => {
-                product.variations.forEach((variation) => {
-                    variation.images.forEach((image) => {
-                        image.preview = {
-                            name: "",
-                            preview: "",
-                            file: "",
-                        };
-                    });
-                });
-            });
 
-            state.tagsRecords = response.tags
-               
-            setTimeout (()=> { 
+
+        state.tagsRecords = response.tags;
+
+            setTimeout(() => {
                 state.showContent = true;
-             }, 200)
-     
-               
+            }, 200);
         },
         // ---------- main
 
@@ -347,13 +360,17 @@ export default {
         setDialogValues: (state, dataObject) => {
             if (dataObject.variableType == "name") {
                 state.editedItem.name = dataObject.e;
-            } else if (dataObject.variableType == "longDescription") {
-                state.editedItem.long_description = dataObject.e;
+            } else if (dataObject.variableType == "description") {
+                state.editedItem.description = dataObject.e;
+            } else if (dataObject.variableType == "arabicDescription") {
+                state.editedItem.arabic_description = dataObject.e;
+            } else if (dataObject.variableType == "arabicName") {
+                state.editedItem.arabic_name = dataObject.e;
             } else if (dataObject.variableType == "category") {
                 state.editedItem.category = dataObject.e;
             } else if (dataObject.variableType == "contents") {
                 state.editedItem.contents = dataObject.e;
-            }   else if (dataObject.variableType == "selling_price") {
+            } else if (dataObject.variableType == "selling_price") {
                 state.editedItem.selling_price = dataObject.e;
             } else if (dataObject.variableType == "discount_price") {
                 state.editedItem.discount_price = dataObject.e;
@@ -361,15 +378,15 @@ export default {
                 state.editedItem.sku = dataObject.e;
             } else if (dataObject.variableType == "wash_care") {
                 state.editedItem.wash_care = dataObject.e;
-            }else if (dataObject.variableType == "tagsNamesArray") {
+            } else if (dataObject.variableType == "tagsNamesArray") {
                 state.editedItem.tagsNamesArray = dataObject.e;
-            }else if (dataObject.variableType == "colorsNamesString") {
+            } else if (dataObject.variableType == "colorsNamesString") {
                 state.editedItem.colors = dataObject.e;
-            }else if (dataObject.variableType == "sizesNamesString") {
+            } else if (dataObject.variableType == "sizesNamesString") {
                 state.editedItem.sizes = dataObject.e;
+            } else if (dataObject.variableType == "subCategory") {
+                state.editedItem.sub_category = dataObject.e;
             }
-
-            
         },
 
         setFilterValues: (state, dataObject) => {
@@ -461,14 +478,13 @@ export default {
 
     actions: {
         async fetchOptions({ commit }) {
-
-            const DATA = await axios.get("/products/options");
+            const DATA = await axios.get("/products/options/getData");
 
             commit("assignOptions", DATA.data);
         },
 
         async fetchProducts({ state, commit }) {
-            const DATA = await axios.get("/products").catch((error) => {
+            const DATA = await axios.get("/products/getData").catch((error) => {
                 toasts.methods.fireErrorToast();
             });
             if (DATA.data) {
@@ -485,29 +501,27 @@ export default {
         },
 
         async delete({ state, dispatch, commit }) {
-     
-                commit("closeDeleteSnackbar");
-                const Data = await axios
-                    .delete(`/product/${state.deleteIndex}`)
-                    .catch((error) => {
-                        toasts.methods.fireErrorToast();
-                    });
+            commit("closeDeleteSnackbar");
+            const Data = await axios
+                .delete(`/product/${state.deleteIndex}`)
+                .catch((error) => {
+                    toasts.methods.fireErrorToast();
+                });
 
-                if (Data) {
-                    const DATAFETCHED = await dispatch("fetch");
-                    toasts.methods.fireSuccessToast(
-                        "Record deleted successfully"
-                    );
-                }
-          
+            if (Data) {
+                const DATAFETCHED = await dispatch("fetch");
+                toasts.methods.fireSuccessToast("Record deleted successfully");
+            }
         },
 
         async save({ state, commit, getters, dispatch }) {
             commit("intializeSave");
             let productData = new FormData();
             productData.append("category_id", state.editedItem.category.id);
+            productData.append("sub_category_id", state.editedItem.sub_category.id);
             productData.append("image", state.image.file);
             productData.append("name", state.editedItem.name);
+            productData.append("arabic_name", state.editedItem.arabic_name);
             productData.append("selling_price", state.editedItem.selling_price);
             productData.append(
                 "discount_price",
@@ -516,31 +530,29 @@ export default {
                     : 0
             );
             productData.append("sku", state.editedItem.sku);
+            productData.append("description", state.editedItem.description);
             productData.append(
-                "long_description",
-                state.editedItem.long_description
+                "arabic_description",
+                state.editedItem.arabic_description
             );
             productData.append(
                 "tagsNamesString",
-                state.editedItem.tagsNamesArray.length ?    state.editedItem.tagsNamesArray : ''
+                state.editedItem.tagsNamesArray.length
+                    ? state.editedItem.tagsNamesArray
+                    : ""
             );
+
+   
             productData.append(
                 "colorsNamesString",
                 getters.getColorsNamesString
             );
-            productData.append(
-                "sizesNamesString",
-                getters.getSizesNamesString
-            );
+            productData.append("sizesNamesString", getters.getSizesNamesString);
 
             productData.append("contents", state.editedItem.contents);
             productData.append("wash_care", state.editedItem.wash_care);
 
             productData.append("id", state.editedItem.id);
-
-            console.log(  state.editedItem.tagsNamesArray.length )
-
-        
 
             if (state.editedIndex == -1) {
                 const Data = await axios
@@ -592,6 +604,11 @@ export default {
         },
         manageSizeGuides({ state, commit }, item) {
             commit("sizeGuides/manageSizeGuides", item, { root: true });
+            state.editedIndex = item.id;
+        },
+
+        manageProductColors({ state, commit }, item) {
+            commit("productColors/manageProductColors", item, { root: true });
             state.editedIndex = item.id;
         },
     },

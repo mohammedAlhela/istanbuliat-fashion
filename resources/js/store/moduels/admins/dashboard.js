@@ -6,7 +6,7 @@ export default {
         return {
             products: [],
             admins : [],
-            subscribes : [],
+            subscribers : [],
             customers : [],
             showContent: false,
         };
@@ -19,7 +19,7 @@ export default {
             state.customers = dataObject.customers;
             
             state.admins = dataObject.admins;
-            state.subscribes = dataObject.subscribes;
+            state.subscribers = dataObject.subscribers;
            
                 state.showContent = true;
      ;

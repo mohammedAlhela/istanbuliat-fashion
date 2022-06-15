@@ -18,7 +18,7 @@ class Manager
     public function handle(Request $request, Closure $next)
     {
 
-        if (Auth::check() && auth()->user()->role === 2) {
+        if (Auth::check() && auth()->user()->role == 2) {
             return $next($request);
         } else {
             return abort('404');

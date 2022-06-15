@@ -26,58 +26,16 @@
 
 <body>
 
-    @if (auth()->user() && auth()->user()->role != 0)
-        <div class="customers-nav">
-            <a href="/admins/dashboard"> Go to admins pages</a>
-        </div>
-    @endif
 
 
-    <!-- get all categories for navbar -->
-    <?php
-    use App\Models\Category;
+    <div id="app">
     
-    $categories = Category::select('id', 'name', 'description', 'image')
-        ->where('status', '!=', 0)
-        ->get();
-    ?>
-    <!-- get all categories for navbar -->
-    <div id="app" class = "opacityFalse">
-        <div>
-
-            <div id="snackbar"></div>
-
-            @if (session()->has('message'))
-                <div class=" alert alert-success alert-dismissible fade show success-alert" role="alert">
-                    <div class="fluid-container">
-                        {{ session()->get('message') }} <button type="button" class="close"
-                            data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            @endif
-
-            @if (session('status'))
-                <div class=" alert alert-success alert-dismissible fade show success-alert" role="alert">
-                    <div class="fluid-container">
 
 
-                        {{ session('status') }} <button type="button" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> </div>
-                </div>
-            @endif
-
-            @include('components.navbar.main')
             <main id="main_content">
                 @yield('content')
             </main>
-        </div>
 
-        @include('components.footer.main')
-    </div>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"
@@ -94,148 +52,9 @@
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
-        let shopDataObject = {
-            products: {!! json_encode(isset($products) ? $products : []) !!},
-            categories: {!! json_encode(isset($categories) ? $categories : []) !!},
-            shopFilter: {
-                filteredProducts: {!! json_encode(isset($products) ? $products : []) !!},
-                activeCategoryName: null,
-                activeCategory: {},
-                activeColorsNames: [],
-                activeSizesNames: [],
-                offer: null,
-                type: null,
-                name: null,
-                minPrice: null,
-                maxPrice: null,
-                filterValuesArray: [],
-                max_price: {!! json_encode(isset($max_price) ? $max_price : null) !!}
-            }
-
-        }
-
-        // define the filter variable
-        let minPrice = shopDataObject.shopFilter.minPrice;
-        let maxPrice = shopDataObject.shopFilter.maxPrice;
-        let products = shopDataObject.products;
-        let categories = shopDataObject.categories;
-        let filteredProducts = shopDataObject.shopFilter.filteredProducts;
-        let filterValuesArray = shopDataObject.shopFilter.filterValuesArray;
-        let activeCategoryName = shopDataObject.shopFilter.activeCategoryName;
-        let activeCategory = shopDataObject.shopFilter.activeCategory;
-        let activeSizesNames = shopDataObject.shopFilter.activeSizesNames;
-        let activeColorsNames = shopDataObject.shopFilter.activeColorsNames;
-        let name = shopDataObject.shopFilter.name;
-        let offer = shopDataObject.shopFilter.offer;
-        let type = shopDataObject.shopFilter.type;
-        let shopPaginationItemsPerPage = 12;
-        let shopPaginationCurrentPage = 1;
-        let max_price = shopDataObject.shopFilter.max_price
-        // define the filter variable
-
-        // convert data in products to use sort filter
-        shopDataObject.shopFilter.filteredProducts.forEach(item => {
-            item.updated_at = new Date(item.updated_at)
-        })
-        // convert data in products to use sort filter
-
-        // // product details section 
-        let productDetailsDataObject = {
-            productDetailsImagesSliders: {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
-            filteredProductDetailsImagesSliders: {!! json_encode(isset($productDetailsImagesSliders) ? $productDetailsImagesSliders : []) !!},
-            variations: {!! json_encode(isset($variations) ? $variations : []) !!},
-            sizeGuides: {!! json_encode(isset($sizeGuides) ? $sizeGuides : []) !!},
-            sizeGuideType: 'cm',
-            filteredVariations: {!! json_encode(isset($variations) ? $variations : []) !!},
-            activeVariation: {},
-            colors: {!! json_encode(isset($colors) ? $colors : []) !!},
-            sizes: {!! json_encode(isset($sizes) ? $sizes : []) !!},
-            filter: {
-                status: false,
-                activeSize: {},
-                activeColor: {},
-
-            }
-        }
-
-        let variations = productDetailsDataObject.variations;
-        let sizeGuides = productDetailsDataObject.sizeGuides;
-        let sizeGuideType = productDetailsDataObject.sizeGuideType;
 
 
 
-        let filteredProductDetailsImagesSliders = productDetailsDataObject.filteredProductDetailsImagesSliders;
-        let productDetailsImagesSliders = productDetailsDataObject.productDetailsImagesSliders;
-
-
-        let filteredVariations = productDetailsDataObject.filteredVariations;
-
-        let activeVariation = productDetailsDataObject.activeVariation;
-
-        let colors = productDetailsDataObject.colors;
-
-        let sizes = productDetailsDataObject.sizes;
-
-        let activeSize = productDetailsDataObject.filter.activeSize;
-
-        let activeColor = productDetailsDataObject.filter.activeColor;
-
-        // // product details section 
-
-
-        let shopPaginationPagesLinksNumber = shopPaginationReturnPagesLinksNumber();
-
-        function shopPaginationReturnPagesLinksNumber() {
-            // returns the number of pages
-            return Math.ceil(filteredProducts.length / shopPaginationItemsPerPage);
-        }
-
-
-
-
-        function shopPaginationAddPagesLinks() {
-            // grab reference to containing element
-
-            let el = document.getElementById("pagination_pages_links");
-            let pagesLinksData = ``;
-            // for each page
-
-
-
-            for (let i = 1; i < Math.ceil(filteredProducts.length / shopPaginationItemsPerPage) + 1; i++) {
-                // append a link with the respective page number
-
-
-                pagesLinksData += `<li class = "${
-      i == 1 ? "active" : ""
-  }"><a  href="javascript:shopPaginationgoToPageLink(${i})">${i}</a></li>`;
-            }
-
-            el.innerHTML = filteredProducts.length > 12 ? pagesLinksData : ``;
-
-
-
-        }
-
-
-        let timer = window.location.pathname.trim() == '/shop' ? 1000 : 500;
-
-         setTimeout(showPage, timer);
-
-         document.getElementById('app').classList.add('opacityFalse')
-
-
-        function showPage() {
-           
-            document.getElementById('app').classList.add('opacityTrue')
-           
-        }
-    </script>
-
-
-    <script src="{{ asset('js/custom/all.js') }}"></script>
-    <script src="{{ asset('js/custom/ajax.js') }}"></script>
 
 </body>
 

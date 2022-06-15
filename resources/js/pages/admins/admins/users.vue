@@ -8,15 +8,13 @@
                 :class="{ show_content: showContent }"
             >
                 <users-header
-                    :filteredAdmins="filteredAdmins"
-                    :search="search"
+                    :admins="admins"
                     @openSaveDialog="openSaveDialog"
-                    @setSearchValue="setSearchValue"
                 >
                 </users-header>
                 <users-table
                     :headers="headers"
-                    :filteredAdmins="filteredAdmins"
+                    :admins="admins"
                     @showDeleteSnackbar="showDeleteSnackbar"
                    @updateStatus="updateStatus"
                     @editItem="editItem"

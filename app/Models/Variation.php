@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variation extends Model
 {
-
-    protected $guarded = [];
-
     use HasFactory;
+
+    
 
     public function product()
     {
@@ -19,17 +18,15 @@ class Variation extends Model
 
     public function size()
     {
-        return $this->belongsTo(Size::class)->select('id' , 'name' );
+        return $this->belongsTo(Size::class);
     }
 
     public function color()
     {
-        return $this->belongsTo(Color::class)->select('id' , 'name' );
+        return $this->belongsTo(Color::class);
     }
 
-    public function images()
-    {
-        return $this->hasMany(VariationImage::class, 'variation_id', 'id');
-    }
+
+ 
 
 }

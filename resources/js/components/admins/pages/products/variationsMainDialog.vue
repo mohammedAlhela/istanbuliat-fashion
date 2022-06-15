@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-if="editedIndex > -1" v-model="dialog" fullscreen transition="dialog-bottom-transition">
+    <v-dialog persistent  v-if="editedIndex > -1" v-model="dialog" fullscreen transition="dialog-bottom-transition">
       <v-card class="variations-dialog-container" flat>
         <v-toolbar dark color="blue">
           <v-btn icon @click="closeDialogAction()" class="no-focus">
@@ -17,39 +17,27 @@
                 <v-icon> mdi-plus </v-icon>
               </v-btn>
             </template>
-            <span> Add new product variation </span>
+            <span> Add new record </span>
           </v-tooltip>
         </v-toolbar>
 
         <v-card-text v-if="products[datatableIndex].variations.length">
           <v-card class="variation-card" v-for="(variation, index) in products[datatableIndex].variations" :key="index">
             <v-card-text>
-              <img class="image" :src="variation.image || '/images/products/variations/variation.webp'" />
-
-
-              <v-chip small class="ma-2 mt-4" label dark color="warning" @click="deleteImage(variation.id)"
-                v-if="variation.image">
-                Delete Image
-              </v-chip>
-
-
-
 
 
               <div class="informations-holder">
-{{variation.id  }}
                 <div class="header">
-
-                  Color :
+                  Color : 
                   <span class="paragraph">
-                    {{ variation.color.name }}
+                     {{ variation.color.name  }}
                   </span>
                 </div>
 
                 <div class="header">
                   Size :
                   <span class="paragraph">
-                    {{ variation.size.name }}
+                     {{ variation.size.name }} 
                   </span>
                 </div>
 
@@ -75,13 +63,6 @@
                 </div>
 
                 <div class="header">
-                  Status :
-                  <span class="paragraph">
-                    {{ variation.status ? 'Available' : 'Out of stock' }}
-                  </span>
-                </div>
-
-                <div class="header">
                   SKU :
                   <span class="paragraph">
                     {{ variation.sku }}
@@ -90,54 +71,26 @@
 
                 <hr />
 
-                <div class="text-right row pt-0 pb-2">
+                <div class="text-right  pt-0 pb-2">
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon class="icon mr-2" @click="editItem(variation)" v-bind="attrs" v-on="on">
+                        mdi-pencil
+                      </v-icon>
+                    </template>
+                    <span> Update Variation Data </span>
+                  </v-tooltip>
+
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon class="icon" @click="showDeleteSnackbar(variation)" v-bind="attrs" v-on="on">
+                        mdi-delete
+                      </v-icon>
+                    </template>
+                    <span> Delete the variation </span>
+                  </v-tooltip>
 
 
-
-                  <div class="text-left col-6">
-
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-
-                        <v-chip @click="manageImages(variation)"  label color="#e0e0e0" v-bind="attrs" v-on="on">
-                          <v-icon class="icon" > mdi-folder-multiple-image </v-icon>
-                          <span class="paragraph d-inline-block mx-2"> {{ variation.images.length }} images</span>
-
-                        </v-chip>
-
-                      </template>
-                      <span> Manage Variation Additional Images </span>
-                    </v-tooltip>
-                  </div>
-
-
-
-                  <div class="col-6">
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon class="icon mr-2" @click="editItem(variation)" v-bind="attrs" v-on="on">
-                          mdi-pencil
-                        </v-icon>
-                      </template>
-                      <span> Update Variation Data </span>
-                    </v-tooltip>
-
-
-
-
-
-
-
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon class="icon" @click="showDeleteSnackbar(variation)" v-bind="attrs" v-on="on">
-                          mdi-delete
-                        </v-icon>
-                      </template>
-                      <span> Delete the variation </span>
-                    </v-tooltip>
-
-                  </div>
 
                 </div>
               </div>
@@ -159,11 +112,6 @@
         <variations-save-dialog>
         </variations-save-dialog>
 
-        <variations-images-main-dialog :datatableIndex="variationsDatatableIndex"
-          :variations="products[datatableIndex].variations" :variationEditedIndex="variationEditedIndex">
-
-        </variations-images-main-dialog>
-
         <div class="clearing"></div>
       </v-card>
     </v-dialog>
@@ -173,11 +121,9 @@
 <script>
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
 import variationsSaveDialog from './variationsSaveDialog.vue'
-import VariationsImagesMainDialog from './variationsImagesMainDialog.vue'
 export default {
   components: {
     variationsSaveDialog,
-    VariationsImagesMainDialog
   },
 
   props: ['datatableIndex', 'products', 'editedIndex'],
@@ -187,7 +133,7 @@ export default {
     ...mapState(
       'variations',
 
-      ['dialog', 'deleteSnackbar' , 'variationEditedIndex']
+      ['dialog', 'deleteSnackbar', 'variationEditedIndex']
     ),
 
     ...mapGetters(
@@ -195,8 +141,8 @@ export default {
 
       {
         variationsDatatableIndex: 'datatableIndex',
-      
-        
+
+
 
 
       }
@@ -207,10 +153,7 @@ export default {
   methods: {
     ...mapActions('variations', {
       destroy: 'delete',
-      manageImages: 'manageImages',
       closeDialogAction: 'closeDialogAction',
-      deleteImage: 'deleteImage',
-
     }),
 
     ...mapMutations('variations', [
